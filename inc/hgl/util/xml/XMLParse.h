@@ -10,7 +10,8 @@ extern "C"
     */
 
     struct XML_ParserStruct;
-    typedef struct XML_ParserStruct *XML_Parser;
+
+    using XML_Parser=struct XML_ParserStruct *;
 }
 
 namespace hgl
@@ -29,6 +30,9 @@ namespace hgl
 
         XML_Parser xml;
 
+        uint buffer_size;
+        char *buffer;
+
         virtual void StartParse();
 
     public:
@@ -39,10 +43,10 @@ namespace hgl
 
     public:
 
-        XMLParse();
+        XMLParse(const uint size=HGL_SIZE_1KB*128);
         virtual ~XMLParse();
 
-        virtual void Start();
+        virtual void Start(const char *charset="utf-8");
         virtual bool Parse(const char *buf,int len,bool isFin);
         virtual bool Parse(io::InputStream *,bool isFin=true);
     };//class XMLParse

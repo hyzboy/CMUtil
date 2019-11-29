@@ -1,4 +1,5 @@
-SET(XML_PARSE_SOURCE XMLParseClass.cpp)
+SET(XML_PARSE_SOURCE	${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/xml/XMLParse.h
+						XMLParseClass.cpp)
 
 SOURCE_GROUP("XML" FILES XMLParseClass.cpp)
 

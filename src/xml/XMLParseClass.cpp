@@ -9,8 +9,6 @@ namespace hgl
 {
     namespace
     {
-        constexpr uint HGL_XML_PARSE_MAX_SIZE=HGL_SIZE_1KB*128;         //最大一次解晰长度
-
         void XMLStartElement(XMLParse *xml,const XML_Char *name,const XML_Char **atts)
         {
             xml->StartElement(name,atts);
@@ -27,13 +25,22 @@ namespace hgl
         }
     }
 
-    XMLParse::XMLParse()
+    XMLParse::XMLParse(const uint size)
     {
         xml=nullptr;
+
+        if(size<=0)
+            buffer_size=HGL_SIZE_1KB*128;
+        else
+            buffer_size=size;
+
+        buffer=new char[buffer_size];
     }
 
     XMLParse::~XMLParse()
     {
+        delete[] buffer;
+
         if(!xml)return;
 
         XML_ParserFree(xml);
@@ -48,15 +55,15 @@ namespace hgl
     /**
     * 重新开始一次解晰
     */
-    void XMLParse::Start()
+    void XMLParse::Start(const char *charset)
     {
         if(xml)
         {
-            XML_ParserReset(xml,"utf-8");
+            XML_ParserReset(xml,charset);
         }
         else
         {
-            xml=XML_ParserCreate("utf-8");
+            xml=XML_ParserCreate(charset);
 
             XML_SetUserData(xml,this);
 
@@ -82,11 +89,9 @@ namespace hgl
     {
         if(!is)return(false);
 
-        if(is->CanSize()&&is->GetSize()<=HGL_XML_PARSE_MAX_SIZE)        //可以取长度的，并且<=指定长度的一次读完
+        if(is->CanSize()&&is->GetSize()<=buffer_size)        //可以取长度的，并且<=指定长度的一次读完
         {
             int full_size=is->Available();
-
-            char *data=new char[full_size];
 
             int pos=0;
             int size;
@@ -95,12 +100,12 @@ namespace hgl
 
             while(pos<full_size)
             {
-                size=is->ReadFully(data,full_size);
+                size=is->ReadFully(buffer,full_size);
 
                 if(size<0)
                     return(false);
 
-                result=Parse(data,size,pos+size>=full_size);
+                result=Parse(buffer,size,pos+size>=full_size);
 
                 if(!result)
                     return(false);
@@ -112,8 +117,6 @@ namespace hgl
         }
         else                    //不能取长度或是大于指定长度的
         {
-            char data[HGL_XML_PARSE_MAX_SIZE];
-
             int size;
             bool result;
 
@@ -123,15 +126,15 @@ namespace hgl
 
                 if(size<=0)break;
 
-                if(size>HGL_XML_PARSE_MAX_SIZE)
+                if(size>buffer_size)
                 {
-                    size=is->Read(data,HGL_XML_PARSE_MAX_SIZE);
-                    result=Parse(data,HGL_XML_PARSE_MAX_SIZE,false);
+                    size=is->Read(buffer,buffer_size);
+                    result=Parse(buffer,buffer_size,false);
                 }
                 else
                 {
-                    size=is->Read(data,size);
-                    result=Parse(data,size,true);
+                    size=is->Read(buffer,size);
+                    result=Parse(buffer,size,true);
                 }
 
                 if(!result)return(false);
