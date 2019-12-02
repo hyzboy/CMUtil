@@ -16,7 +16,8 @@ namespace hgl
         public:
 
             CmdParse(const OSStringList &);
-            virtual ~CmdParse();
+            CmdParse(const int,os_char **);
+            virtual ~CmdParse()=default;
 
             int Find(const OSString &)const;                                    ///<查找一个指定字串开头的参数是否存在
 

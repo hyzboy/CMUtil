@@ -1,5 +1,5 @@
-﻿#include<hgl/ut/CmdParse.h>
-#include<hgl/Str.h>
+﻿#include<hgl/util/cmd/CmdParse.h>
+#include<hgl/type/StrChar.h>
 
 namespace hgl
 {
@@ -10,10 +10,12 @@ namespace hgl
             args=_args;
         }
 
-        CmdParse::~CmdParse()
+        CmdParse::CmdParse(const int argc,os_char **argv)
         {
+            for(int i=0;i<argc;i++)
+                args.Add(argv[i]);
         }
-
+        
         int CmdParse::Find(const OSString &flag)const
         {
             return args.Find(flag,flag.Length());
