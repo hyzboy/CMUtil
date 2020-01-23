@@ -40,7 +40,7 @@ namespace hgl
         Json::CharReaderBuilder builder;
         Json::CharReader *reader=builder.newCharReader();
 
-        Json::String errs;
+        JSONCPP_STRING errs;
 
         const bool result=reader->parse(txt,txt+size,&root,&errs);
 
@@ -75,7 +75,7 @@ namespace hgl
     int SaveJson(Json::Value &root,const OSString &filename,OSString &error_info)
     {
         UTF8String txt;
-        
+
         if(!JsonToString(root,txt,error_info))
             return(false);
 
