@@ -8,4 +8,6 @@ macro(CMUtilSetup source_path)
     set(CMUTIL_ROOT_3RDPTY_PATH     ${source_path}/3rdpty)
 
     include_directories(${CMUTIL_ROOT_INCLUDE_PATH})
+    include_directories(${CMUTIL_ROOT_3RDPTY_PATH}/jsoncpp/include)
 endmacro()
+
