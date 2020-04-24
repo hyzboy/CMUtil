@@ -83,7 +83,7 @@ namespace hgl
 
         if(result!=txt.Length())
         {
-            error_info=OS_TEXT("[ERROR][SaveJson] Save file failed, only write ")+OSString(result)+OS_TEXT("/")+OSString(txt.Length());
+            error_info=OS_TEXT("[ERROR][SaveJson] Save file failed, only write ")+OSString::valueOf(result)+OS_TEXT("/")+OSString::valueOf(txt.Length());
             return(false);
         }
 
