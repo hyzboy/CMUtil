@@ -40,7 +40,7 @@ namespace hgl
         Json::CharReaderBuilder builder;
         Json::CharReader *reader=builder.newCharReader();
 
-        Json::String errs;
+        JSONCPP_STRING errs;
 
         const bool result=reader->parse(txt,txt+size,&root,&errs);
 
@@ -75,7 +75,7 @@ namespace hgl
     int SaveJson(Json::Value &root,const OSString &filename,OSString &error_info)
     {
         UTF8String txt;
-        
+
         if(!JsonToString(root,txt,error_info))
             return(false);
 
@@ -83,7 +83,7 @@ namespace hgl
 
         if(result!=txt.Length())
         {
-            error_info=OS_TEXT("[ERROR][SaveJson] Save file failed, only write ")+OSString(result)+OS_TEXT("/")+OSString(txt.Length());
+            error_info=OS_TEXT("[ERROR][SaveJson] Save file failed, only write ")+OSString::valueOf(result)+OS_TEXT("/")+OSString::valueOf(txt.Length());
             return(false);
         }
 
