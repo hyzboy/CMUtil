@@ -2,6 +2,10 @@
 #define HGL_XML_PARSE_INCLUDE
 
 #include<hgl/type/BaseString.h>
+#include<hgl/type/Map.h>
+#include<hgl/type/StrChar.h>
+#include<hgl/CodePage.h>
+
 extern "C"
 {
     /**
@@ -22,7 +26,107 @@ namespace hgl
     }//namespace io
 
     /**
-    * XML解析器(虚拟函数版)<br>
+     * XML节点解析器
+     */
+    class XMLElementParse
+    {
+    public:
+
+        virtual bool StartElement(const char *element_name)=0;
+        virtual void Attr(const char *flag,const char *info){};
+        virtual void CharData(const char *str,int str_length){};
+        virtual void EndElement(const char *element_name){};
+    };//class XMLElementParse
+
+    class XMLElementParseKV:public XMLElementParse
+    {
+    protected:
+
+        using AttrsMap=Map<AnsiString,AnsiString>;
+        using AttrItem=Pair<AnsiString,AnsiString>;
+
+        AttrsMap attrs_map;
+
+    protected:
+
+        const AttrItem *GetAttrItem(const AnsiString &name);
+
+        template<typename T> const bool GetInteger  (const AnsiString &name,T &value){const AttrItem *ai=GetAttrItem(name);return(ai?stoi(ai->right.c_str(),value):false);}
+        template<typename T> const bool GetUInteger (const AnsiString &name,T &value){const AttrItem *ai=GetAttrItem(name);return(ai?stou(ai->right.c_str(),value):false);}
+        template<typename T> const bool GetFloat    (const AnsiString &name,T &value){const AttrItem *ai=GetAttrItem(name);return(ai?stof(ai->right.c_str(),value):false);}        
+
+    public:
+
+        virtual void Attr(const char *flag,const char *info) override;
+
+    public:
+
+        const bool      IsExist     (const AnsiString &name)const{return attrs_map.KeyExist(name);}
+
+        const char *    ToCString   (const AnsiString &name){const AttrItem *ai=GetAttrItem(name);return(ai?ai->right.c_str():nullptr);}
+        const char *    operator[]  (const AnsiString &name){return ToCString(name);}
+
+    public:
+
+        const bool      Get(const AnsiString &name,AnsiString &str)
+        {
+            const AttrItem *ai=GetAttrItem(name);
+            
+            if(!ai)return(false);
+            
+            str=ai->right;
+            return(true);
+        }
+
+        const bool      Get(const AnsiString &name,UTF16String &str)
+        {
+            const AttrItem *ai=GetAttrItem(name);
+            
+            if(!ai)return(false);
+            
+            str=to_u16(ai->right);
+            return(true);
+        }
+
+        const bool      Get(const AnsiString &name,char &ch)
+        {        
+            const AttrItem *ai=GetAttrItem(name);
+            
+            if(!ai)return(false);
+            
+            ch=ai->right.GetBeginChar();
+            return(true);
+        }
+
+        const bool      Get(const AnsiString &name,bool   &value)
+        {
+            const AttrItem *ai=GetAttrItem(name);
+            
+            return(ai?stob<char>(ai->right.c_str(),value):false);
+        }
+
+        const bool      Get(const AnsiString &name, int8  &value){return GetInteger < int8 >(name,value);}
+        const bool      Get(const AnsiString &name,uint8  &value){return GetUInteger<uint8 >(name,value);}
+        const bool      Get(const AnsiString &name, int16 &value){return GetInteger < int16>(name,value);}
+        const bool      Get(const AnsiString &name,uint16 &value){return GetUInteger<uint16>(name,value);}
+        const bool      Get(const AnsiString &name, int32 &value){return GetInteger < int32>(name,value);}
+        const bool      Get(const AnsiString &name,uint32 &value){return GetUInteger<uint32>(name,value);}
+        const bool      Get(const AnsiString &name, int64 &value){return GetInteger < int64>(name,value);}
+        const bool      Get(const AnsiString &name,uint64 &value){return GetUInteger<uint64>(name,value);}
+
+        const bool      GetHexStr(const AnsiString &name,uint8 *data)
+        {
+            const AttrItem *ai=GetAttrItem(name);
+
+            if(!ai)return(false);
+
+            ParseHexStr(data,ai->right.c_str(),ai->right.Length());
+            return(true);
+        }
+    };//class XMLElementParseKV:public XMLElementParse
+
+    /**
+    * XML解析器<br>
     */
     class XMLParse
     {
@@ -30,20 +134,18 @@ namespace hgl
 
         XML_Parser xml;
 
-        uint buffer_size;
+        int buffer_size;
         char *buffer;
+
+    protected:
+
+        XMLElementParse *element_parse;
 
         virtual void StartParse();
 
     public:
 
-        virtual void StartElement(const char *element_name,const char **atts)=0;
-        virtual void CharData(const char *str,int str_length){};
-        virtual void EndElement(const char *element_name){};
-
-    public:
-
-        XMLParse(const uint size=HGL_SIZE_1KB*128);
+        XMLParse(XMLElementParse *,const int size=HGL_SIZE_1KB*128);
         virtual ~XMLParse();
 
         virtual void Start(const char *charset="utf-8");
@@ -52,27 +154,6 @@ namespace hgl
     };//class XMLParse
 
     bool XMLParseFile(XMLParse *xml,const OSString &filename);
-
-    /**
-    * XML解析器(回调函数版)
-    */
-    class XMLParseCB:public XMLParse
-    {
-    protected:
-
-        virtual void StartParse();
-
-    public:
-
-        DefEvent(void,OnStartElement,(const char *,const char **));
-        DefEvent(void,OnCharData,(const char *,int));
-        DefEvent(void,OnEndElement,(const char *));
-
-    public:
-
-        XMLParseCB();
-        virtual ~XMLParseCB()=default;
-    };//class XMLParseCB
 
 #define XML_START_PARSE(name)   while(*name)    \
                                 {   \

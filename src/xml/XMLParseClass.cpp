@@ -9,24 +9,51 @@ namespace hgl
 {
     namespace
     {
-        void XMLStartElement(XMLParse *xml,const XML_Char *name,const XML_Char **atts)
+        void XMLStartElement(XMLElementParse *ep,const XML_Char *name,const XML_Char **atts)
         {
-            xml->StartElement(name,atts);
+            if(!ep->StartElement(name))
+                return;
+
+            const char *flag;
+            const char *info;
+
+            while(*atts)
+            {
+                flag=*atts;++atts;
+                info=*atts;++atts;
+                    
+                ep->Attr(flag,info);
+            }
         }
 
-        void XMLCharData(XMLParse *xml,const XML_Char *str,int len)
+        void XMLCharData(XMLElementParse *ep,const XML_Char *str,int len)
         {
-            xml->CharData(str,len);
+            ep->CharData(str,len);
         }
 
-        void XMLEndElement(XMLParse *xml,const XML_Char *name)
+        void XMLEndElement(XMLElementParse *ep,const XML_Char *name)
         {
-            xml->EndElement(name);
+            ep->EndElement(name);
         }
+    }//namespace
+    
+    const XMLElementParseKV::AttrItem *XMLElementParseKV::GetAttrItem(const AnsiString &name)
+    {
+        const int pos=attrs_map.FindPos(name);
+
+        if(pos<0)return(false);
+
+        return attrs_map.GetItem(pos);
     }
 
-    XMLParse::XMLParse(const uint size)
+    void XMLElementParseKV::Attr(const char *flag,const char *info)
     {
+        attrs_map.Add(flag,info);
+    }
+
+    XMLParse::XMLParse(XMLElementParse *ep,const int size)
+    {
+        element_parse=ep;
         xml=nullptr;
 
         if(size<=0)
@@ -65,7 +92,7 @@ namespace hgl
         {
             xml=XML_ParserCreate(charset);
 
-            XML_SetUserData(xml,this);
+            XML_SetUserData(xml,element_parse);
 
             StartParse();
         }
@@ -156,36 +183,5 @@ namespace hgl
         io::OpenFileInputStream fis(filename);
 
         return xml->Parse(&fis);
-    }
-
-    namespace
-    {
-        void StartElementCB(XMLParseCB *xml,const XML_Char *name,const XML_Char **atts)
-        {
-            SafeCallEvent(xml->OnStartElement,(name,atts));
-        }
-
-        void CharDataCB(XMLParseCB *xml,const XML_Char *str,int len)
-        {
-            SafeCallEvent(xml->OnCharData,(str,len));
-        }
-
-        void EndElementCB(XMLParseCB *xml,const XML_Char *name)
-        {
-            SafeCallEvent(xml->OnEndElement,(name));
-        }
-    }
-
-    XMLParseCB::XMLParseCB()
-    {
-        OnStartElement=nullptr;
-        OnCharData=nullptr;
-        OnEndElement=nullptr;
-    }
-
-    void XMLParseCB::StartParse()
-    {
-        XML_SetElementHandler(xml,(XML_StartElementHandler)StartElementCB,(XML_EndElementHandler)EndElementCB);
-        XML_SetCharacterDataHandler(xml,(XML_CharacterDataHandler)CharDataCB);
     }
 }//namespace hgl
