@@ -125,6 +125,8 @@ namespace hgl
         }
     };//class XMLElementParseKV:public XMLElementParse
 
+    constexpr int XML_PARSE_BUFFER_SIZE=HGL_SIZE_1KB*128;       ///<XML解析缓冲区大小
+
     /**
     * XML解析器<br>
     */
@@ -145,7 +147,7 @@ namespace hgl
 
     public:
 
-        XMLParse(XMLElementParse *,const int size=HGL_SIZE_1KB*128);
+        XMLParse(XMLElementParse *,const int size=XML_PARSE_BUFFER_SIZE);
         virtual ~XMLParse();
 
         virtual void Start(const char *charset="utf-8");

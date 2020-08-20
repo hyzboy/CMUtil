@@ -57,7 +57,7 @@ namespace hgl
         xml=nullptr;
 
         if(size<=0)
-            buffer_size=HGL_SIZE_1KB*128;
+            buffer_size=XML_PARSE_BUFFER_SIZE;
         else
             buffer_size=size;
 
