@@ -1,10 +1,31 @@
 option(CM_UTIL_SUPPORT_XML "Build XML Parse module." ON)
 
-if(CM_UTIL_SUPPORT_XML)
-    SET(XML_PARSE_SOURCE    ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/xml/XMLParse.h
-                            xml/XMLParseClass.cpp)
+SET(CM_XML_INCLUDE_PATH ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/xml)
 
-    SOURCE_GROUP("XML" FILES ${XML_PARSE_SOURCE})
+if(CM_UTIL_SUPPORT_XML)
+
+    SET(XML_ELEMENT_PARSE_KV    ${CM_XML_INCLUDE_PATH}/ElementParseKV.h
+                                xml/ElementParseKV.cpp)
+
+    SET(XML_ELEMENT_PARSE_CREATER   ${CM_XML_INCLUDE_PATH}/ElementParseCreater.h
+                                    xml/ElementParseCreater.cpp
+                                    xml/ElementCreater.cpp)
+
+    SET(XML_ELEMENT_PARSE_SOURCE    ${CM_XML_INCLUDE_PATH}/ElementParse.h)
+
+    SET(XML_PARSE_CLASS_SOURCE  ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/xml/XMLParse.h
+                                xml/XMLParseClass.cpp)
+
+    SET(XML_PARSE_SOURCE    ${XML_ELEMENT_PARSE_KV}
+                            ${XML_ELEMENT_PARSE_CREATER}
+                            ${XML_ELEMENT_PARSE_SOURCE}
+
+                            ${XML_PARSE_CLASS_SOURCE})
+
+    SOURCE_GROUP("XML\\ElementParse\\KV" FILES ${XML_ELEMENT_PARSE_KV})
+    SOURCE_GROUP("XML\\ElementParse\\Creater" FILES ${XML_ELEMENT_PARSE_CREATER})
+    SOURCE_GROUP("XML\\ElementParse" FILES ${XML_ELEMENT_PARSE_SOURCE})
+    SOURCE_GROUP("XML" FILES ${XML_PARSE_CLASS_SOURCE})
 
     IF(WIN32)
         SET(EXPAT_SOURCE_PATH ${CMUTIL_ROOT_3RDPTY_PATH}/expat/expat/lib)
