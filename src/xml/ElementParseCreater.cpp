@@ -14,7 +14,17 @@ namespace hgl
             ElementCreater *ec=cur_ec->GetSubElementCreater(element_name);
 
             ecs_stack.Push(cur_ec);
-            cur_ec=ec;
+            
+            cur_ec=nullptr;
+
+            if(ec)
+            {
+                if(ec->Start())
+                    cur_ec=ec;
+                else
+                    delete ec;
+            }
+
             return(cur_ec);
         }
 
@@ -34,8 +44,12 @@ namespace hgl
 
         void ElementParseCreater::End(const char *element_name)
         {
-            cur_ec->End();
-            cur_ec=nullptr;
+            if(cur_ec)
+            {
+                cur_ec->End();
+                cur_ec=nullptr;
+            }
+
             ecs_stack.Pop(cur_ec);
         }
     }//namespace xml
