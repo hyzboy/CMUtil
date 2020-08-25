@@ -13,30 +13,30 @@ namespace hgl
         {
             friend class ElementParseCreater;
 
-            AnsiString element_name;
+            UTF8String element_name;
 
         protected:
         
             Map<AnsiString,ElementCreater *> ecs_map;
 
-            virtual ElementCreater *GetSubElementCreater(const AnsiString &sub_name);
+            virtual ElementCreater *GetSubElementCreater(const UTF8String &sub_name);
 
         public:
 
-            const AnsiString &GetElementName()const{return element_name;}
+            const UTF8String &GetElementName()const{return element_name;}
 
         public:
 
-            ElementCreater(const AnsiString &en){element_name=en;}
+            ElementCreater(const UTF8String &en){element_name=en;}
             virtual ~ElementCreater()=default;
 
-            bool Registry(const AnsiString &name,ElementCreater *ec);
+            bool Registry(ElementCreater *ec);
 
         public:
 
             virtual bool Start      (){return true;}
-            virtual void Attr       (const char *flag,const char *info){}
-            virtual void CharData   (const char *str,const int str_length){}
+            virtual void Attr       (const u8char *flag,const u8char *info){}
+            virtual void CharData   (const u8char *str,const int str_length){}
 
             virtual void End        (){}
         };//class ElementCreater
@@ -63,10 +63,10 @@ namespace hgl
 
         public:
         
-            bool Start      (const char *element_name) override;
-            void Attr       (const char *flag,const char *info) override;
-            void CharData   (const char *str,const int str_length) override;
-            void End        (const char *element_name) override;
+            bool Start      (const u8char *element_name) override;
+            void Attr       (const u8char *flag,const u8char *info) override;
+            void CharData   (const u8char *str,const int str_length) override;
+            void End        (const u8char *element_name) override;
         };//class ElementParseCreater:public ElementParse
     }//namespace xml
 }//namespace hgl

@@ -4,7 +4,7 @@ namespace hgl
 {
     namespace xml
     {
-        bool ElementParseCreater::Start (const char *element_name)
+        bool ElementParseCreater::Start (const u8char *element_name)
         {
             if(!element_name||!*element_name)return(false);
 
@@ -27,21 +27,21 @@ namespace hgl
             return(cur_ec);
         }
 
-        void ElementParseCreater::Attr(const char *flag,const char *info)
+        void ElementParseCreater::Attr(const u8char *flag,const u8char *info)
         {
             if(!cur_ec)return;
 
             cur_ec->Attr(flag,info);
         }
 
-        void ElementParseCreater::CharData(const char *str,const int str_length)
+        void ElementParseCreater::CharData(const u8char *str,const int str_length)
         {
             if(!cur_ec)return;
 
             cur_ec->CharData(str,str_length);
         }
 
-        void ElementParseCreater::End(const char *element_name)
+        void ElementParseCreater::End(const u8char *element_name)
         {
             if(cur_ec)
             {

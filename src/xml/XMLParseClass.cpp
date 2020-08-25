@@ -13,11 +13,11 @@ namespace hgl
         {
             void XMLStartElement(ElementParse *ep,const XML_Char *name,const XML_Char **atts)
             {
-                if(!ep->Start(name))
+                if(!ep->Start((const u8char *)name))
                     return;
 
-                const char *flag;
-                const char *info;
+                const u8char *flag;
+                const u8char *info;
 
                 while(*atts)
                 {
@@ -30,12 +30,12 @@ namespace hgl
 
             void XMLCharData(ElementParse *ep,const XML_Char *str,int len)
             {
-                ep->CharData(str,len);
+                ep->CharData((const u8char *)str,len);
             }
 
             void XMLEndElement(ElementParse *ep,const XML_Char *name)
             {
-                ep->End(name);
+                ep->End((const u8char *)name);
             }
         }//namespace
 

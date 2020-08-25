@@ -5,7 +5,7 @@ namespace hgl
 {
     namespace xml
     {
-        const ElementParseKV::AttrItem *ElementParseKV::GetAttrItem(const AnsiString &name)
+        const ElementParseKV::AttrItem *ElementParseKV::GetAttrItem(const UTF8String &name)
         {
             const int pos=attrs_map.FindPos(name);
 
@@ -19,7 +19,7 @@ namespace hgl
             attrs_map.Add(flag,info);
         }
 
-        const bool ElementParseKV::Get(const AnsiString &name,AnsiString &str)
+        const bool ElementParseKV::Get(const UTF8String &name,UTF8String &str)
         {
             const AttrItem *ai=GetAttrItem(name);
             
@@ -29,7 +29,7 @@ namespace hgl
             return(true);
         }
 
-        const bool ElementParseKV::Get(const AnsiString &name,UTF16String &str)
+        const bool ElementParseKV::Get(const UTF8String &name,UTF16String &str)
         {
             const AttrItem *ai=GetAttrItem(name);
             
@@ -39,7 +39,7 @@ namespace hgl
             return(true);
         }
 
-        const bool ElementParseKV::Get(const AnsiString &name,char &ch)
+        const bool ElementParseKV::Get(const UTF8String &name,char &ch)
         {        
             const AttrItem *ai=GetAttrItem(name);
             
@@ -49,14 +49,14 @@ namespace hgl
             return(true);
         }
 
-        const bool ElementParseKV::Get(const AnsiString &name,bool &value)
+        const bool ElementParseKV::Get(const UTF8String &name,bool &value)
         {
             const AttrItem *ai=GetAttrItem(name);
             
             return(ai?stob<char>(ai->right.c_str(),value):false);
         }
         
-        const bool ElementParseKV::GetHexStr(const AnsiString &name,uint8 *data)
+        const bool ElementParseKV::GetHexStr(const UTF8String &name,uint8 *data)
         {
             const AttrItem *ai=GetAttrItem(name);
 

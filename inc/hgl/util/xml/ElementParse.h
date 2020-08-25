@@ -1,6 +1,7 @@
 #ifndef HGL_UTIL_XML_ELEMENT_PARSE_INCLUDE
 #define HGL_UTIL_XML_ELEMENT_PARSE_INCLUDE
 
+#include<hgl/type/DataType.h>
 namespace hgl
 {
     namespace xml
@@ -14,10 +15,10 @@ namespace hgl
 
             virtual ~ElementParse()=default;
 
-            virtual bool Start      (const char *element_name)              {return(true);}
-            virtual void Attr       (const char *flag,const char *info)     {}
-            virtual void CharData   (const char *str,const int str_length)  {}
-            virtual void End        (const char *element_name)              {}
+            virtual bool Start      (const u8char *element_name)            {return(true);}
+            virtual void Attr       (const u8char *flag,const u8char *info) {}
+            virtual void CharData   (const u8char *str,const int str_length){}
+            virtual void End        (const u8char *element_name)            {}
         };//class ElementParse
     }//namespace xml
 }//namespace hgl
