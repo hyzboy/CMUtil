@@ -12,7 +12,6 @@ namespace hgl
                 return(false);
 
             ElementCreater *ec=cur_ec->GetSubElementCreater(element_name);
-
             ecs_stack.Push(cur_ec);
             
             cur_ec=nullptr;
