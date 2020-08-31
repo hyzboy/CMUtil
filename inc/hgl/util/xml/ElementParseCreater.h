@@ -47,19 +47,23 @@ namespace hgl
         class ElementParseCreater:public ElementParse
         {
             Stack<ElementCreater *> ecs_stack;
+            
+            Map<AnsiString,ElementCreater *> ecs_map;
 
-            ElementCreater *root_ec;
             ElementCreater *cur_ec;
 
         public:
 
-            ElementParseCreater(ElementCreater *rec)
+            ElementParseCreater(ElementCreater *root_ec)
             {
-                root_ec=rec;
-                cur_ec=rec;
+                cur_ec=nullptr;
+
+                Registry(root_ec);
             }
 
             virtual ~ElementParseCreater()=default;
+
+            bool Registry   (ElementCreater *ec);
 
         public:
         

@@ -4,17 +4,34 @@ namespace hgl
 {
     namespace xml
     {
+        bool ElementParseCreater::Registry(ElementCreater *ec)
+        {
+            if(!ec)return(false);
+
+            return ecs_map.Add(ec->GetElementName(),ec);
+        }
+
         bool ElementParseCreater::Start (const u8char *element_name)
         {
             if(!element_name||!*element_name)return(false);
 
-            if(!cur_ec)
-                return(false);
+            ElementCreater *ec=nullptr;
 
-            ElementCreater *ec=cur_ec->GetSubElementCreater(element_name);
-            ecs_stack.Push(cur_ec);
-            
-            cur_ec=nullptr;
+            if(ecs_stack.GetCount()==0)     //根
+            {
+                if(!ecs_map.Get(element_name,ec))
+                    return(false);
+            }
+            else
+            {
+                if(!cur_ec)
+                    return(false);
+
+                ec=cur_ec->GetSubElementCreater(element_name);
+                ecs_stack.Push(cur_ec);
+            }
+
+            cur_ec=nullptr;            
 
             if(ec)
             {
