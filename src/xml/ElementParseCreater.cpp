@@ -17,16 +17,20 @@ namespace hgl
 
             ElementCreater *ec=nullptr;
 
-            if(ecs_stack.GetCount()==0)     //根
+            if(!cur_ec)
             {
-                if(!ecs_map.Get(element_name,ec))
+                if(ecs_stack.GetCount()==0)     //根
+                {
+                    if(!ecs_map.Get(element_name,ec))
+                        return(false);
+                }
+                else
+                {
                     return(false);
+                }
             }
             else
             {
-                if(!cur_ec)
-                    return(false);
-
                 ec=cur_ec->GetSubElementCreater(element_name);
                 ecs_stack.Push(cur_ec);
             }
