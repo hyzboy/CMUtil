@@ -2,7 +2,7 @@
 #define HGL_UTIL_XML_ELEMENT_PARSE_CREATER_INCLUDE
 
 #include<hgl/util/xml/ElementParse.h>
-#include<hgl/type/BaseString.h>
+#include<hgl/type/String.h>
 #include<hgl/type/Stack.h>
 #include<hgl/type/Map.h>
 namespace hgl

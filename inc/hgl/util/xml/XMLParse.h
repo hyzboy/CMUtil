@@ -1,7 +1,7 @@
 ﻿#ifndef HGL_XML_PARSE_INCLUDE
 #define HGL_XML_PARSE_INCLUDE
 
-#include<hgl/type/BaseString.h>
+#include<hgl/type/String.h>
 #include<hgl/util/xml/ElementParse.h>
 
 extern "C"
