@@ -34,13 +34,13 @@ namespace hgl
 
         public:
 
-            virtual bool Start      (){return true;}
-            virtual void Attr       (const u8char *flag,const u8char *info){}
-            virtual void CharData   (const u8char *str,const int str_length){}
-
-            virtual void End        (){}
+            virtual bool Init       (){return true;}                                ///<初始化节点
+            virtual void Attr       (const u8char *flag,const u8char *info){}       ///<节点属性
+            virtual bool Start      (){return true;}                                ///<开始内部数据解晰
+            virtual void CharData   (const u8char *str,const int str_length){}      ///<文本数据
+            virtual void End        (){}                                            ///<节点结束
         };//class ElementCreater
-    
+
         /**
          * Creater模式XML节点解析器
          */
@@ -67,10 +67,11 @@ namespace hgl
 
         public:
         
-            bool Start      (const u8char *element_name) override;
-            void Attr       (const u8char *flag,const u8char *info) override;
-            void CharData   (const u8char *str,const int str_length) override;
-            void End        (const u8char *element_name) override;
+            virtual bool Init       (const u8char *element_name) override;
+            virtual void Attr       (const u8char *flag,const u8char *info) override;
+            virtual bool Start      () override;
+            virtual void CharData   (const u8char *str,const int str_length) override;
+            virtual void End        (const u8char *element_name) override;
         };//class ElementParseCreater:public ElementParse
     }//namespace xml
 }//namespace hgl

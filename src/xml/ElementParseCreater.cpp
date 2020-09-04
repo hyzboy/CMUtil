@@ -11,7 +11,7 @@ namespace hgl
             return ecs_map.Add(ec->GetElementName(),ec);
         }
 
-        bool ElementParseCreater::Start (const u8char *element_name)
+        bool ElementParseCreater::Init(const u8char *element_name)
         {
             if(!element_name||!*element_name)return(false);
 
@@ -39,7 +39,7 @@ namespace hgl
 
             if(ec)
             {
-                if(ec->Start())
+                if(ec->Init())
                     cur_ec=ec;
                 else
                     delete ec;
@@ -53,6 +53,13 @@ namespace hgl
             if(!cur_ec)return;
 
             cur_ec->Attr(flag,info);
+        }
+
+        bool ElementParseCreater::Start()
+        {
+            if(!cur_ec)return(false);
+
+            return cur_ec->Start();
         }
 
         void ElementParseCreater::CharData(const u8char *str,const int str_length)

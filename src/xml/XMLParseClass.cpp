@@ -13,7 +13,7 @@ namespace hgl
         {
             void XMLStartElement(ElementParse *ep,const XML_Char *name,const XML_Char **atts)
             {
-                if(!ep->Start((const u8char *)name))
+                if(!ep->Init((const u8char *)name))
                     return;
 
                 const u8char *flag;
@@ -26,6 +26,8 @@ namespace hgl
                     
                     ep->Attr(flag,info);
                 }
+
+                ep->Start();
             }
 
             void XMLCharData(ElementParse *ep,const XML_Char *str,int len)
