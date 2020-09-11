@@ -41,6 +41,37 @@ namespace hgl
             virtual void End        (){}                                            ///<节点结束
         };//class ElementCreater
 
+        class ElementAttribute:public ElementCreater
+        {
+        protected:
+
+            UTF8String null_string;
+
+            Map<UTF8String,UTF8String> attrs_list;
+
+        public:
+
+            ElementAttribute(const UTF8String &en):ElementCreater(en){}
+            virtual ~ElementAttribute()=default;
+
+            const UTF8String operator[](const UTF8String &flag)
+            {
+                UTF8String info;
+
+                if(attrs_list.Get(flag,info))
+                    return info;
+                else
+                    return null_string;
+            }
+
+        public:
+
+            virtual void Attr       (const u8char *flag,const u8char *info) override///<节点属性
+            {
+                attrs_list.Add(flag,info);
+            }
+        };//class ElementAttribute:public ElementCreater
+
         /**
          * Creater模式XML节点解析器
          */
