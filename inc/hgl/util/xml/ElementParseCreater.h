@@ -65,6 +65,12 @@ namespace hgl
             }
 
         public:
+        
+            virtual bool Init       () override
+            {
+                attrs_list.ClearData();
+                return(true);
+            }
 
             virtual void Attr       (const u8char *flag,const u8char *info) override///<节点属性
             {
