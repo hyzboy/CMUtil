@@ -1,4 +1,4 @@
-#include<hgl/util/xml/ElementParseKV.h>
+﻿#include<hgl/util/xml/ElementParseKV.h>
 #include<hgl/CodePage.h>
 
 namespace hgl
@@ -22,9 +22,9 @@ namespace hgl
         const bool ElementParseKV::Get(const UTF8String &name,UTF8String &str)
         {
             const AttrItem *ai=GetAttrItem(name);
-            
+
             if(!ai)return(false);
-            
+
             str=ai->right;
             return(true);
         }
@@ -32,19 +32,19 @@ namespace hgl
         const bool ElementParseKV::Get(const UTF8String &name,UTF16String &str)
         {
             const AttrItem *ai=GetAttrItem(name);
-            
+
             if(!ai)return(false);
-            
+
             str=to_u16(ai->right);
             return(true);
         }
 
         const bool ElementParseKV::Get(const UTF8String &name,char &ch)
-        {        
+        {
             const AttrItem *ai=GetAttrItem(name);
-            
+
             if(!ai)return(false);
-            
+
             ch=ai->right.GetBeginChar();
             return(true);
         }
@@ -52,10 +52,10 @@ namespace hgl
         const bool ElementParseKV::Get(const UTF8String &name,bool &value)
         {
             const AttrItem *ai=GetAttrItem(name);
-            
+
             return(ai?stob<char>(ai->right.c_str(),value):false);
         }
-        
+
         const bool ElementParseKV::GetHexStr(const UTF8String &name,uint8 *data)
         {
             const AttrItem *ai=GetAttrItem(name);

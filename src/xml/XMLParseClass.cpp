@@ -23,7 +23,7 @@ namespace hgl
                 {
                     flag=*atts;++atts;
                     info=*atts;++atts;
-                    
+
                     ep->Attr(flag,info);
                 }
 
