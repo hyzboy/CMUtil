@@ -161,6 +161,14 @@ namespace hgl
             }
         }
 
+        void XMLParse::GetError(int *err_code,int *row,int *col)
+        {
+            *err_code=XML_GetErrorCode(xml);
+
+            *row=XML_GetErrorLineNumber(xml);
+            *col=XML_GetErrorColumnNumber(xml);
+        }
+
         /**
          * 解晰一个XML文件
          */

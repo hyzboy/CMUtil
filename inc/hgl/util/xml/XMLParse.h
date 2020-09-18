@@ -53,6 +53,8 @@ namespace hgl
             virtual void Start(const char *charset="utf-8");
             virtual bool Parse(const char *buf,int len,bool isFin);
             virtual bool Parse(io::InputStream *,bool isFin=true);
+
+            virtual void GetError(int *err_code,int *row,int *col);
         };//class XMLParse
 
         bool XMLParseFile(XMLParse *xml,const OSString &filename);
