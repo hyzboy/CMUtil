@@ -1,4 +1,4 @@
-#ifndef HGL_UTIL_XML_ELEMENT_PARSE_CREATER_INCLUDE
+﻿#ifndef HGL_UTIL_XML_ELEMENT_PARSE_CREATER_INCLUDE
 #define HGL_UTIL_XML_ELEMENT_PARSE_CREATER_INCLUDE
 
 #include<hgl/util/xml/ElementParse.h>
@@ -16,7 +16,7 @@ namespace hgl
             UTF8String element_name;
 
         protected:
-        
+
             Map<AnsiString,ElementCreater *> ecs_map;
 
             virtual ElementCreater *GetSubElementCreater(const UTF8String &sub_name);
@@ -109,7 +109,7 @@ namespace hgl
             }
 
         public:
-        
+
             virtual bool Init       () override
             {
                 attrs_list.ClearData();
@@ -132,7 +132,7 @@ namespace hgl
         class ElementParseCreater:public ElementParse
         {
             Stack<ElementCreater *> ecs_stack;
-            
+
             Map<AnsiString,ElementCreater *> ecs_map;
 
             ElementCreater *cur_ec;
@@ -151,7 +151,7 @@ namespace hgl
             bool Registry   (ElementCreater *ec);
 
         public:
-        
+
             virtual bool Init       (const u8char *element_name) override;
             virtual void Attr       (const u8char *flag,const u8char *info) override;
             virtual bool Start      () override;

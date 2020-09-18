@@ -1,4 +1,4 @@
-#include<hgl/util/xml/ElementParseCreater.h>
+﻿#include<hgl/util/xml/ElementParseCreater.h>
 
 namespace hgl
 {
@@ -16,7 +16,7 @@ namespace hgl
             ecs_map.Add(name,ec);
             return(true);
         }
-            
+
         ElementCreater *ElementCreater::GetSubElementCreater(const UTF8String &sub_name)
         {
             if(sub_name.IsEmpty())return(nullptr);

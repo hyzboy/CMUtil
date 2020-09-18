@@ -1,4 +1,4 @@
-#include<hgl/util/xml/ElementParseCreater.h>
+﻿#include<hgl/util/xml/ElementParseCreater.h>
 
 namespace hgl
 {
@@ -35,7 +35,7 @@ namespace hgl
                 ecs_stack.Push(cur_ec);
             }
 
-            cur_ec=nullptr;            
+            cur_ec=nullptr;
 
             if(ec)
             {

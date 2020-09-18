@@ -1,4 +1,4 @@
-#ifndef HGL_UTIL_XML_ELEMENT_PARSE_KV_INCLUDE
+﻿#ifndef HGL_UTIL_XML_ELEMENT_PARSE_KV_INCLUDE
 #define HGL_UTIL_XML_ELEMENT_PARSE_KV_INCLUDE
 
 #include<hgl/util/xml/ElementParse.h>
@@ -26,7 +26,7 @@ namespace hgl
 
             template<typename T> const bool GetInteger  (const UTF8String &name,T &value){const AttrItem *ai=GetAttrItem(name);return(ai?stoi(ai->right.c_str(),value):false);}
             template<typename T> const bool GetUInteger (const UTF8String &name,T &value){const AttrItem *ai=GetAttrItem(name);return(ai?stou(ai->right.c_str(),value):false);}
-            template<typename T> const bool GetFloat    (const UTF8String &name,T &value){const AttrItem *ai=GetAttrItem(name);return(ai?stof(ai->right.c_str(),value):false);}        
+            template<typename T> const bool GetFloat    (const UTF8String &name,T &value){const AttrItem *ai=GetAttrItem(name);return(ai?stof(ai->right.c_str(),value):false);}
 
         public:
 
