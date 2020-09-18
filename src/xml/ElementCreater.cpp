@@ -8,7 +8,7 @@ namespace hgl
         {
             if(!ec)return(false);
 
-            const UTF8String &name=ec->GetElementName();
+            const UTF8String &name=ec->GetElementName().ToLowerCase();
 
             if(name.IsEmpty())return(false);
             if(ecs_map.KeyExist(name))return(false);
@@ -23,7 +23,9 @@ namespace hgl
 
             ElementCreater *ec;
 
-            if(!ecs_map.Get(sub_name,ec))
+            const UTF8String &sn=sub_name.ToLowerCase();
+
+            if(!ecs_map.Get(sn,ec))
                 return(nullptr);
 
             return ec;
