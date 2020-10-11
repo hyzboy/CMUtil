@@ -9,6 +9,11 @@ using namespace std;
 
 namespace hgl
 {
+    const UTF8String GetJsoncppVersion()
+    {
+        return UTF8String(JSONCPP_VERSION_STRING);
+    }
+
     bool JsonToString(const Json::Value &jv_root,UTF8String &str,OSString &error_info)
     {
         Json::StreamWriterBuilder builder;

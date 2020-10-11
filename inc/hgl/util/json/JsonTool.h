@@ -4,6 +4,8 @@
 
 namespace hgl
 {
+    const UTF8String GetJsoncppVersion();
+
     /**
      * 转换Json数据类型到普通UTF8字符串
      */

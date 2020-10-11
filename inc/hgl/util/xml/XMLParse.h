@@ -25,6 +25,8 @@ namespace hgl
 
     namespace xml
     {
+        const UTF8String GetExpatVersion();
+
         constexpr int XML_PARSE_BUFFER_SIZE=HGL_SIZE_1KB*128;       ///<XML解析缓冲区大小
 
         /**

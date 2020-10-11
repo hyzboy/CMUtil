@@ -9,6 +9,15 @@ namespace hgl
 {
     namespace xml
     {
+        const UTF8String GetExpatVersion()
+        {
+            return( UTF8String::valueOf(XML_MAJOR_VERSION)+
+                    UTF8String(U8_TEXT("."))+
+                    UTF8String::valueOf(XML_MINOR_VERSION)+
+                    UTF8String(U8_TEXT("."))+
+                    UTF8String::valueOf(XML_MICRO_VERSION));
+        }
+
         namespace
         {
             void XMLStartElement(ElementParse *ep,const XML_Char *name,const XML_Char **atts)
