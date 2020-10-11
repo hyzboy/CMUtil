@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include<json/json.h>
-#include<hgl/type/BaseString.h>
+#include<hgl/type/String.h>
 
 namespace hgl
 {

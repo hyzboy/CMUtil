@@ -72,7 +72,7 @@ namespace hgl
         return(result);
     }
 
-    int SaveJson(Json::Value &root,const OSString &filename,OSString &error_info)
+    bool SaveJson(Json::Value &root,const OSString &filename,OSString &error_info)
     {
         UTF8String txt;
 
