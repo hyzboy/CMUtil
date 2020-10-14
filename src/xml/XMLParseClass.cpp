@@ -9,6 +9,61 @@ namespace hgl
 {
     namespace xml
     {
+        namespace
+        {        
+            const char *xml_error_code[]=
+            {            
+                "UNKNOW_ERROR"
+
+                "NONE",
+                "NO_MEMORY",
+                "SYNTAX",
+                "NO_ELEMENTS",
+                "INVALID_TOKEN",
+                "UNCLOSED_TOKEN",
+                "PARTIAL_CHAR",
+                "TAG_MISMATCH",
+                "DUPLICATE_ATTRIBUTE",
+                "JUNK_AFTER_DOC_ELEMENT",
+                "PARAM_ENTITY_REF",
+                "UNDEFINED_ENTITY",
+                "RECURSIVE_ENTITY_REF",
+                "ASYNC_ENTITY",
+                "BAD_CHAR_REF",
+                "BINARY_ENTITY_REF",
+                "ATTRIBUTE_EXTERNAL_ENTITY_REF",
+                "MISPLACED_XML_PI",
+                "UNKNOWN_ENCODING",
+                "INCORRECT_ENCODING",
+                "UNCLOSED_CDATA_SECTION",
+                "EXTERNAL_ENTITY_HANDLING",
+                "NOT_STANDALONE",
+                "UNEXPECTED_STATE",
+                "ENTITY_DECLARED_IN_PE",
+                "FEATURE_REQUIRES_XML_DTD",
+                "CANT_CHANGE_FEATURE_ONCE_PARSING",
+                /* Added in 1.95.7. */
+                "UNBOUND_PREFIX",
+                /* Added in 1.95.8. */
+                "UNDECLARING_PREFIX",
+                "INCOMPLETE_PE",
+                "XML_DECL",
+                "TEXT_DECL",
+                "PUBLICID",
+                "SUSPENDED",
+                "NOT_SUSPENDED",
+                "ABORTED",
+                "FINISHED",
+                "SUSPEND_PE",
+                /* Added in 2.0. */
+                "RESERVED_PREFIX_XML",
+                "RESERVED_PREFIX_XMLNS",
+                "RESERVED_NAMESPACE_URI",
+                /* Added in 2.2.1. */
+                "INVALID_ARGUMENT"
+            };
+        }//namespace 
+
         const UTF8String GetExpatVersion()
         {
             return( UTF8String::valueOf(XML_MAJOR_VERSION)+
@@ -16,6 +71,15 @@ namespace hgl
                     UTF8String::valueOf(XML_MINOR_VERSION)+
                     UTF8String(U8_TEXT("."))+
                     UTF8String::valueOf(XML_MICRO_VERSION));
+        }
+
+        const char *GetExpatError(int code)
+        {
+            if(code<XML_ERROR_NONE
+             ||code>XML_ERROR_INVALID_ARGUMENT)
+            return xml_error_code[0];
+
+            return xml_error_code[code+1];
         }
 
         namespace
@@ -177,7 +241,7 @@ namespace hgl
             *row=XML_GetErrorLineNumber(xml);
             *col=XML_GetErrorColumnNumber(xml);
         }
-
+        
         /**
          * 解晰一个XML文件
          */
