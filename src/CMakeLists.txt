@@ -78,9 +78,32 @@ SET(CMD_SOURCE  ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/cmd/CmdParse.h
 SOURCE_GROUP("Command Line" FILES ${CMD_SOURCE})
 #SOURCE_GROUP("Time" FILES ${TIME_SOURCE})
 
+
+option(CM_UTIL_SUPPORT_HASH "Build HASH module" ON)
+
+IF(CM_UTIL_SUPPORT_HASH)
+    SET(HASH_HEADER_FILES   ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/hash/Hash.h
+                            ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/hash/SHA1LE.h)
+
+    SET(HASH_SOURCE_FILES   hash/adler32.cpp
+                            hash/crc32.cpp
+                            hash/Hash.cpp
+                            hash/md4.cpp
+                            hash/md5.cpp
+                            hash/sha1.cpp
+                            hash/sha1le.cpp
+                            hash/sha256.cpp
+                            hash/sha512.cpp)
+
+    SOURCE_GROUP("HASH" FILES ${HASH_HEADER_FILES} ${HASH_SOURCE_FILES})
+ENDIF(CM_UTIL_SUPPORT_HASH)
+
 add_cm_library(CMUtil "CM"	${CMD_SOURCE}
 #							${TIME_SOURCE}
 
                             ${XML_PARSE_SOURCE}
                             ${JSON_TOOL_SOURCE}
+
+                            ${HASH_HEADER_FILES}
+                            ${HASH_SOURCE_FILES}
                            )
