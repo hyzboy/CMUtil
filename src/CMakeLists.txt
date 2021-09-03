@@ -30,6 +30,7 @@ if(CM_UTIL_SUPPORT_XML)
     IF(WIN32)
         SET(EXPAT_SOURCE_PATH ${CMUTIL_ROOT_3RDPTY_PATH}/expat/expat/lib)
 
+        include_directories(${CMUTIL_ROOT_3RDPTY_PATH}/expat/expat)
         include_directories(${EXPAT_SOURCE_PATH})
 
         SET(EXPAT_SOURCE
