@@ -119,6 +119,18 @@ namespace hgl
             virtual void Init()=0;							///<初始化散列值计算
             virtual void Update(const void *,uint)=0;		///<提交新的数据
             virtual void Final(void *)=0;					///<结束并取得结果
+
+            template<typename T>
+                void Write(const T &data)
+                {
+                    Update(&data,sizeof(T));
+                }
+
+            template<typename T>
+                void Write(const T *ptr,const uint count)
+                {
+                    Update(ptr,sizeof(T)*count);
+                }
         };//class Hash
 
         template<HASH ha> Hash *CreateHash();					///<创建一个hash值计算类实例
