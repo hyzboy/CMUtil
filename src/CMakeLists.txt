@@ -73,6 +73,9 @@ ENDIF(CM_UTIL_SUPPORT_HASH)
 add_cm_library(CMUtil "CM"	${CMD_SOURCE}
 #							${TIME_SOURCE}
 
+                            ${XML_PARSE_SOURCE}
+                            ${JSON_TOOL_SOURCE}
+
                             ${HASH_HEADER_FILES}
                             ${HASH_SOURCE_FILES}
                            )
