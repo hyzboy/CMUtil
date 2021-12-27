@@ -1,8 +1,10 @@
 option(CM_UTIL_SUPPORT_XML "Build XML Parse module." ON)
 
-SET(CM_XML_INCLUDE_PATH ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/xml)
-
 if(CM_UTIL_SUPPORT_XML)
+    
+    find_package(expat CONFIG REQUIRED)
+
+    SET(CM_XML_INCLUDE_PATH ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/xml)
 
     SET(XML_ELEMENT_PARSE_KV    ${CM_XML_INCLUDE_PATH}/ElementParseKV.h
                                 xml/ElementParseKV.cpp)
@@ -26,48 +28,17 @@ if(CM_UTIL_SUPPORT_XML)
     SOURCE_GROUP("XML\\ElementParse\\Creater" FILES ${XML_ELEMENT_PARSE_CREATER})
     SOURCE_GROUP("XML\\ElementParse" FILES ${XML_ELEMENT_PARSE_SOURCE})
     SOURCE_GROUP("XML" FILES ${XML_PARSE_CLASS_SOURCE})
-
-    IF(WIN32)
-        SET(EXPAT_SOURCE_PATH ${CMUTIL_ROOT_3RDPTY_PATH}/expat/expat/lib)
-
-        include_directories(${CMUTIL_ROOT_3RDPTY_PATH}/expat/expat)
-        include_directories(${EXPAT_SOURCE_PATH})
-
-        SET(EXPAT_SOURCE
-            ${EXPAT_SOURCE_PATH}/xmlparse.c
-            ${EXPAT_SOURCE_PATH}/xmlrole.c
-            ${EXPAT_SOURCE_PATH}/xmltok.c
-            ${EXPAT_SOURCE_PATH}/xmltok_impl.c
-            ${EXPAT_SOURCE_PATH}/xmltok_ns.c)
-
-        SOURCE_GROUP("XML\\Expat" FILES ${EXPAT_SOURCE})
-
-        SET(XML_PARSE_SOURCE ${XML_PARSE_SOURCE} ${EXPAT_SOURCE})
-    ENDIF(WIN32)
 endif(CM_UTIL_SUPPORT_XML)
 
 option(CM_UTIL_SUPPORT_JSON "Build JSON Parse/make module." ON)
 
 IF(CM_UTIL_SUPPORT_JSON)
+    find_package(jsoncpp CONFIG REQUIRED)
+
     set(JSON_TOOL_SOURCE ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/json/JsonTool.h
                          json/JsonTool.cpp)
 
     SOURCE_GROUP("JSON" FILES ${JSON_TOOL_SOURCE})
-
-    IF(WIN32)
-        SET(JSONCPP_PATH ${CMUTIL_ROOT_3RDPTY_PATH}/jsoncpp)
-
-        include_directories(${JSONCPP_PATH}/include)
-        include_directories(${JSONCPP_PATH}/src/lib_json)
-
-        SET(JSONCPP_SOURCE  ${JSONCPP_PATH}/src/lib_json/json_reader.cpp
-                            ${JSONCPP_PATH}/src/lib_json/json_value.cpp
-                            ${JSONCPP_PATH}/src/lib_json/json_writer.cpp)
-
-        SOURCE_GROUP("JSON\\jsoncpp" FILES ${JSONCPP_SOURCE})
-
-        SET(JSON_TOOL_SOURCE ${JSON_TOOL_SOURCE} ${JSONCPP_SOURCE})
-    ENDIF(WIN32)
 ENDIF(CM_UTIL_SUPPORT_JSON)
 
 SET(CMD_SOURCE  ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/cmd/CmdParse.h
@@ -101,9 +72,6 @@ ENDIF(CM_UTIL_SUPPORT_HASH)
 
 add_cm_library(CMUtil "CM"	${CMD_SOURCE}
 #							${TIME_SOURCE}
-
-                            ${XML_PARSE_SOURCE}
-                            ${JSON_TOOL_SOURCE}
 
                             ${HASH_HEADER_FILES}
                             ${HASH_SOURCE_FILES}

@@ -1,6 +1,0 @@
-[submodule "3rdpty/expat"]
-	path = 3rdpty/expat
-	url = https://github.com/libexpat/libexpat.git
-[submodule "3rdpty/jsoncpp"]
-	path = 3rdpty/jsoncpp
-	url = https://github.com/open-source-parsers/jsoncpp.git
