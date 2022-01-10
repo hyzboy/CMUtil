@@ -151,7 +151,7 @@ namespace hgl
 
         inline Hash *CreateHash(HASH ha)
         {
-            ENUM_CLASS_RANGE_ERROR_RETURN_NULLPTR(HASH,ha)
+            ENUM_CLASS_RANGE_ERROR_RETURN_NULLPTR(ha)
 
             using CreateHashFunc=Hash *(*)();
 
@@ -204,7 +204,7 @@ namespace hgl
         */
         inline bool CountHash(const void *data,int size,HASH ha,void *hash_code)
         {
-            ENUM_CLASS_RANGE_ERROR_RETURN_FALSE(HASH,ha)
+            ENUM_CLASS_RANGE_ERROR_RETURN_FALSE(ha)
             if(!data||size<=0||!hash_code)return(false);
 
             using CountHashFunc=bool (*)(const void *,int size,void *);
@@ -271,7 +271,7 @@ namespace hgl
         */
         inline bool CountHash(const void *data,int size,HASH ha,UTF8String &hash_str,bool litter=true)
         {
-            ENUM_CLASS_RANGE_ERROR_RETURN_FALSE(HASH,ha)
+            ENUM_CLASS_RANGE_ERROR_RETURN_FALSE(ha)
             if(!data||size<=0)return(false);
 
             using CountHashFunc=bool (*)(const void *,int size,UTF8String &,bool);
