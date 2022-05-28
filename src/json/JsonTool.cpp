@@ -28,11 +28,11 @@ namespace hgl
             writer->write(jv_root,&json_result);
             result=true;
 
-            str=std_to_u8(json_result.str());
+            str=ToUTF8String(json_result.str());
         }
         catch(std::exception &e)
         {
-            error_info=OS_TEXT("[C++ Exception][Json::StreamWriter::write] ")+std_to_os(e.what());
+            error_info=OS_TEXT("[C++ Exception][Json::StreamWriter::write] ")+ToOSString(e.what());
             result=false;
         }
 
@@ -51,7 +51,7 @@ namespace hgl
 
         delete reader;
 
-        error_str=std_to_os(errs);
+        error_str=ToOSString(errs);
 
         return result;
     }
