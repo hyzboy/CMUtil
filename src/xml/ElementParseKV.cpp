@@ -45,7 +45,7 @@ namespace hgl
 
             if(!ai)return(false);
 
-            ch=ai->right.GetBeginChar();
+            ch=ai->right.GetFirstChar();
             return(true);
         }
 
