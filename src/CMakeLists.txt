@@ -1,33 +1,34 @@
 option(CM_UTIL_SUPPORT_XML "Build XML Parse module." ON)
 
 if(CM_UTIL_SUPPORT_XML)
-    
+
     find_package(expat CONFIG REQUIRED)
 
-    SET(CM_XML_INCLUDE_PATH ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/xml)
+    SET(CM_XML_INCLUDE_PATH         ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/xml)
 
-    SET(XML_ELEMENT_PARSE_KV    ${CM_XML_INCLUDE_PATH}/ElementParseKV.h
-                                xml/ElementParseKV.cpp)
-
+    SET(XML_ELEMENT_PARSE_KV        ${CM_XML_INCLUDE_PATH}/ElementParseKV.h
+                                    xml/ElementParseKV.cpp)
+                                    
     SET(XML_ELEMENT_PARSE_CREATER   ${CM_XML_INCLUDE_PATH}/ElementParseCreater.h
                                     xml/ElementParseCreater.cpp
                                     xml/ElementCreater.cpp)
 
     SET(XML_ELEMENT_PARSE_SOURCE    ${CM_XML_INCLUDE_PATH}/ElementParse.h)
 
-    SET(XML_PARSE_CLASS_SOURCE  ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/xml/XMLParse.h
-                                xml/XMLParseClass.cpp)
+    SET(XML_PARSE_CLASS_SOURCE      ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/xml/XMLParse.h
+                                    xml/XMLParseClass.cpp)
+                                    
+    SET(XML_PARSE_SOURCE            ${XML_ELEMENT_PARSE_KV}
+                                    ${XML_ELEMENT_PARSE_CREATER}
+                                    ${XML_ELEMENT_PARSE_SOURCE}
 
-    SET(XML_PARSE_SOURCE    ${XML_ELEMENT_PARSE_KV}
-                            ${XML_ELEMENT_PARSE_CREATER}
-                            ${XML_ELEMENT_PARSE_SOURCE}
-
-                            ${XML_PARSE_CLASS_SOURCE})
+                                    ${XML_PARSE_CLASS_SOURCE})
 
     SOURCE_GROUP("XML\\ElementParse\\KV" FILES ${XML_ELEMENT_PARSE_KV})
     SOURCE_GROUP("XML\\ElementParse\\Creater" FILES ${XML_ELEMENT_PARSE_CREATER})
     SOURCE_GROUP("XML\\ElementParse" FILES ${XML_ELEMENT_PARSE_SOURCE})
     SOURCE_GROUP("XML" FILES ${XML_PARSE_CLASS_SOURCE})
+
 endif(CM_UTIL_SUPPORT_XML)
 
 option(CM_UTIL_SUPPORT_JSON "Build JSON Parse/make module." ON)
@@ -79,3 +80,11 @@ add_cm_library(CMUtil "CM"	${CMD_SOURCE}
                             ${HASH_HEADER_FILES}
                             ${HASH_SOURCE_FILES}
                            )
+
+if(CM_UTIL_SUPPORT_XML)
+    target_link_libraries(CMUtil PRIVATE expat::expat)
+endif()
+
+IF(CM_UTIL_SUPPORT_JSON)
+    target_link_libraries(CMUtil PRIVATE jsoncpp_lib jsoncpp_object JsonCpp::JsonCpp)
+ENDIF(CM_UTIL_SUPPORT_JSON)
