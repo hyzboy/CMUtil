@@ -2,7 +2,7 @@
 #define HGL_PLIST_INCLUDE
 
 #include<hgl/type/Map.h>
-#include<hgl/type/StringList.h>
+#include<hgl/type/LoadStringList.h>
 #include<hgl/io/FileOutputStream.h>
 #include<hgl/io/TextOutputStream.h>
 namespace hgl
@@ -12,12 +12,12 @@ namespace hgl
     /**
     * 属性列表,类似INI的管理类
     */
-    template<typename C> class PList:public Map<BaseString<C>,BaseString<C>>                        ///属性列表
+    template<typename C> class PList:public Map<String<C>,String<C>>                        ///属性列表
     {
     public:
 
-        using PString=BaseString<C>;
-        using PStringList=StringList<PString>;
+        using PString=String<C>;
+        using PStringList=StringList<C>;
         using PMap=Map<PString,PString>;
 
     protected:
@@ -43,9 +43,9 @@ namespace hgl
             if(key.Length()<2)return(false);
 
             if(((off=key.FindChar(C('\t')))==-1)
-            &&((off=key.FindChar(C(' '))) ==-1)
-            &&((off=key.FindChar(C('='))) ==-1)
-            &&((off=key.FindChar(C(':'))) ==-1))
+             &&((off=key.FindChar(C(' ' )))==-1)
+             &&((off=key.FindChar(C('=' )))==-1)
+             &&((off=key.FindChar(C(':' )))==-1))
                 return(false);
 
             name.Strcpy(key,off);
@@ -79,11 +79,11 @@ namespace hgl
         /**
          * 从文本文件中加载
          */
-        virtual bool LoadFromTextFile(const OSString &filename)                                         ///<从文件中加载列表
+        virtual bool LoadFromTextFile(const OSString &filename,const CharSet &cs=OSCharSet)         ///<从文件中加载列表
         {
             PStringList sl;
 
-            if(LoadStringListFromTextFile(sl,filename)<=0)
+            if(LoadStringListFromTextFile(sl,filename,cs)<=0)
                 return(false);
 
             ReadData(sl);
@@ -95,12 +95,14 @@ namespace hgl
         * 保存到文本文件中
         */
         template<ByteOrderMask BOM>
-        bool SaveToTextFile(const OSString &filename,const PString &gap_ch=PString("\t"))             ///<保存列表到文件
+        bool SaveToTextFile(const OSString &filename,const C &gap_ch='\t')             ///<保存列表到文件
         {
             FileOutputStream fos;
             EndianTextOutputStream<BOM> tos(&fos);
 
             if(!fos.CreateTrunc(filename))return(false);
+
+            PString gap_str=PString::charOf(gap_ch);
 
             int n=this->data_list.GetCount();
 
@@ -110,8 +112,8 @@ namespace hgl
             {
                 PString f,s;
 
-                if(Get(n,f,s))
-                    tos.WriteLine(f+gap_ch+s);
+                if(GetBySerial(n,f,s))
+                    tos.WriteLine(f+gap_str+s);
             }
 
             return(true);
