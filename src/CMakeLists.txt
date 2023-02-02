@@ -42,16 +42,6 @@ IF(CM_UTIL_SUPPORT_JSON)
     SOURCE_GROUP("JSON" FILES ${JSON_TOOL_SOURCE})
 ENDIF(CM_UTIL_SUPPORT_JSON)
 
-SET(CMD_SOURCE  ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/cmd/CmdParse.h
-                cmd/CmdParse.cpp)
-
-#SET(TIME_SOURCE ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/time/Timer.h
-#                time/Timer.cpp)
-
-SOURCE_GROUP("Command Line" FILES ${CMD_SOURCE})
-#SOURCE_GROUP("Time" FILES ${TIME_SOURCE})
-
-
 option(CM_UTIL_SUPPORT_HASH "Build HASH module" ON)
 
 IF(CM_UTIL_SUPPORT_HASH)
@@ -71,8 +61,26 @@ IF(CM_UTIL_SUPPORT_HASH)
     SOURCE_GROUP("HASH" FILES ${HASH_HEADER_FILES} ${HASH_SOURCE_FILES})
 ENDIF(CM_UTIL_SUPPORT_HASH)
 
+####################################################################################################
+
+SET(CMD_SOURCE  ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/cmd/CmdParse.h
+                cmd/CmdParse.cpp)
+
+SOURCE_GROUP("Command Line" FILES ${CMD_SOURCE})
+
+SET(TIME_SOURCE ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/time/Timer.h
+                time/Timer.cpp)
+
+SOURCE_GROUP("Time" FILES ${TIME_SOURCE})
+
+SET(DATABLOCK_SOURCE    ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/datablock/DataBlock.h
+                        datablock/DataBlock.cpp)
+
+source_group("Data Block" FILES ${DATABLOCK_SOURCE})
+
 add_cm_library(CMUtil "CM"	${CMD_SOURCE}
 #							${TIME_SOURCE}
+#                            ${DATABLOCK_SOURCE}
 
                             ${XML_PARSE_SOURCE}
                             ${JSON_TOOL_SOURCE}
