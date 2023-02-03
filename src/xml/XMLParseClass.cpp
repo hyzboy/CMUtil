@@ -66,11 +66,11 @@ namespace hgl
 
         const UTF8String GetExpatVersion()
         {
-            return( UTF8String::valueOf(XML_MAJOR_VERSION)+
+            return( UTF8String::numberOf(XML_MAJOR_VERSION)+
                     UTF8String(U8_TEXT("."))+
-                    UTF8String::valueOf(XML_MINOR_VERSION)+
+                    UTF8String::numberOf(XML_MINOR_VERSION)+
                     UTF8String(U8_TEXT("."))+
-                    UTF8String::valueOf(XML_MICRO_VERSION));
+                    UTF8String::numberOf(XML_MICRO_VERSION));
         }
 
         const char *GetExpatError(int code)
