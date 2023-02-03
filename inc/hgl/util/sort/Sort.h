@@ -3,72 +3,73 @@
 
 #include<hgl/TypeFunc.h>
 #include<string.h>
+
+template<typename T> class SortBase
+{
+protected:
+
+	T *buffer;										//数据
+	int number;										//数据个数
+
+	Comparator<T> *comp;							//比较函数类
+
+public:
+
+	/**
+	 * 本类构造函数
+	 * @param buf 数据缓冲区
+	 * @param n 数据个数
+	 * @param c 数据大小比较类
+	 */
+	SortBase(T *buf,int n,Comparator<T> *c)
+	{
+		buffer	=buf;
+		number	=n;
+		comp	=c;
+	}
+
+	virtual ~SortBase()=default;
+
+			int GetCount()const
+	{
+		return number;
+	}
+
+			int compare(const T &a,const T &b)
+	{
+		return comp->compare(a,b);
+	}
+
+	virtual	int compare_by_index(int a,int b)
+	{
+		return comp->compare(buffer[a],buffer[b]);
+	}
+
+	virtual	void exchange(T &a,T &b)
+	{
+		comp->exchange(a,b);
+	}
+
+	virtual	void exchane_by_index(int a,int b)					//交换两个数据
+	{
+		comp->exchange(buffer[a],buffer[b]);
+	}
+
+	virtual void cpy(T *dst,T *src)
+	{
+		comp->cpy(dst,src);
+	}
+
+	virtual void cpy_by_index(int dst,int src)
+	{
+		comp->cpy(buffer+dst,buffer+src);
+	}
+
+	virtual bool sort()=0;								//排序
+};//struct SortBase
+
 namespace hgl
 {
-	template<typename T> class SortBase
-	{
-	protected:
-
-		T *buffer;										//数据
-		int number;										//数据个数
-
-		Comparator<T> *comp;							//比较函数类
-
-	public:
-
-		/**
-		 * 本类构造函数
-		 * @param buf 数据缓冲区
-		 * @param n 数据个数
-		 * @param c 数据大小比较类
-		 */
-		SortBase(T *buf,int n,Comparator<T> *c)
-		{
-			buffer	=buf;
-			number	=n;
-			comp	=c;
-		}
-
-		virtual ~SortBase()=default;
-
-				int GetCount()const
-		{
-			return number;
-		}
-
-				int compare(const T &a,const T &b)
-		{
-			return comp->compare(a,b);
-		}
-
-		virtual	int compare_by_index(int a,int b)
-		{
-			return comp->compare(buffer[a],buffer[b]);
-		}
-
-		virtual	void exchange(T &a,T &b)
-		{
-			comp->exchange(a,b);
-		}
-
-		virtual	void exchane_by_index(int a,int b)					//交换两个数据
-		{
-			comp->exchange(buffer[a],buffer[b]);
-		}
-
-		virtual void cpy(T *dst,T *src)
-		{
-			comp->cpy(dst,src);
-		}
-
-		virtual void cpy_by_index(int dst,int src)
-		{
-			comp->cpy(buffer+dst,buffer+src);
-		}
-
-		virtual bool sort()=0;								//排序
-	};//struct SortBase
-
 	//堆排序
 	template<typename T> class HeapSort:public SortBase<T>
 	{
@@ -111,7 +112,7 @@ namespace hgl
 
 		bool sort()
 		{
-			if(!SortBase<T>::buffer||SortBase<T>::number<=2||!SortBase<T>::comp)
+			if(!SortBase<T>::buffer||SortBase<T>::number<2||!SortBase<T>::comp)
 				return(false);
 
 			int i;
