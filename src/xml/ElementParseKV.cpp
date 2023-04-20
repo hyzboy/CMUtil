@@ -25,7 +25,7 @@ namespace hgl
 
             if(!ai)return(false);
 
-            str=ai->right;
+            str=ai->value;
             return(true);
         }
 
@@ -35,7 +35,7 @@ namespace hgl
 
             if(!ai)return(false);
 
-            str=to_u16(ai->right);
+            str=to_u16(ai->value);
             return(true);
         }
 
@@ -45,7 +45,7 @@ namespace hgl
 
             if(!ai)return(false);
 
-            ch=ai->right.GetFirstChar();
+            ch=ai->value.GetFirstChar();
             return(true);
         }
 
@@ -53,7 +53,7 @@ namespace hgl
         {
             const AttrItem *ai=GetAttrItem(name);
 
-            return(ai?stob<char>(ai->right.c_str(),value):false);
+            return(ai?stob<char>(ai->value.c_str(),value):false);
         }
 
         const bool ElementParseKV::GetHexStr(const UTF8String &name,uint8 *data)
@@ -62,7 +62,7 @@ namespace hgl
 
             if(!ai)return(false);
 
-            ParseHexStr(data,ai->right.c_str(),ai->right.Length());
+            ParseHexStr(data,ai->value.c_str(),ai->value.Length());
             return(true);
         }
     }//namespace xml

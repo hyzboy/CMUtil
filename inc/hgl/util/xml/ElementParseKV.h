@@ -16,7 +16,7 @@ namespace hgl
         protected:
 
             using AttrsMap=Map<UTF8String,UTF8String>;
-            using AttrItem=Pair<UTF8String,UTF8String>;
+            using AttrItem=KeyValue<UTF8String,UTF8String>;
 
             AttrsMap attrs_map;
 
@@ -24,9 +24,9 @@ namespace hgl
 
             const AttrItem *GetAttrItem(const UTF8String &name);
 
-            template<typename T> const bool GetInteger  (const UTF8String &name,T &value){const AttrItem *ai=GetAttrItem(name);return(ai?stoi(ai->right.c_str(),value):false);}
-            template<typename T> const bool GetUInteger (const UTF8String &name,T &value){const AttrItem *ai=GetAttrItem(name);return(ai?stou(ai->right.c_str(),value):false);}
-            template<typename T> const bool GetFloat    (const UTF8String &name,T &value){const AttrItem *ai=GetAttrItem(name);return(ai?stof(ai->right.c_str(),value):false);}
+            template<typename T> const bool GetInteger  (const UTF8String &name,T &value){const AttrItem *ai=GetAttrItem(name);return(ai?stoi(ai->value.c_str(),value):false);}
+            template<typename T> const bool GetUInteger (const UTF8String &name,T &value){const AttrItem *ai=GetAttrItem(name);return(ai?stou(ai->value.c_str(),value):false);}
+            template<typename T> const bool GetFloat    (const UTF8String &name,T &value){const AttrItem *ai=GetAttrItem(name);return(ai?stof(ai->value.c_str(),value):false);}
 
         public:
 
@@ -38,7 +38,7 @@ namespace hgl
 
             const bool      IsExist     (const UTF8String &name)const{return attrs_map.KeyExist(name);}
 
-            const u8char *  ToCString   (const UTF8String &name){const AttrItem *ai=GetAttrItem(name);return(ai?ai->right.c_str():nullptr);}
+            const u8char *  ToCString   (const UTF8String &name){const AttrItem *ai=GetAttrItem(name);return(ai?ai->value.c_str():nullptr);}
             const u8char *  operator[]  (const UTF8String &name){return ToCString(name);}
 
         public:
