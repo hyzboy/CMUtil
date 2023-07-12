@@ -63,6 +63,11 @@ ENDIF(CM_UTIL_SUPPORT_HASH)
 
 ####################################################################################################
 
+SET(CSV_SOURCE  ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/csv/CSVFieldSplite.h
+                csv/CSVFieldSplite.cpp)
+                
+SOURCE_GROUP("CSV" FILES ${CSV_SOURCE})
+
 SET(CMD_SOURCE  ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/cmd/CmdParse.h
                 cmd/CmdParse.cpp)
 
@@ -90,6 +95,7 @@ add_cm_library(CMUtil "CM"	${CMD_SOURCE}
 
                             ${XML_PARSE_SOURCE}
                             ${JSON_TOOL_SOURCE}
+                            ${CSV_SOURCE}
 
                             ${HASH_HEADER_FILES}
                             ${HASH_SOURCE_FILES}
