@@ -2,7 +2,7 @@
 #define HGL_PLIST_INCLUDE
 
 #include<hgl/type/Map.h>
-#include<hgl/type/LoadStringList.h>
+#include<hgl/io/LoadStringList.h>
 #include<hgl/io/FileOutputStream.h>
 #include<hgl/io/TextOutputStream.h>
 namespace hgl
