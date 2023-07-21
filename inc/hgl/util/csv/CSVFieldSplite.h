@@ -6,7 +6,8 @@ namespace hgl
     {
         /**
         * CSV字段拆分工具<br>
-        * 支持逗号分隔与tab分隔以及使用引号包裹的字符串     */
+        * 支持逗号分隔与tab分隔以及使用引号包裹的字符串
+        */
         class CSVFieldSplite
         {
             const char *str;
