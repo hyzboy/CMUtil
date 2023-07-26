@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include<hgl/io/TextOutputStream.h>
 #include<initializer_list>
 
@@ -7,7 +7,7 @@ namespace hgl
     namespace util
     {
         /**
-        * CSVÊä³ö¿ØÖÆ 
+        * CSVè¾“å‡ºæ§åˆ¶ 
         */
         template<typename T> class CSVOutput
         {
@@ -39,10 +39,10 @@ namespace hgl
 
         public:
 
-            CSVOutput(  io::TextOutputStream *os,                   //ÎÄ±¾Êä³öÁ÷
-                        const uint field_count,                     //×Ö¶ÎÊıÁ¿
-                        const T fields_terminated_char=T('\t'),     //×Ö¶Î·Ö¸ô·û
-                        const T enclosed_char=T('"'))               //×Ö·û´®°ü¹ü×Ö·û
+            CSVOutput(  io::TextOutputStream *os,                   //æ–‡æœ¬è¾“å‡ºæµ
+                        const uint field_count,                     //å­—æ®µæ•°é‡
+                        const T fields_terminated_char=T('\t'),     //å­—æ®µåˆ†éš”ç¬¦
+                        const T enclosed_char=T('"'))               //å­—ç¬¦ä¸²åŒ…è£¹å­—ç¬¦
             {
                 tos=os;
 
