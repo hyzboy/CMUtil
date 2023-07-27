@@ -55,13 +55,10 @@ namespace hgl
 
         template<typename T> inline bool ParseCSVFile(const OSString &filename,CSVParseCallback<T> *pcb)
         {
-            io::FileInputStream *fis=new io::FileInputStream;
+            io::OpenFileInputStream fis(filename);
 
-            if(!fis->Open(filename))
-            {
-                delete fis;
+            if(!fis)
                 return false;
-            }
 
             return ParseCSV<T>(fis,pcb);
         }
