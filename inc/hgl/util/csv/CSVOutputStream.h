@@ -50,14 +50,14 @@ namespace hgl
             void WriteFloat(const F &value,const uint frac){csv->WriteFloat(value,frac);}
         };//template<typename T> class CSVOutputStream
 
-        template<typename T> inline CSVOutputStream<T> *CreateCSVOutputToStream(io::OutputStream *os,io::TextOutputStream *tos,const uint field_count,const T fields_terminated_char=T('\t'),const T enclosed_char=T('"'))
+        template<typename T> inline CSVOutputStream<T> *CreateCSVOutputToStream(io::OutputStream *os,io::TextOutputStream *tos,const uint field_count,const T fields_terminated_char=T(','),const T enclosed_char=T('"'))
         {
             CSVOutput<T> *csv=new CSVOutput<T>(tos,field_count,fields_terminated_char,enclosed_char);
 
             return(new CSVOutputStream<T>(os,tos,csv));
         }
 
-        CSVOutputStream<u8char> *CreateCSVOutputToUTF8File(const OSString &filename,const uint field_count,const u8char fields_terminated_char=U8_TEXT('\t'),const u8char enclosed_char=U8_TEXT('"'));
-        CSVOutputStream<u16char> *CreateCSVOutputToUTF16LEFile(const OSString &filename,const uint field_count,const u16char fields_terminated_char=U16_TEXT('\t'),const u16char enclosed_char=U16_TEXT('"'));
+        CSVOutputStream<u8char> *CreateCSVOutputToUTF8File(const OSString &filename,const uint field_count,const u8char fields_terminated_char=U8_TEXT(','),const u8char enclosed_char=U8_TEXT('"'));
+        CSVOutputStream<u16char> *CreateCSVOutputToUTF16LEFile(const OSString &filename,const uint field_count,const u16char fields_terminated_char=U16_TEXT(','),const u16char enclosed_char=U16_TEXT('"'));
     }//namespace util
 }//namespace hgl

@@ -41,7 +41,7 @@ namespace hgl
 
             CSVOutput(  io::TextOutputStream *os,                   //文本输出流
                         const uint field_count,                     //字段数量
-                        const T fields_terminated_char=T('\t'),     //字段分隔符
+                        const T fields_terminated_char=T(','),      //字段分隔符
                         const T enclosed_char=T('"'))               //字符串包裹字符
             {
                 tos=os;
@@ -119,8 +119,8 @@ namespace hgl
         using UTF16CSVOutput=CSVOutput<u16char>;
         using UTF32CSVOutput=CSVOutput<u32char>;
 
-        inline CSVOutput<u8char> *   CreateUTF8CSVOutput    (io::TextOutputStream *  tos,const uint fc,const u8char  ftc=U8_TEXT ('\t'),const u8char     ec=U8_TEXT ('"')){return(new UTF8CSVOutput (tos,fc,ftc,ec));}
-        inline CSVOutput<u16char> *  CreateUTF16CSVOutput   (io::TextOutputStream *  tos,const uint fc,const u16char ftc=U16_TEXT('\t'),const u16char    ec=U16_TEXT('"')){return(new UTF16CSVOutput(tos,fc,ftc,ec));}
-        inline CSVOutput<u16char> *  CreateUTF32CSVOutput   (io::TextOutputStream *  tos,const uint fc,const u32char ftc=U32_TEXT('\t'),const u32char    ec=U32_TEXT('"')){return(new UTF16CSVOutput(tos,fc,ftc,ec));}
+        inline CSVOutput<u8char> *   CreateUTF8CSVOutput    (io::TextOutputStream *  tos,const uint fc,const u8char  ftc=U8_TEXT (','),const u8char     ec=U8_TEXT ('"')){return(new UTF8CSVOutput (tos,fc,ftc,ec));}
+        inline CSVOutput<u16char> *  CreateUTF16CSVOutput   (io::TextOutputStream *  tos,const uint fc,const u16char ftc=U16_TEXT(','),const u16char    ec=U16_TEXT('"')){return(new UTF16CSVOutput(tos,fc,ftc,ec));}
+        inline CSVOutput<u16char> *  CreateUTF32CSVOutput   (io::TextOutputStream *  tos,const uint fc,const u32char ftc=U32_TEXT(','),const u32char    ec=U32_TEXT('"')){return(new UTF16CSVOutput(tos,fc,ftc,ec));}
     }//namespace util
 }//namespace hgl
