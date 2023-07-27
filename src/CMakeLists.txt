@@ -83,7 +83,6 @@ SOURCE_GROUP("Crypt" FILES ${CRYPT_HEADER_FILES} ${CRYPT_SOURCE_FILES})
 SET(CSV_SOURCE  ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/csv/CSVFieldSplite.h
                 ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/csv/CSVOutput.h
                 ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/csv/CSVOutputStream.h
-                csv/CSVFieldSplite.cpp
                 csv/CSVOutputStream.cpp)
                 
 SOURCE_GROUP("CSV" FILES ${CSV_SOURCE})
