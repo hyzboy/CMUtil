@@ -132,7 +132,7 @@ public:
 };//class HeapSort:public SortBase<T>
 
 template<typename T>
-bool Sort(T *data,int count,Comparator<T> *comp=new Comparator<T>())
+bool Sort(T *data,int count,Comparator<T> *comp)
 {
 	HeapSort<T> hs(data,count,comp);
 
@@ -140,12 +140,32 @@ bool Sort(T *data,int count,Comparator<T> *comp=new Comparator<T>())
 }
 
 template<typename T>
-bool Sort(hgl::DataArray<T> &list,Comparator<T> *comp=Comparator<T>())
+bool Sort(T *data,int count)
+{
+    Comparator<T> rnc;
+
+	HeapSort<T> hs(data,count,&rnc);
+
+	return hs.sort();
+}
+
+
+template<typename T>
+bool Sort(hgl::DataArray<T> &list,Comparator<T> *comp)
 {
 	return Sort(list.GetData(),
 				list.GetCount(),
 				comp);
 }
+
+template<typename T>
+bool Sort(hgl::DataArray<T> &list)
+{
+    Comparator<T> rnc;
+
+    return Sort<T>(list,&rnc);
+}
+
 /*
 //仅实现模拟虚拟成员函数即可，无需整个类重载
 template<> int Comparator<BagCell>::compare(const BagCell &it1,const BagCell &it2) const
