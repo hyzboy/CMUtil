@@ -30,13 +30,11 @@ namespace hgl
             bool OnLine(const T *text,const int length) override
             {
                 if(!text||!*text||length<=0)
-                    return(false);
+                    return(true);
 
                 splite.Start(text,length);
 
-                callback->OnLine(splite);
-
-                return(true);            
+                return callback->OnLine(splite);
             }
         };//class CSVTextParse
 
@@ -48,9 +46,7 @@ namespace hgl
 
             tis.SetParseCallback<T>(&parse);
 
-            tis.Run();
-
-            return nullptr;
+            return tis.Run()>0;
         }
 
         template<typename T> inline bool ParseCSVFile(const OSString &filename,CSVParseCallback<T> *pcb)
