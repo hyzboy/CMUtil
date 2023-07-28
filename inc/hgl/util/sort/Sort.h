@@ -2,6 +2,8 @@
 #define HGL_ALGORITHM_SORT_INCLUDE
 
 #include<hgl/TypeFunc.h>
+#include<hgl/CompOperator.h>
+#include<hgl/type/List.h>
 #include<string.h>
 
 template<typename T> class SortBase
@@ -68,8 +70,6 @@ public:
 	virtual bool sort()=0;								//排序
 };//struct SortBase
 
-namespace hgl
-{
 	//堆排序
 	template<typename T> class HeapSort:public SortBase<T>
 	{
@@ -141,7 +141,7 @@ namespace hgl
 	}
 
 	template<typename T>
-	bool Sort(List<T> &list,Comparator<T> *comp=Comparator<T>())
+	bool Sort(hgl::List<T> &list,Comparator<T> *comp=Comparator<T>())
 	{
 		return Sort(list.GetData(),
 					list.GetCount(),
@@ -169,5 +169,4 @@ namespace hgl
 		hgl::Sort<BagCell>(cell_list,BAG_SLOT_COUNT,&comp_baginfo);
 	}
  */
-}//namespace hgl
 #endif//HGL_ALGORITHM_SORT_INCLUDE
