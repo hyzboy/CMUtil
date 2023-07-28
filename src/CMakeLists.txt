@@ -1,3 +1,4 @@
+#################################################################################################### XML
 option(CM_UTIL_SUPPORT_XML "Build XML Parse module." ON)
 
 if(CM_UTIL_SUPPORT_XML)
@@ -31,6 +32,8 @@ if(CM_UTIL_SUPPORT_XML)
 
 endif(CM_UTIL_SUPPORT_XML)
 
+#################################################################################################### JSON
+
 option(CM_UTIL_SUPPORT_JSON "Build JSON Parse/make module." ON)
 
 IF(CM_UTIL_SUPPORT_JSON)
@@ -41,6 +44,8 @@ IF(CM_UTIL_SUPPORT_JSON)
 
     SOURCE_GROUP("JSON" FILES ${JSON_TOOL_SOURCE})
 ENDIF(CM_UTIL_SUPPORT_JSON)
+
+#################################################################################################### HASH
 
 option(CM_UTIL_SUPPORT_HASH "Build HASH module" ON)
 
@@ -61,7 +66,27 @@ IF(CM_UTIL_SUPPORT_HASH)
     SOURCE_GROUP("HASH" FILES ${HASH_HEADER_FILES} ${HASH_SOURCE_FILES})
 ENDIF(CM_UTIL_SUPPORT_HASH)
 
+#################################################################################################### CRYPT
+
+SET(CRYPT_HEADER_FILES ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/Crypt.h)
+
+SET(CRYPT_SOURCE_FILES  crypt/aes.cpp
+                        crypt/base64.cpp
+                        crypt/Overflow.cpp
+                        crypt/rc4.cpp
+)
+
+SOURCE_GROUP("Crypt" FILES ${CRYPT_HEADER_FILES} ${CRYPT_SOURCE_FILES})
+
 ####################################################################################################
+
+SET(CSV_SOURCE  ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/csv/CSVFieldSplite.h
+                ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/csv/CSVParse.h
+                ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/csv/CSVOutput.h
+                ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/csv/CSVOutputStream.h
+                csv/CSVOutputStream.cpp)
+                
+SOURCE_GROUP("CSV" FILES ${CSV_SOURCE})
 
 SET(CMD_SOURCE  ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/cmd/CmdParse.h
                 cmd/CmdParse.cpp)
@@ -90,9 +115,13 @@ add_cm_library(CMUtil "CM"	${CMD_SOURCE}
 
                             ${XML_PARSE_SOURCE}
                             ${JSON_TOOL_SOURCE}
+                            ${CSV_SOURCE}
 
                             ${HASH_HEADER_FILES}
                             ${HASH_SOURCE_FILES}
+
+                            ${CRYPT_HEADER_FILES}
+                            ${CRYPT_SOURCE_FILES}
                            )
 
 if(CM_UTIL_SUPPORT_XML)

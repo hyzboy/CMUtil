@@ -6,6 +6,13 @@ namespace hgl
 {
     namespace util
     {
+        constexpr const uint TGA_IMAGE_TYPE_COLOR_MAP   =1;
+        constexpr const uint TGA_IMAGE_TYPE_TRUE_COLOR  =2;
+        constexpr const uint TGA_IMAGE_TYPE_GRAYSCALE   =3;
+
+        constexpr const uint TGA_DIRECTION_LOWER_LEFT   =0;
+        constexpr const uint TGA_DIRECTION_UPPER_LEFT   =1;
+
 #pragma pack(push,1)
         struct TGAHeader
         {
