@@ -13,7 +13,7 @@ namespace hgl
         {
             io::TextOutputStream *tos;
 
-            uint FieldCount;
+            int FieldCount;
 
             T FieldsTerminatedChar;
             T EnclosedChar;
@@ -22,15 +22,15 @@ namespace hgl
 
         protected:
 
-            uint write_count;
+            int left_count;
 
             void NextField()
             {
-                --write_count;
+                --left_count;
 
-                if(!write_count)
+                if(!left_count)
                 {
-                    write_count=FieldCount;
+                    left_count=FieldCount;
                     tos->WriteLineEnd();
                 }
                 else
@@ -40,13 +40,12 @@ namespace hgl
         public:
 
             CSVOutput(  io::TextOutputStream *os,                   //文本输出流
-                        const uint field_count,                     //字段数量
                         const T fields_terminated_char=T(','),      //字段分隔符
                         const T enclosed_char=T('"'))               //字符串包裹字符
             {
                 tos=os;
 
-                FieldCount          =field_count;
+                FieldCount          =0;
 
                 FieldsTerminatedChar=fields_terminated_char;
 
@@ -55,7 +54,7 @@ namespace hgl
                 NullStringField[0]  =enclosed_char;
                 NullStringField[1]  =enclosed_char;
 
-                write_count         =FieldCount;
+                left_count         =0;
             }
 
             ~CSVOutput()=default;
@@ -98,6 +97,10 @@ namespace hgl
                     WriteString(str);
             }
 
+            void WriteHeader(const StringList<T>                    &sl){left_count=FieldCount=sl.GetCount();   WriteStringList(sl);}
+            void WriteHeader(const std::initializer_list<String<T>> &sl){left_count=FieldCount=(int)sl.size();  WriteStringList(sl);}
+            void WriteHeader(const std::initializer_list<const T *> &sl){left_count=FieldCount=(int)sl.size();  WriteStringList(sl);}
+
             template<typename I>
             void WriteInteger(const I &value)
             {
@@ -119,8 +122,8 @@ namespace hgl
         using UTF16CSVOutput=CSVOutput<u16char>;
         using UTF32CSVOutput=CSVOutput<u32char>;
 
-        inline CSVOutput<u8char> *   CreateUTF8CSVOutput    (io::TextOutputStream *  tos,const uint fc,const u8char  ftc=U8_TEXT (','),const u8char     ec=U8_TEXT ('"')){return(new UTF8CSVOutput (tos,fc,ftc,ec));}
-        inline CSVOutput<u16char> *  CreateUTF16CSVOutput   (io::TextOutputStream *  tos,const uint fc,const u16char ftc=U16_TEXT(','),const u16char    ec=U16_TEXT('"')){return(new UTF16CSVOutput(tos,fc,ftc,ec));}
-        inline CSVOutput<u16char> *  CreateUTF32CSVOutput   (io::TextOutputStream *  tos,const uint fc,const u32char ftc=U32_TEXT(','),const u32char    ec=U32_TEXT('"')){return(new UTF16CSVOutput(tos,fc,ftc,ec));}
+        inline CSVOutput<u8char> *   CreateUTF8CSVOutput    (io::TextOutputStream *  tos,const u8char  ftc=U8_TEXT (','),const u8char     ec=U8_TEXT ('"')){return(new UTF8CSVOutput (tos,ftc,ec));}
+        inline CSVOutput<u16char> *  CreateUTF16CSVOutput   (io::TextOutputStream *  tos,const u16char ftc=U16_TEXT(','),const u16char    ec=U16_TEXT('"')){return(new UTF16CSVOutput(tos,ftc,ec));}
+        inline CSVOutput<u16char> *  CreateUTF32CSVOutput   (io::TextOutputStream *  tos,const u32char ftc=U32_TEXT(','),const u32char    ec=U32_TEXT('"')){return(new UTF16CSVOutput(tos,ftc,ec));}
     }//namespace util
 }//namespace hgl
