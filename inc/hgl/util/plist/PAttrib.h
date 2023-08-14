@@ -292,7 +292,7 @@ namespace hgl
         void Clear(){pa_map.Clear();}
         void ClearData(){pa_map.ClearData();}
 
-        void Enum(void (*enum_func)(const String<C> &key,PAttribBase<C> *value))
+        void Enum(void (*enum_func)(const String<C> &key,PAttribBase<C> * &value))
         {
             pa_map.Enum(enum_func);
         };

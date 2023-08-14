@@ -112,7 +112,7 @@ namespace hgl
 
             virtual bool Init       () override
             {
-                attrs_list.ClearData();
+                attrs_list.Clear();
                 return(true);
             }
 
