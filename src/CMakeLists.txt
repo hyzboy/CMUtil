@@ -103,15 +103,9 @@ SET(DATABLOCK_SOURCE    ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/datablock/DataBlock
 
 source_group("Data Block" FILES ${DATABLOCK_SOURCE})
 
-SET(IMG_FILE_FILES  ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/imgfmt/tga.h
-                    imgfmt/tga.cpp)
-
-source_group("Image Format" FILES ${IMG_FILE_FILES})
-
 add_cm_library(CMUtil "CM"	${CMD_SOURCE}
 #							${TIME_SOURCE}
 #                            ${DATABLOCK_SOURCE}
-                            ${IMG_FILE_FILES}
 
                             ${XML_PARSE_SOURCE}
                             ${JSON_TOOL_SOURCE}
