@@ -27,7 +27,7 @@ namespace hgl
                 callback=pcb;
             }
 
-            bool OnLine(const T *text,const int length) override
+            bool OnLine(T *text,const int length) override
             {
                 if(!text||!*text||length<=0)
                     return(true);
