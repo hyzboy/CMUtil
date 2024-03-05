@@ -123,5 +123,5 @@ if(CM_UTIL_SUPPORT_XML)
 endif()
 
 IF(CM_UTIL_SUPPORT_JSON)
-    target_link_libraries(CMUtil PRIVATE jsoncpp_lib jsoncpp_object JsonCpp::JsonCpp)
+    target_link_libraries(CMUtil PRIVATE JsonCpp::JsonCpp)
 ENDIF(CM_UTIL_SUPPORT_JSON)
