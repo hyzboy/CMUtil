@@ -21,7 +21,13 @@ namespace hgl
             SHA256,
             SHA512,
 
-            ENUM_CLASS_RANGE(Adler32,SHA512)
+            xxH32,
+            xxH64,
+            XXH3_64,
+            XXH3_128,
+
+
+            ENUM_CLASS_RANGE(Adler32,XXH3_128)
         };//enum HASH
 
         /**
@@ -100,8 +106,12 @@ namespace hgl
         using HashCodeSHA1LE    =HashCode<20>    ;
         using HashCodeSHA256    =HashCode<32>    ;
         using HashCodeSHA512    =HashCode<64>    ;
+        using HashCodexxH32     =HashCode<4>    ;
+        using HashCodexxH64     =HashCode<8>    ;
+        using HashCodeXXH3_64   =HashCode<8>    ;
+        using HashCodeXXH3_128  =HashCode<16>   ;
 
-        const int hash_code_bytes[]={4,4,16,16,20,20,32,64};		//hash码长度
+        const int hash_code_bytes[]={4,4,16,16,20,20,32,64,4,8,16};		//hash码长度
 
         /**
         * 散列值计算功能基类
@@ -146,6 +156,10 @@ namespace hgl
         HGL_CREATE_HASH_FUNC(SHA1LE)
         HGL_CREATE_HASH_FUNC(SHA256)
         HGL_CREATE_HASH_FUNC(SHA512)
+        HGL_CREATE_HASH_FUNC(xxH32)
+        HGL_CREATE_HASH_FUNC(xxH64)
+        HGL_CREATE_HASH_FUNC(XXH3_64)
+        HGL_CREATE_HASH_FUNC(XXH3_128)
 
 #undef HGL_CREATE_HASH_FUNC
 
@@ -164,7 +178,11 @@ namespace hgl
                 CreateSHA1Hash,
                 CreateSHA1LEHash,
                 CreateSHA256Hash,
-                CreateSHA512Hash
+                CreateSHA512Hash,
+                CreatexxH32Hash,
+                CreatexxH64Hash,
+                CreateXXH3_64Hash,
+                CreateXXH3_128Hash,
             };
 
             return func[(size_t)ha]();
@@ -218,7 +236,11 @@ namespace hgl
                 CountHash<HASH::SHA1	>,
                 CountHash<HASH::SHA1LE	>,
                 CountHash<HASH::SHA256	>,
-                CountHash<HASH::SHA512	>
+                CountHash<HASH::SHA512	>,
+                CountHash<HASH::xxH32   >,
+                CountHash<HASH::xxH64   >,
+                CountHash<HASH::XXH3_64 >,
+                CountHash<HASH::XXH3_128>
             };
 
             return func[(size_t)ha](data,size,hash_code);
@@ -285,7 +307,11 @@ namespace hgl
                 CountHashStr<HASH::SHA1	    >,
                 CountHashStr<HASH::SHA1LE	>,
                 CountHashStr<HASH::SHA256	>,
-                CountHashStr<HASH::SHA512	>
+                CountHashStr<HASH::SHA512	>,
+                CountHashStr<HASH::xxH32    >,
+                CountHashStr<HASH::xxH64    >,
+                CountHashStr<HASH::XXH3_64  >,
+                CountHashStr<HASH::XXH3_128 >
             };
 
             return func[(size_t)ha](data,size,hash_str,litter);
@@ -303,6 +329,10 @@ namespace hgl
         HGL_COUNT_HASH_FUNC(SHA1LE)
         HGL_COUNT_HASH_FUNC(SHA256)
         HGL_COUNT_HASH_FUNC(SHA512)
+        HGL_COUNT_HASH_FUNC(xxH32)
+        HGL_COUNT_HASH_FUNC(xxH64)
+        HGL_COUNT_HASH_FUNC(XXH3_64)
+        HGL_COUNT_HASH_FUNC(XXH3_128)
 
 #undef HGL_COUNT_HASH_FUNC
 
