@@ -31,7 +31,7 @@ namespace hgl
             void Init()override
             {
                 state=XXH32_createState();
-                seed=mt_rand32_dist(mt_rand32);
+                seed=0;//mt_rand32_dist(mt_rand32);
 
                 XXH32_reset(state,seed);
             }
@@ -67,7 +67,7 @@ namespace hgl
             void Init()override
             {
                 state=XXH64_createState();
-                seed=mt_rand64_dist(mt_rand64);
+                seed=0;//mt_rand64_dist(mt_rand64);
     
                 XXH64_reset(state,seed);
             }
@@ -103,7 +103,7 @@ namespace hgl
             void Init()override
             {
                 state=XXH3_createState();
-                seed=mt_rand64_dist(mt_rand64);
+                seed=0;//mt_rand64_dist(mt_rand64);
 
                 XXH3_64bits_reset_withSeed(state,seed);
             }
@@ -139,7 +139,7 @@ namespace hgl
             void Init()override
             {
                 state=XXH3_createState();
-                seed=mt_rand64_dist(mt_rand64);
+                seed=0;//mt_rand64_dist(mt_rand64);
 
                 XXH3_128bits_reset_withSeed(state,seed);
             }
