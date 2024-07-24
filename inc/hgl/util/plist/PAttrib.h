@@ -280,10 +280,10 @@ namespace hgl
             return pa_map.Add(name,attr);
         }
 
-        bool Add(const PString &str)
-        {
-            return Add(pa_name,str);
-        }
+        //bool Add(const PString &str)
+        //{
+        //    return Add(pa_name,str);
+        //}
 
         PAttribBase<C> *Get(const PString &name){return GetObjectFromList(pa_map,name);}
 
@@ -298,7 +298,7 @@ namespace hgl
         };
     };//template<typename C> class PAttribSet
 
-    using UTF8PAttribSet    =PAttribSet<char>;
+    using UTF8PAttribSet    =PAttribSet<u8char>;
     using UTF16PAttribSet   =PAttribSet<u16char>;
     using WidePAttribSet    =PAttribSet<wchar_t>;
     using OSPAttribSet      =PAttribSet<os_char>;

@@ -9,12 +9,12 @@ namespace hgl
         {
             const int pos=attrs_map.FindPos(name);
 
-            if(pos<0)return(false);
+            if(pos<0)return(nullptr);
 
             return attrs_map.GetItem(pos);
         }
 
-        void ElementParseKV::Attr(const char *flag,const char *info)
+        void ElementParseKV::Attr(const u8char *flag,const u8char *info)
         {
             attrs_map.Add(flag,info);
         }
@@ -39,7 +39,7 @@ namespace hgl
             return(true);
         }
 
-        const bool ElementParseKV::Get(const UTF8String &name,char &ch)
+        const bool ElementParseKV::Get(const UTF8String &name,u8char &ch)
         {
             const AttrItem *ai=GetAttrItem(name);
 
@@ -53,7 +53,7 @@ namespace hgl
         {
             const AttrItem *ai=GetAttrItem(name);
 
-            return(ai?stob<char>(ai->value.c_str(),value):false);
+            return(ai?stob<u8char>(ai->value.c_str(),value):false);
         }
 
         const bool ElementParseKV::GetHexStr(const UTF8String &name,uint8 *data)

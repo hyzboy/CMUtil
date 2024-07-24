@@ -94,8 +94,8 @@ namespace hgl
 
                 while(*atts)
                 {
-                    flag=*atts;++atts;
-                    info=*atts;++atts;
+                    flag=(u8char *)(*atts);++atts;
+                    info=(u8char *)(*atts);++atts;
 
                     ep->Attr(flag,info);
                 }

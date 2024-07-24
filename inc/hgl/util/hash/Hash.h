@@ -266,7 +266,7 @@ namespace hgl
             const int hash_bytes=hash_code_bytes[(size_t)ha];
 
             uint8 *hash_code=new uint8[hash_bytes];
-            char *hash_code_str=new char[1+(hash_bytes<<1)];
+            u8char *hash_code_str=new u8char[1+(hash_bytes<<1)];
 
             h->Init();
             h->Update(data,size);

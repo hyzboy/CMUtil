@@ -23,7 +23,7 @@ namespace hgl
 
         public:
 
-            void GetName(UTF8String &str)const override{str="XXH32";}
+            void GetName(UTF8String &str)const override{str=U8_TEXT("XXH32");}
             void GetName(UTF16String &str)const override{str=U16_TEXT("XXH32");}
 
             const int GetHashBytes()const override{return 4;}
@@ -59,7 +59,7 @@ namespace hgl
 
         public:
 
-            void GetName(UTF8String &str)const override{str="XXH64";}
+            void GetName(UTF8String &str)const override{str=U8_TEXT("XXH64");}
             void GetName(UTF16String &str)const override{str=U16_TEXT("XXH64");}
     
             const int GetHashBytes()const override{return 8;}
@@ -95,7 +95,7 @@ namespace hgl
 
         public:
 
-            void GetName(UTF8String &str)const override{str="XXH3_64bits";}
+            void GetName(UTF8String &str)const override{str=U8_TEXT("XXH3_64bits");}
             void GetName(UTF16String &str)const override{str=U16_TEXT("XXH3_64bits");}
 
             const int GetHashBytes()const override{return 8;}
@@ -131,7 +131,7 @@ namespace hgl
 
         public:
 
-            void GetName(UTF8String &str)const override{str="XXH3_128bits";}
+            void GetName(UTF8String &str)const override{str=U8_TEXT("XXH3_128bits");}
             void GetName(UTF16String &str)const override{str=U16_TEXT("XXH3_128bits");}
 
             const int GetHashBytes()const override{return 16;}

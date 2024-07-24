@@ -149,7 +149,7 @@ namespace hgl
 
         public:
 
-            void GetName(UTF8String &str)const override{str="SHA1";}
+            void GetName(UTF8String &str)const override{str=U8_TEXT("SHA1");}
             void GetName(UTF16String &str)const override{str=U16_TEXT("SHA1");}
 
             const int GetHashBytes()const override{return DIGEST_SIZE;}

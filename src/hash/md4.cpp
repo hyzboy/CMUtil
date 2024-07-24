@@ -150,7 +150,7 @@ namespace hgl
 
         public:
 
-            void GetName(UTF8String &str)const override{str="MD4";}
+            void GetName(UTF8String &str)const override{str=U8_TEXT("MD4");}
             void GetName(UTF16String &str)const override{str=U16_TEXT("MD4");}
 
             const int GetHashBytes()const override{return DIGEST_SIZE;}

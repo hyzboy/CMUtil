@@ -8,7 +8,7 @@ namespace hgl
 {
     namespace util
     {
-        CSVOutputStream<char> *CreateCSVOutputToUTF8File(const OSString &filename,const u8char fields_terminated_char,const u8char enclosed_char)
+        CSVOutputStream<u8char> *CreateCSVOutputToUTF8File(const OSString &filename,const u8char fields_terminated_char,const u8char enclosed_char)
         {
             io::FileOutputStream *fos=io::CreateFileOutputStream(filename);
 

@@ -17,7 +17,7 @@ namespace hgl
 
         protected:
 
-            Map<AnsiString,ElementCreater *> ecs_map;
+            Map<UTF8String,ElementCreater *> ecs_map;
 
             virtual ElementCreater *GetSubElementCreater(const UTF8String &sub_name);
 
@@ -133,7 +133,7 @@ namespace hgl
         {
             Stack<ElementCreater *> ecs_stack;
 
-            Map<AnsiString,ElementCreater *> ecs_map;
+            Map<UTF8String,ElementCreater *> ecs_map;
 
             ElementCreater *cur_ec;
 
