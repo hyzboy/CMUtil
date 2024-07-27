@@ -298,6 +298,7 @@ namespace hgl
         };
     };//template<typename C> class PAttribSet
 
+    using AnsiPAttribSet    =PAttribSet<char>;
     using UTF8PAttribSet    =PAttribSet<u8char>;
     using UTF16PAttribSet   =PAttribSet<u16char>;
     using WidePAttribSet    =PAttribSet<wchar_t>;
