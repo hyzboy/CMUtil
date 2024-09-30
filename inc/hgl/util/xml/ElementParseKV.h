@@ -36,7 +36,7 @@ namespace hgl
 
         public:
 
-            const bool      IsExist     (const UTF8String &name)const{return attrs_map.KeyExist(name);}
+            const bool      Contains     (const UTF8String &name)const{return attrs_map.ContainsKey(name);}
 
             const u8char *  ToCString   (const UTF8String &name){const AttrItem *ai=GetAttrItem(name);return(ai?ai->value.c_str():nullptr);}
             const u8char *  operator[]  (const UTF8String &name){return ToCString(name);}

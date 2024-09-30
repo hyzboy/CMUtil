@@ -11,7 +11,7 @@ namespace hgl
             const UTF8String &name=ec->GetElementName().ToLowerCase();
 
             if(name.IsEmpty())return(false);
-            if(ecs_map.KeyExist(name))return(false);
+            if(ecs_map.ContainsKey(name))return(false);
 
             ecs_map.Add(name,ec);
             return(true);
