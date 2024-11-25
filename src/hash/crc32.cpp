@@ -72,10 +72,7 @@ namespace hgl
 
         public:
 
-            void GetName(UTF8String &str)const override{str=U8_TEXT("CRC32");}
-            void GetName(UTF16String &str)const override{str=U16_TEXT("CRC32");}
-
-            const int GetHashBytes()const override{return 4;}
+            CRC32():Hash(4,"CRC32"){}
 
             void Init()override
             {
@@ -93,6 +90,9 @@ namespace hgl
             }
         };//class CRC32
 
-        Hash *CreateCRC32Hash(){return(new CRC32);}
+        template<> Hash *CreateHash<HASH::CRC32>()
+        {
+            return(new CRC32);
+        }
     }//namespace util
 }//namepace hgl

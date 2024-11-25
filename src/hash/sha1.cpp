@@ -149,10 +149,7 @@ namespace hgl
 
         public:
 
-            void GetName(UTF8String &str)const override{str=U8_TEXT("SHA1");}
-            void GetName(UTF16String &str)const override{str=U16_TEXT("SHA1");}
-
-            const int GetHashBytes()const override{return DIGEST_SIZE;}
+            SHA1():Hash(20,"SHA1"){}
 
             void Init()override
             {
@@ -245,6 +242,9 @@ namespace hgl
             }
         };//class SHA1
 
-        Hash *CreateSHA1Hash(){return(new SHA1);}
+        template<> Hash *CreateHash<HASH::SHA1>()
+        {
+            return(new SHA1);
+        }
     }//namespace util
 }//namespace hgl

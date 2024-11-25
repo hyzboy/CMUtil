@@ -29,9 +29,8 @@ namespace hgl
 
         public:
 
-            void GetName(UTF8String &str)const override{str=U8_TEXT("FNV1a");}
-            void GetName(UTF16String &str)const override{str=U16_TEXT("FNV1a");}
-            const int GetHashBytes()const override{return 4;}
+            FNV1a():Hash(4,"FNV1a"){}
+
             void Init()override
             {
                 result=2166136261u;
@@ -46,7 +45,7 @@ namespace hgl
             }
         };//class FNV1a
 
-        Hash *CreateFNV1aHash()
+        template<> Hash *CreateHash<HASH::FNV1a>()
         {
             return(new FNV1a);
         }

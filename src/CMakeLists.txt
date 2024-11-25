@@ -131,6 +131,9 @@ add_cm_library(CMUtil "CM"	${CMD_SOURCE}
                             ${CRYPT_SOURCE_FILES}
                            )
 
+find_package(cityhash CONFIG REQUIRED)
+target_link_libraries(CMUtil PRIVATE cityhash)
+
 if(CM_UTIL_SUPPORT_XML)
     target_link_libraries(CMUtil PRIVATE expat::expat)
 endif()

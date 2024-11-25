@@ -36,11 +36,8 @@ namespace hgl
             void sha1_transform();
 
         public:
-
-            void GetName(UTF8String &str)const override{str=U8_TEXT("SHA1LE");}
-            void GetName(UTF16String &str)const override{str=U16_TEXT("SHA1LE");}
-
-            const int GetHashBytes()const override {return DIGEST_SIZE;}
+            
+            SHA1LE():Hash(20,"SHA1LE"){}
 
             void Init(const uint32 *start_digest,const uint32 *mysterious_constants);   ///<开始一次新的HASH计算，并指定初始因子和扰乱因子
             void Init()override;                                                        ///<开始一次新的HASH计算，并使用缺省初始因子和扰乱因子

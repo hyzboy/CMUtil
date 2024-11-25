@@ -23,10 +23,7 @@ namespace hgl
 
         public:
 
-            void GetName(UTF8String &str)const override{str=U8_TEXT("XXH32");}
-            void GetName(UTF16String &str)const override{str=U16_TEXT("XXH32");}
-
-            const int GetHashBytes()const override{return 4;}
+            xxHash32():Hash(4,"xxH32"){}
 
             void Init()override
             {
@@ -47,7 +44,7 @@ namespace hgl
             }
         };//class xxHash32
 
-        Hash *CreatexxH32Hash()
+        template<> Hash *CreateHash<HASH::xxH32>()
         {
             return(new xxHash32);
         }
@@ -59,10 +56,7 @@ namespace hgl
 
         public:
 
-            void GetName(UTF8String &str)const override{str=U8_TEXT("XXH64");}
-            void GetName(UTF16String &str)const override{str=U16_TEXT("XXH64");}
-    
-            const int GetHashBytes()const override{return 8;}
+            xxHash64():Hash(8,"xxH64"){}
     
             void Init()override
             {
@@ -83,7 +77,7 @@ namespace hgl
             }
         };//class xxHash64
 
-        Hash *CreatexxH64Hash()
+        template<> Hash *CreateHash<HASH::xxH64>()
         {
             return(new xxHash64);
         }
@@ -95,10 +89,7 @@ namespace hgl
 
         public:
 
-            void GetName(UTF8String &str)const override{str=U8_TEXT("XXH3_64bits");}
-            void GetName(UTF16String &str)const override{str=U16_TEXT("XXH3_64bits");}
-
-            const int GetHashBytes()const override{return 8;}
+            xxHash3_64():Hash(8,"xxH3_64bits"){}
 
             void Init()override
             {
@@ -119,7 +110,7 @@ namespace hgl
             }
         };//class xxHash3_64
 
-        Hash *CreateXXH3_64Hash()
+        template<> Hash *CreateHash<HASH::xxH3_64>()
         {
             return(new xxHash3_64);
         }
@@ -130,11 +121,8 @@ namespace hgl
             XXH64_hash_t seed;
 
         public:
-
-            void GetName(UTF8String &str)const override{str=U8_TEXT("XXH3_128bits");}
-            void GetName(UTF16String &str)const override{str=U16_TEXT("XXH3_128bits");}
-
-            const int GetHashBytes()const override{return 16;}
+            
+            xxHash3_128():Hash(16,"xxH3_128bits"){}
 
             void Init()override
             {
@@ -155,7 +143,7 @@ namespace hgl
             }
         };//class xxHash3_128
 
-        Hash *CreateXXH3_128Hash()
+        template<> Hash *CreateHash<HASH::xxH3_128>()
         {
             return(new xxHash3_128);
         }

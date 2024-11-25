@@ -91,10 +91,7 @@ namespace hgl
 
         public:
 
-            void GetName(UTF8String &str)const override{str=U8_TEXT("SHA256");}
-            void GetName(UTF16String &str)const override{str=U16_TEXT("SHA256");}
-
-            const int GetHashBytes()const override{return DIGEST_SIZE;}
+            SHA256():Hash(DIGEST_SIZE,"SHA256"){}
 
             void Init()override
             {
@@ -192,7 +189,10 @@ namespace hgl
             }
         };//class SHA256
 
-        Hash *CreateSHA256Hash(){return(new SHA256);}
+        template<> Hash *CreateHash<HASH::SHA256>()
+        {
+            return(new SHA256);
+        }
     }//namespace util
 }//namespace hgl
 

@@ -169,22 +169,13 @@ namespace hgl
 
         class MD5:public Hash
         {
-            enum
-            {
-                BLOCK_SIZE  = 64,
-                DIGEST_SIZE = 16
-            };
-
             uint32 state[4];
             uint32 count[2];
             uchar buffer[64];
 
         public:
 
-            void GetName(UTF8String &str)const override{str=U8_TEXT("MD5");}
-            void GetName(UTF16String &str)const override{str=U16_TEXT("MD5");}
-
-            const int GetHashBytes()const override{return DIGEST_SIZE;}
+            MD5():Hash(16,"MD5"){}
 
             void Init()override
             {
@@ -253,6 +244,9 @@ namespace hgl
             }
         };//class MD5
 
-        Hash *CreateMD5Hash(){return(new MD5);}
+        template<> Hash *CreateHash<HASH::MD5>()
+        {
+            return(new MD5);
+        }
     }//namespace util
 }//namespace hgl

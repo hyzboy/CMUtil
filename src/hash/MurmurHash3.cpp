@@ -9,7 +9,7 @@ namespace hgl
             //本代码来自Github Copilot
             //MurmurHash 是一种高性能的哈希算法，特别适用于哈希表。它具有良好的分布性和较低的碰撞率。
 
-            uint32_t MurmurHash3(const void *key, int len, uint32_t seed)
+            uint32_t CountMurmurHash3(const void *key, int len, uint32_t seed)
             {
                 const uint8_t *data = (const uint8_t *)key;
                 const int nblocks = len / 4;
@@ -61,5 +61,32 @@ namespace hgl
                 return h1;
             }
         }//namespace
+
+        class MurmurHash3:public Hash
+        {
+            uint32_t result;
+
+        public:
+
+            MurmurHash3():Hash(4,"MurmurHash3")
+            {}
+            void Init()override
+            {
+                result=0;
+            }
+            void Update(const void *input,uint inputLen)override
+            {
+                result=CountMurmurHash3(input,inputLen,result);
+            }
+            void Final(void *digest)override
+            {
+                *(uint32_t *)digest=result;
+            }
+        };//class MurmurHash3
+
+        template<> Hash *CreateHash<HASH::Murmur3>()
+        {
+            return(new MurmurHash3);
+        }
     }//namespace util
 }//namespace hgl

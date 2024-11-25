@@ -135,25 +135,16 @@ namespace hgl
                 memset(x, 0, sizeof(x));
             }
         }//namespace
-
+        
         class MD4:public Hash
         {
-            enum
-            {
-                BLOCK_SIZE  = 64,
-                DIGEST_SIZE = 16
-            };
-
             uint32 state[4];          // state (ABCD)
             uint32 count[2];          // number of bits, modulo 2^64 (lsb first)
             uchar buffer[64]; // input buffer
 
         public:
 
-            void GetName(UTF8String &str)const override{str=U8_TEXT("MD4");}
-            void GetName(UTF16String &str)const override{str=U16_TEXT("MD4");}
-
-            const int GetHashBytes()const override{return DIGEST_SIZE;}
+            MD4():Hash(16,"MD4"){}
 
             void Init()override
             {
@@ -222,6 +213,9 @@ namespace hgl
             }
         };//class MD4
 
-        Hash *CreateMD4Hash(){return(new MD4);}
+        template<> Hash *CreateHash<HASH::MD4>()
+        {
+            return(new MD4);
+        }
     }//namespace util
 }//namespace hgl
