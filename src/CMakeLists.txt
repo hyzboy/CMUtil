@@ -69,7 +69,11 @@ IF(CM_UTIL_SUPPORT_HASH)
                             hash/sha1le.cpp
                             hash/sha256.cpp
                             hash/sha512.cpp
-                            hash/xxHash3.cpp)
+                            hash/xxHash3.cpp
+                            hash/FNV1a.cpp
+                            hash/MurmurHash3.cpp
+                            hash/GoogleCityHash.cpp
+    )
 
     SOURCE_GROUP("HASH" FILES ${HASH_HEADER_FILES} ${HASH_SOURCE_FILES})
 ENDIF(CM_UTIL_SUPPORT_HASH)

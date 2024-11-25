@@ -26,8 +26,12 @@ namespace hgl
             XXH3_64,
             XXH3_128,
 
+            FNV1a,
+//            Murmur3,
+//            City64,
+//            City128,
 
-            ENUM_CLASS_RANGE(Adler32,XXH3_128)
+            ENUM_CLASS_RANGE(Adler32,FNV1a)
         };//enum HASH
 
         /**
@@ -110,8 +114,9 @@ namespace hgl
         using HashCodexxH64     =HashCode<8>    ;
         using HashCodeXXH3_64   =HashCode<8>    ;
         using HashCodeXXH3_128  =HashCode<16>   ;
+        using HashCodeFNV1a     =HashCode<4>;
 
-        const int hash_code_bytes[]={4,4,16,16,20,20,32,64,4,8,16};		//hash码长度
+        const int hash_code_bytes[]={4,4,16,16,20,20,32,64,4,8,16,4};		//hash码长度
 
         /**
         * 散列值计算功能基类
@@ -160,8 +165,9 @@ namespace hgl
         HGL_CREATE_HASH_FUNC(xxH64)
         HGL_CREATE_HASH_FUNC(XXH3_64)
         HGL_CREATE_HASH_FUNC(XXH3_128)
+        HGL_CREATE_HASH_FUNC(FNV1a)
 
-#undef HGL_CREATE_HASH_FUNC
+//#undef HGL_CREATE_HASH_FUNC
 
         inline Hash *CreateHash(HASH ha)
         {
@@ -183,6 +189,7 @@ namespace hgl
                 CreatexxH64Hash,
                 CreateXXH3_64Hash,
                 CreateXXH3_128Hash,
+                CreateFNV1aHash
             };
 
             return func[(size_t)ha]();
@@ -240,7 +247,8 @@ namespace hgl
                 CountHash<HASH::xxH32   >,
                 CountHash<HASH::xxH64   >,
                 CountHash<HASH::XXH3_64 >,
-                CountHash<HASH::XXH3_128>
+                CountHash<HASH::XXH3_128>,
+                CountHash<HASH::FNV1a   >
             };
 
             return func[(size_t)ha](data,size,hash_code);
@@ -311,7 +319,8 @@ namespace hgl
                 CountHashStr<HASH::xxH32    >,
                 CountHashStr<HASH::xxH64    >,
                 CountHashStr<HASH::XXH3_64  >,
-                CountHashStr<HASH::XXH3_128 >
+                CountHashStr<HASH::XXH3_128 >,
+                CountHashStr<HASH::FNV1a    >
             };
 
             return func[(size_t)ha](data,size,hash_str,litter);
@@ -333,6 +342,7 @@ namespace hgl
         HGL_COUNT_HASH_FUNC(xxH64)
         HGL_COUNT_HASH_FUNC(XXH3_64)
         HGL_COUNT_HASH_FUNC(XXH3_128)
+        HGL_COUNT_HASH_FUNC(FNV1a)
 
 #undef HGL_COUNT_HASH_FUNC
 

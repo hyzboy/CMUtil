@@ -6,14 +6,13 @@ namespace hgl
     {
         namespace
         {
-            uint32_t FNV1aHash(const void *key, int len)
+            uint32_t CountFNV1a(uint32_t hash,const void *key, int len)
             {
                 //本代码来自Github Copilot
 
                 //FNV-1a 是一种简单且高效的哈希算法，适用于大多数场景。它具有良好的分布性和较快的计算速度。
 
                 const uint8_t *data = (const uint8_t *)key;
-                uint32_t hash = 2166136261u;
 
                 for (int i = 0; i < len; ++i) {
                     hash ^= data[i];
@@ -23,5 +22,33 @@ namespace hgl
                 return hash;
             }
         }//namespace
+
+        class FNV1a:public Hash
+        {
+            uint32_t result;
+
+        public:
+
+            void GetName(UTF8String &str)const override{str=U8_TEXT("FNV1a");}
+            void GetName(UTF16String &str)const override{str=U16_TEXT("FNV1a");}
+            const int GetHashBytes()const override{return 4;}
+            void Init()override
+            {
+                result=2166136261u;
+            }
+            void Update(const void *input,uint inputLen)override
+            {
+                result=CountFNV1a(result,input,inputLen);
+            }
+            void Final(void *digest)override
+            {
+                *(uint32_t *)digest=result;
+            }
+        };//class FNV1a
+
+        Hash *CreateFNV1aHash()
+        {
+            return(new FNV1a);
+        }
     }//namespace util
 }//namespace hgl
