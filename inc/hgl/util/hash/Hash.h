@@ -38,7 +38,7 @@ namespace hgl
         /**
         * Hash编码结构模板
         */
-        template<size_t SIZE> struct HashCode
+        template<size_t SIZE> struct HashCode:public ComparatorData<HashCode<SIZE>>
         {
             uint8 code[SIZE]{};
 
@@ -58,25 +58,6 @@ namespace hgl
 
             template<typename T> void ToUpperString(T *str,const T gap_char=0) const {ToUpperHexStr<T>(str,code,SIZE,gap_char);}
             template<typename T> void ToLowerString(T *str,const T gap_char=0) const {ToLowerHexStr<T>(str,code,SIZE,gap_char);}
-
-            const int CompFunc(const HashCode<SIZE> &hash)const
-            {
-                const unsigned char *s=code;
-                const unsigned char *t=hash.code;
-
-                for(int i=0;i<SIZE;i++)
-                {
-                    if(*s!=*t)
-                        return(*s-*t);
-
-                    s++;
-                    t++;
-                }
-
-                return(0);
-            }
-
-            CompOperator(const HashCode<SIZE> &,CompFunc)
         };//template<size_t SIZE> struct HashCode
 
         /**
