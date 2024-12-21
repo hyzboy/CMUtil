@@ -97,7 +97,7 @@ namespace hgl
                 if(!attrs_list.Get(key,info))
                     return default_value;
 
-                int result=string_serial_from_list(list,info.c_str());
+                int result=find_str_in_array(list,info.c_str());
 
                 if(result==-1)return default_value;
                 return result;
