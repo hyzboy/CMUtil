@@ -18,16 +18,22 @@ if(CM_UTIL_SUPPORT_XML)
 
     SET(XML_PARSE_CLASS_SOURCE      ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/xml/XMLParse.h
                                     xml/XMLParseClass.cpp)
+
+    SET(TREE_XML_SOURCE             ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/xml/TreeXML.h
+                                    xml/TreeXML.cpp)
                                     
     SET(XML_PARSE_SOURCE            ${XML_ELEMENT_PARSE_KV}
                                     ${XML_ELEMENT_PARSE_CREATER}
                                     ${XML_ELEMENT_PARSE_SOURCE}
 
-                                    ${XML_PARSE_CLASS_SOURCE})
+                                    ${XML_PARSE_CLASS_SOURCE}
+                                    ${TREE_XML_SOURCE}
+    )
 
     SOURCE_GROUP("XML\\ElementParse\\KV" FILES ${XML_ELEMENT_PARSE_KV})
     SOURCE_GROUP("XML\\ElementParse\\Creater" FILES ${XML_ELEMENT_PARSE_CREATER})
     SOURCE_GROUP("XML\\ElementParse" FILES ${XML_ELEMENT_PARSE_SOURCE})
+    SOURCE_GROUP("XML\\TreeXML" FILES ${TREE_XML_SOURCE})
     SOURCE_GROUP("XML" FILES ${XML_PARSE_CLASS_SOURCE})
 
 endif(CM_UTIL_SUPPORT_XML)
