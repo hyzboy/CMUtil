@@ -64,13 +64,13 @@ namespace hgl
             };
         }//namespace 
 
-        const UTF8String GetExpatVersion()
+        const U8String GetExpatVersion()
         {
-            return( UTF8String::numberOf(XML_MAJOR_VERSION)+
-                    UTF8String(U8_TEXT("."))+
-                    UTF8String::numberOf(XML_MINOR_VERSION)+
-                    UTF8String(U8_TEXT("."))+
-                    UTF8String::numberOf(XML_MICRO_VERSION));
+            return( U8String::numberOf(XML_MAJOR_VERSION)+
+                    U8String(U8_TEXT("."))+
+                    U8String::numberOf(XML_MINOR_VERSION)+
+                    U8String(U8_TEXT("."))+
+                    U8String::numberOf(XML_MICRO_VERSION));
         }
 
         const char *GetExpatError(int code)

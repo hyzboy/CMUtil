@@ -4,12 +4,12 @@
 
 namespace hgl
 {
-    const UTF8String GetJsoncppVersion();
+    const U8String GetJsoncppVersion();
 
     /**
      * 转换Json数据类型到普通UTF8字符串
      */
-    bool JsonToString(const Json::Value &jv_root,UTF8String &str,OSString &error_info);
+    bool JsonToString(const Json::Value &jv_root,U8String &str,OSString &error_info);
 
     /**
      * 解释一个json数据流

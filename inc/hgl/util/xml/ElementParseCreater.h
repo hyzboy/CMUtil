@@ -13,21 +13,21 @@ namespace hgl
         {
             friend class ElementParseCreater;
 
-            UTF8String element_name;
+            U8String element_name;
 
         protected:
 
-            Map<UTF8String,ElementCreater *> ecs_map;
+            Map<U8String,ElementCreater *> ecs_map;
 
-            virtual ElementCreater *GetSubElementCreater(const UTF8String &sub_name);
-
-        public:
-
-            const UTF8String &GetElementName()const{return element_name;}
+            virtual ElementCreater *GetSubElementCreater(const U8String &sub_name);
 
         public:
 
-            ElementCreater(const UTF8String &en){element_name=en;}
+            const U8String &GetElementName()const{return element_name;}
+
+        public:
+
+            ElementCreater(const U8String &en){element_name=en;}
             virtual ~ElementCreater()=default;
 
             bool Registry(ElementCreater *ec);
@@ -45,19 +45,19 @@ namespace hgl
         {
         protected:
 
-            UTF8String null_string;
+            U8String null_string;
 
-            Map<UTF8String,UTF8String> attrs_list;
+            Map<U8String,U8String> attrs_list;
 
         public:
 
-            ElementAttribute(const UTF8String &en):ElementCreater(en){}
+            ElementAttribute(const U8String &en):ElementCreater(en){}
             virtual ~ElementAttribute()=default;
 
-            const UTF8String operator[](const UTF8String &flag)
+            const U8String operator[](const U8String &flag)
             {
-                UTF8String key=flag.ToLowerCase();
-                UTF8String info;
+                U8String key=flag.ToLowerCase();
+                U8String info;
 
                 if(attrs_list.Get(key,info))
                     return info;
@@ -66,11 +66,11 @@ namespace hgl
             }
 
             #define TO_CONV(TYPE,FN,SFN,DEFAULT_VALUE)  \
-            const TYPE          FN  (const UTF8String &flag,const TYPE default_value=DEFAULT_VALUE) \
+            const TYPE          FN  (const U8String &flag,const TYPE default_value=DEFAULT_VALUE) \
             {   \
-                const UTF8String key=flag.ToLowerCase();    \
+                const U8String key=flag.ToLowerCase();    \
             \
-                UTF8String info;    \
+                U8String info;    \
             \
                 if(!attrs_list.Get(key,info))   \
                     return default_value;   \
@@ -88,11 +88,11 @@ namespace hgl
 
             #undef TO_CONV
 
-            const UTF8String    ToString    (const UTF8String &flag){return operator[](flag);}
-            const int           ToSerial    (const u8char **list,const UTF8String &flag,const int default_value)
+            const U8String    ToString    (const U8String &flag){return operator[](flag);}
+            const int           ToSerial    (const u8char **list,const U8String &flag,const int default_value)
             {
-                UTF8String key=flag.ToLowerCase();
-                UTF8String info;
+                U8String key=flag.ToLowerCase();
+                U8String info;
 
                 if(!attrs_list.Get(key,info))
                     return default_value;
@@ -118,7 +118,7 @@ namespace hgl
 
             virtual void Attr       (const u8char *flag,const u8char *info) override///<节点属性
             {
-                UTF8String key=flag;
+                U8String key=flag;
 
                 key.LowerCase();
 
@@ -133,7 +133,7 @@ namespace hgl
         {
             Stack<ElementCreater *> ecs_stack;
 
-            Map<UTF8String,ElementCreater *> ecs_map;
+            Map<U8String,ElementCreater *> ecs_map;
 
             ElementCreater *cur_ec;
 

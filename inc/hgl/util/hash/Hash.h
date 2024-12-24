@@ -153,7 +153,7 @@ namespace hgl
         * @param litter 小写字母
         * @return 是否计算成功
         */
-        //bool GetFileHash(const OSString &filename,HASH ha,UTF8String &hash_str,bool litter=true);
+        //bool GetFileHash(const OSString &filename,HASH ha,U8String &hash_str,bool litter=true);
     }//namespace util
 }//namespace hgl
 #endif//HGL_UTIL_HASH_INCLUDE

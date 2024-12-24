@@ -25,7 +25,7 @@ namespace hgl
 
     namespace xml
     {
-        const UTF8String GetExpatVersion();
+        const U8String GetExpatVersion();
         const char *GetExpatError(int);
 
         constexpr int XML_PARSE_BUFFER_SIZE=HGL_SIZE_1KB*128;       ///<XML解析缓冲区大小
@@ -67,7 +67,7 @@ namespace hgl
                                         const char *flag=*name;++name;  \
                                         const char *info=*name;++name;
 
-    #define XML_END_PARSE()             LOG_ERROR(UTF8String(__FILE__)+U8_TEXT(":")+UTF8String(__LINE__)+U8_TEXT(" can't parse atts \"")+UTF8String(flag)+U8_TEXT("\" , info \"")+UTF8String(info)+U8_TEXT("\".")); \
+    #define XML_END_PARSE()             LOG_ERROR(U8String(__FILE__)+U8_TEXT(":")+U8String(__LINE__)+U8_TEXT(" can't parse atts \"")+U8String(flag)+U8_TEXT("\" , info \"")+U8String(info)+U8_TEXT("\".")); \
                                     }
     #define XML_END_PARSE_SKIP()    ;}
 
