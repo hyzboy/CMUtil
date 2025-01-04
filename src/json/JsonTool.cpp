@@ -9,12 +9,12 @@ using namespace std;
 
 namespace hgl
 {
-    const UTF8String GetJsoncppVersion()
+    const U8String GetJsoncppVersion()
     {
-        return UTF8String((const u8char *)JSONCPP_VERSION_STRING);
+        return U8String((const u8char *)JSONCPP_VERSION_STRING);
     }
 
-    bool JsonToString(const Json::Value &jv_root,UTF8String &str,OSString &error_info)
+    bool JsonToString(const Json::Value &jv_root,U8String &str,OSString &error_info)
     {
         Json::StreamWriterBuilder builder;
         Json::StreamWriter *writer=builder.newStreamWriter();
@@ -79,7 +79,7 @@ namespace hgl
 
     bool SaveJson(Json::Value &root,const OSString &filename,OSString &error_info)
     {
-        UTF8String txt;
+        U8String txt;
 
         if(!JsonToString(root,txt,error_info))
             return(false);
