@@ -6,10 +6,43 @@ namespace hgl
 {
     namespace xml
     {
-        TreeXML::TreeXML(char *data,int size)
+        TreeXMLNode::TreeXMLNode(TreeXMLData *xdata,int name)
         {
-            xml_raw_data=data;
-            xml_raw_size=size;
+            xml_raw_data=xdata;
+            element_name=name;
+
+            data=-1;
+        }
+
+        void TreeXMLNode::AddAtts(int name,int info)
+        {
+            atts.Add(Pair<int,int>(name,info));
+        }
+
+        void TreeXMLNode::SetData(int d)
+        {
+            data=d;
+        }
+
+        const U8StringView *TreeXMLNode::GetElementName()const
+        {
+            if(!xml_raw_data||element_name<0)
+                return nullptr;
+
+            return xml_raw_data->ElementNameList.At(element_name);
+        }
+
+        const U8StringView *TreeXMLNode::GetAtts(const U8String &name)
+        {
+            if(!xml_raw_data||atts.IsEmpty()||name.IsEmpty())
+                return nullptr;
+
+            for(int i=0;i<atts.GetCount();i++)
+            {
+                if(xml_raw_data->AttsList[atts[i].left]==name)
+                    return xml_raw_data->InfoList.At(atts[i].right);
+            }
+            return nullptr;
         }
 
         namespace
@@ -38,13 +71,16 @@ namespace hgl
             }
         }//namespace
 
-        TreeXML *ParseXMLToTree(char *xml_raw_text,int xml_raw_size)
+        TreeXMLNode *ParseXMLToTree(U8StringView sv)
         {
-            if(!xml_raw_text||xml_raw_size<=0)return(nullptr);
+            if(sv.IsEmpty())
+                return(nullptr);
 
             XMLTreeParse xtp;
 
-            TreeXML *root=new TreeXML(xml_raw_text,xml_raw_size);
+            TreeXMLData *xml_data=new TreeXMLData;
+
+            xml_data->xml_raw_data=sv;
 
             XML_Parser xml=XML_ParserCreate(XML_UTF8_Charset);
 
@@ -53,7 +89,7 @@ namespace hgl
             XML_SetElementHandler(xml,(XML_StartElementHandler)TreeXMLStartElement,(XML_EndElementHandler)TreeXMLEndElement);
             XML_SetCharacterDataHandler(xml,(XML_CharacterDataHandler)TreeXMLCharData);
 
-            XML_Parse(xml,xml_raw_text,xml_raw_size,true);
+            XML_Parse(xml,(char *)sv.c_str(),sv.length(),true);
         }
     }//namespace xml
 }//namespace hgl
