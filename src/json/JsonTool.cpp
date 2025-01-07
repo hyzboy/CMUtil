@@ -28,7 +28,7 @@ namespace hgl
             writer->write(jv_root,&json_result);
             result=true;
 
-            str=ToUTF8String(json_result.str());
+            str=ToU8String(json_result.str());
         }
         catch(std::exception &e)
         {

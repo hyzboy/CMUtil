@@ -1,4 +1,4 @@
-#include<hgl/util/xml/TreeXML.h>
+﻿#include<hgl/util/xml/TreeXML.h>
 #include<hgl/type/Stack.h>
 #include<expat.h>
 
@@ -9,7 +9,7 @@ namespace hgl
         TreeXMLNode::TreeXMLNode(TreeXMLData *xdata,int name)
         {
             xml_raw_data=xdata;
-            element_name=name;
+            name=name;
 
             data=-1;
         }
@@ -26,10 +26,10 @@ namespace hgl
 
         const U8StringView *TreeXMLNode::GetElementName()const
         {
-            if(!xml_raw_data||element_name<0)
+            if(!xml_raw_data||name<0)
                 return nullptr;
 
-            return xml_raw_data->ElementNameList.At(element_name);
+            return xml_raw_data->ElementNameList.At(name);
         }
 
         const U8StringView *TreeXMLNode::GetAtts(const U8String &name)

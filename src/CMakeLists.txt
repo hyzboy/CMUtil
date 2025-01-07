@@ -1,4 +1,4 @@
-#################################################################################################### XML
+﻿#################################################################################################### XML
 option(CM_UTIL_SUPPORT_XML "Build XML Parse module." ON)
 
 if(CM_UTIL_SUPPORT_XML)
@@ -27,7 +27,7 @@ if(CM_UTIL_SUPPORT_XML)
                                     ${XML_ELEMENT_PARSE_SOURCE}
 
                                     ${XML_PARSE_CLASS_SOURCE}
-                                    ${TREE_XML_SOURCE}
+                                    #${TREE_XML_SOURCE}
     )
 
     SOURCE_GROUP("XML\\ElementParse\\KV" FILES ${XML_ELEMENT_PARSE_KV})

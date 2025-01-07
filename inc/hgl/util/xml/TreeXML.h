@@ -1,9 +1,9 @@
-#pragma once
+﻿#pragma once
 
-#include<hgl/type/List.h>
+#include<hgl/type/Map.h>
 #include<hgl/type/String.h>
 #include<hgl/type/StringView.h>
-#include<hgl/type/KeyValue.h>
+#include<hgl/type/Pair.h>
 
 namespace hgl
 {
@@ -32,20 +32,20 @@ namespace hgl
         class TreeXMLNode
         {
             /**
-                <node atts="info">
+                <node number="123456">
                     abcdefg
                 </root>
 
-                element_name    root
-                atts            atts=info
-                data            abcdefg
+                name    root
+                atts    number=123456
+                data    abcdefg
             */
 
             TreeXMLData *   xml_raw_data;
 
-            int                 element_name;      ///<元素点名字视图
-            List<KeyValue<int,int>> atts;              ///<属性点文字视图
-            int                 data;              ///<数据文本视图
+            int             name;               ///<元素点名字视图
+            Map<int,int>    atts;              ///<属性点文字视图
+            int             data;              ///<数据文本视图
 
         private:
 
