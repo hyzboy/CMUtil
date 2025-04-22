@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include<hgl/Comparator.h>
-#include<hgl/type/List.h>
+#include<hgl/type/ArrayList.h>
 #include<string.h>
 
 namespace hgl
