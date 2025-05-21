@@ -204,7 +204,7 @@ namespace hgl
             break;
         }
 
-        PAttribBase<C> *attr=GetObjectFromList(pa_map,name);
+        PAttribBase<C> *attr=GetObjectFromMap(pa_map,name);
 
         if(attr)
             attr->ParseFromString(value);
@@ -285,7 +285,7 @@ namespace hgl
         //    return Add(pa_name,str);
         //}
 
-        PAttribBase<C> *Get(const PString &name){return GetObjectFromList(pa_map,name);}
+        PAttribBase<C> *Get(const PString &name){return GetObjectFromMap(pa_map,name);}
 
         void Delete(const PString &name){pa_map.DeleteByKey(name);}
 
