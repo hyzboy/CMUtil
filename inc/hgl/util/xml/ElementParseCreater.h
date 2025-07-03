@@ -30,7 +30,7 @@ namespace hgl
             ElementCreater(const U8String &en){element_name=en;}
             virtual ~ElementCreater()=default;
 
-            bool Registry(ElementCreater *ec);
+            bool Register(ElementCreater *ec);
 
         public:
 
@@ -143,12 +143,12 @@ namespace hgl
             {
                 cur_ec=nullptr;
 
-                Registry(root_ec);
+                Register(root_ec);
             }
 
             virtual ~ElementParseCreater()=default;
 
-            bool Registry   (ElementCreater *ec);
+            bool Register   (ElementCreater *ec);
 
         public:
 

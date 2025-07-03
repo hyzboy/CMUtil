@@ -4,7 +4,7 @@ namespace hgl
 {
     namespace xml
     {
-        bool ElementParseCreater::Registry(ElementCreater *ec)
+        bool ElementParseCreater::Register(ElementCreater *ec)
         {
             if(!ec)return(false);
 
