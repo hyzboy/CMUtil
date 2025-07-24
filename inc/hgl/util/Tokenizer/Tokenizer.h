@@ -48,8 +48,8 @@ enum class TokenType
     ListSeparator,      // ,
     StartStatementBlock,// {
     EndStatementBlock,  // }
-    OpenParanthesis,    // (
-    CloseParanthesis,   // )
+    OpenParenthesis,    // (
+    CloseParenthesis,   // )
     OpenBracket,        // [
     CloseBracket,       // ]
     Amp,                // &
@@ -114,9 +114,9 @@ constexpr TokenWord token_words[]=
     DEFINE_TOKEN(";",   EndStatement),
     DEFINE_TOKEN(",",   ListSeparator),
     DEFINE_TOKEN("{",   StartStatementBlock),
-    DEFINE_TOKEN(")",   EndStatementBlock),
-    DEFINE_TOKEN("(",   OpenParanthesis),
-    DEFINE_TOKEN(")",   CloseParanthesis),
+    DEFINE_TOKEN("}",   EndStatementBlock),
+    DEFINE_TOKEN("(",   OpenParenthesis),
+    DEFINE_TOKEN(")",   CloseParenthesis),
     DEFINE_TOKEN("[",   OpenBracket),
     DEFINE_TOKEN("]",   CloseBracket),
     DEFINE_TOKEN("?",   Question),
