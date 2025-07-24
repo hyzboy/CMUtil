@@ -13,7 +13,7 @@ namespace hgl
         {        
             const char *xml_error_code[]=
             {            
-                "UNKNOW_ERROR"
+                "UNKNOWN_ERROR",
 
                 "NONE",
                 "NO_MEMORY",
@@ -143,7 +143,7 @@ namespace hgl
         }
 
         /**
-        * 重新开始一次解晰
+        * 重新开始一次解析
         */
         void XMLParse::Start(const char *charset)
         {
@@ -162,11 +162,11 @@ namespace hgl
         }
 
         /**
-        * 解晰一段xml文本
+        * 解析一段xml文本
         * @param buf 文本缓冲区
         * @param len 文本长度
         * @param isFin 是否结束
-        * @return 此次解晰是否成功
+        * @return 此次解析是否成功
         */
         bool XMLParse::Parse(const char *buf,int len,bool isFin)
         {

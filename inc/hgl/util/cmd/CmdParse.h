@@ -7,9 +7,9 @@ namespace hgl
     namespace util
     {
         /**
-        * 命令行参数解晰辅助类
+        * 命令行参数解析辅助类
         */
-        class CmdParse                                                          ///命令行参数解晰辅助类
+        class CmdParse                                                          ///命令行参数解析辅助类
         {
             OSStringList args;
 
