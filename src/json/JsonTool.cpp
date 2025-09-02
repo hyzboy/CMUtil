@@ -1,6 +1,6 @@
 ﻿#include<string>
 #include<sstream>
-#include<json/json.h>
+#include<nlohmann/json.hpp>
 #include<hgl/filesystem/FileSystem.h>
 #include<hgl/type/StdString.h>
 
@@ -9,54 +9,46 @@ using namespace std;
 
 namespace hgl
 {
-    const U8String GetJsoncppVersion()
+    const U8String GetNlohmannJsonVersion()
     {
-        return U8String((const u8char *)JSONCPP_VERSION_STRING);
+        return U8String((const u8char *)("3.11.2")); // nlohmann/json version
     }
 
-    bool JsonToString(const Json::Value &jv_root,U8String &str,OSString &error_info)
+    bool JsonToString(const nlohmann::json &jv_root,U8String &str,OSString &error_info)
     {
-        Json::StreamWriterBuilder builder;
-        Json::StreamWriter *writer=builder.newStreamWriter();
-
-        JSONCPP_OSTRINGSTREAM json_result;
-
-        bool result;
-
         try
         {
-            writer->write(jv_root,&json_result);
-            result=true;
-
-            str=ToU8String(json_result.str());
+            std::string json_result = jv_root.dump();
+            str = ToU8String(json_result);
+            return true;
         }
         catch(std::exception &e)
         {
-            error_info=OS_TEXT("[C++ Exception][Json::StreamWriter::write] ")+ToOSString(e.what());
-            result=false;
+            error_info=OS_TEXT("[C++ Exception][nlohmann::json::dump] ")+ToOSString(e.what());
+            return false;
         }
-
-        delete writer;
-        return result;
     }
 
-    bool ParseJson(Json::Value &root,const char *txt,const int size,OSString &error_str)
+    bool ParseJson(nlohmann::json &root,const char *txt,const int size,OSString &error_str)
     {
-        Json::CharReaderBuilder builder;
-        Json::CharReader *reader=builder.newCharReader();
-
-        JSONCPP_STRING errs;
-
-        const bool result=reader->parse(txt,txt+size,&root,&errs);
-
-        delete reader;
-
-        error_str=ToOSString(errs);
-
-        return result;
+        try
+        {
+            root = nlohmann::json::parse(txt, txt + size);
+            return true;
+        }
+        catch(nlohmann::json::parse_error &e)
+        {
+            error_str = ToOSString(e.what());
+            return false;
+        }
+        catch(std::exception &e)
+        {
+            error_str = ToOSString(e.what());
+            return false;
+        }
     }
 
-    bool LoadJson(Json::Value &root,const OSString &filename,OSString &error_info)
+    bool LoadJson(nlohmann::json &root,const OSString &filename,OSString &error_info)
     {
         char *txt;
         int size;
@@ -77,7 +69,7 @@ namespace hgl
         return(result);
     }
 
-    bool SaveJson(Json::Value &root,const OSString &filename,OSString &error_info)
+    bool SaveJson(nlohmann::json &root,const OSString &filename,OSString &error_info)
     {
         U8String txt;
 

@@ -43,7 +43,7 @@ endif(CM_UTIL_SUPPORT_XML)
 option(CM_UTIL_SUPPORT_JSON "Build JSON Parse/make module." ON)
 
 IF(CM_UTIL_SUPPORT_JSON)
-    find_package(jsoncpp CONFIG REQUIRED)
+    find_package(nlohmann_json CONFIG REQUIRED)
 
     set(JSON_TOOL_SOURCE ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/json/JsonTool.h
                          json/JsonTool.cpp)
@@ -128,7 +128,7 @@ SET(DATABLOCK_SOURCE    ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/datablock/DataBlock
 
 source_group("Data Block" FILES ${DATABLOCK_SOURCE})
 
-add_cm_library(CMUtil "CM"	${CMD_SOURCE}
+add_library(CMUtil ${CMD_SOURCE}
 #							${TIME_SOURCE}
 #                            ${DATABLOCK_SOURCE}
 
@@ -150,5 +150,5 @@ if(CM_UTIL_SUPPORT_XML)
 endif()
 
 IF(CM_UTIL_SUPPORT_JSON)
-    target_link_libraries(CMUtil PRIVATE JsonCpp::JsonCpp)
+    target_link_libraries(CMUtil PRIVATE nlohmann_json::nlohmann_json)
 ENDIF(CM_UTIL_SUPPORT_JSON)

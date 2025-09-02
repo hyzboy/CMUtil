@@ -1,21 +1,21 @@
 ﻿#pragma once
-#include<json/json.h>
+#include<nlohmann/json.hpp>
 #include<hgl/type/String.h>
 
 namespace hgl
 {
-    const U8String GetJsoncppVersion();
+    const U8String GetNlohmannJsonVersion();
 
     /**
      * 转换Json数据类型到普通UTF8字符串
      */
-    bool JsonToString(const Json::Value &jv_root,U8String &str,OSString &error_info);
+    bool JsonToString(const nlohmann::json &jv_root,U8String &str,OSString &error_info);
 
     /**
      * 解释一个json数据流
      */
-    bool ParseJson(Json::Value &root,const char *str,const int size,OSString &error_info);
+    bool ParseJson(nlohmann::json &root,const char *str,const int size,OSString &error_info);
 
-    bool LoadJson(Json::Value &,const hgl::OSString &filename,OSString &error_info);
-    bool SaveJson(Json::Value &,const hgl::OSString &filename,OSString &error_info);
+    bool LoadJson(nlohmann::json &,const hgl::OSString &filename,OSString &error_info);
+    bool SaveJson(nlohmann::json &,const hgl::OSString &filename,OSString &error_info);
 };//

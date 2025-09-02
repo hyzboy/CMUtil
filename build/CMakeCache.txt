@@ -221,11 +221,17 @@ CMUtil_BINARY_DIR:STATIC=/home/runner/work/CMUtil/CMUtil/build
 //Value Computed by CMake
 CMUtil_IS_TOP_LEVEL:STATIC=ON
 
+//Dependencies for the target
+CMUtil_LIB_DEPENDS:STATIC=general;expat::expat;
+
 //Value Computed by CMake
 CMUtil_SOURCE_DIR:STATIC=/home/runner/work/CMUtil/CMUtil
 
+//Build HASH module
+CM_UTIL_SUPPORT_HASH:BOOL=ON
+
 //Build JSON Parse/make module.
-CM_UTIL_SUPPORT_JSON:BOOL=ON
+CM_UTIL_SUPPORT_JSON:BOOL=OFF
 
 //Build XML Parse module.
 CM_UTIL_SUPPORT_XML:BOOL=ON
@@ -233,8 +239,8 @@ CM_UTIL_SUPPORT_XML:BOOL=ON
 //The directory containing a CMake configuration file for expat.
 expat_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/expat-2.6.1
 
-//The directory containing a CMake configuration file for jsoncpp.
-jsoncpp_DIR:PATH=jsoncpp_DIR-NOTFOUND
+//The directory containing a CMake configuration file for nlohmann_json.
+nlohmann_json_DIR:PATH=/usr/share/miniconda/share/cmake/nlohmann_json
 
 
 ########################
@@ -388,6 +394,8 @@ CMAKE_TAPI-ADVANCED:INTERNAL=1
 CMAKE_UNAME:INTERNAL=/usr/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
+//Details about finding nlohmann_json
+FIND_PACKAGE_MESSAGE_DETAILS_nlohmann_json:INTERNAL=[/usr/share/miniconda/share/cmake/nlohmann_json/nlohmann_jsonConfig.cmake][v3.11.2()]
 //linker supports push/pop state
 _CMAKE_CXX_LINKER_PUSHPOP_STATE_SUPPORTED:INTERNAL=TRUE
 //linker supports push/pop state
