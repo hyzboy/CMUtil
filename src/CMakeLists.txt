@@ -63,6 +63,14 @@ IF(CM_UTIL_SUPPORT_HASH)
 
     SOURCE_GROUP("HASH\\xxHash" FILES ${XXHASH_FILES})
 
+    SET(CITY_HASH_FILES hash/CityHash/CityHashConfig.h
+                        hash/CityHash/city.h
+                        hash/CityHash/citycrc.h
+                        hash/CityHash/city.cc
+                        hash/CityHash/CityHash.cpp)
+
+    SOURCE_GROUP("HASH\\CityHash" FILES ${CITY_HASH_FILES})
+
     SET(HASH_HEADER_FILES   ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/hash/Hash.h
                             ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/hash/SHA1LE.h)
 
@@ -78,7 +86,6 @@ IF(CM_UTIL_SUPPORT_HASH)
                             hash/xxHash3.cpp
                             hash/FNV1a.cpp
                             hash/MurmurHash3.cpp
-                            hash/GoogleCityHash.cpp
     )
 
     SOURCE_GROUP("HASH" FILES ${HASH_HEADER_FILES} ${HASH_SOURCE_FILES})
@@ -130,15 +137,13 @@ add_cm_library(CMUtil "CM"	${CMD_SOURCE}
                             ${CSV_SOURCE}
 
                             ${XXHASH_FILES}
+                            ${CITY_HASH_FILES}
                             ${HASH_HEADER_FILES}
                             ${HASH_SOURCE_FILES}
 
                             ${CRYPT_HEADER_FILES}
                             ${CRYPT_SOURCE_FILES}
                            )
-
-find_package(cityhash CONFIG REQUIRED)
-target_link_libraries(CMUtil PRIVATE cityhash)
 
 if(CM_UTIL_SUPPORT_XML)
     target_link_libraries(CMUtil PRIVATE expat::expat)
