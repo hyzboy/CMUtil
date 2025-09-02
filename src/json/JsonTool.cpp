@@ -1,5 +1,4 @@
 ﻿#include<string>
-#include<sstream>
 #include<nlohmann/json.hpp>
 #include<hgl/filesystem/FileSystem.h>
 #include<hgl/type/StdString.h>
@@ -9,11 +8,6 @@ using namespace std;
 
 namespace hgl
 {
-    const U8String GetNlohmannJsonVersion()
-    {
-        return U8String((const u8char *)("3.11.2")); // nlohmann/json version
-    }
-
     bool JsonToString(const nlohmann::json &jv_root,U8String &str,OSString &error_info)
     {
         try

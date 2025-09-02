@@ -4,8 +4,6 @@
 
 namespace hgl
 {
-    const U8String GetNlohmannJsonVersion();
-
     /**
      * 转换Json数据类型到普通UTF8字符串
      */
