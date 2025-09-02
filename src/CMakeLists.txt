@@ -128,7 +128,8 @@ SET(DATABLOCK_SOURCE    ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/datablock/DataBlock
 
 source_group("Data Block" FILES ${DATABLOCK_SOURCE})
 
-add_library(CMUtil ${CMD_SOURCE}
+
+add_cm_library(CMUtil "CM"   ${CMD_SOURCE}
 #							${TIME_SOURCE}
 #                            ${DATABLOCK_SOURCE}
 
