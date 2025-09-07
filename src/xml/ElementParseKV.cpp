@@ -1,5 +1,5 @@
 ﻿#include<hgl/util/xml/ElementParseKV.h>
-#include<hgl/CodePage.h>
+#include<hgl/Charset.h>
 
 namespace hgl
 {
