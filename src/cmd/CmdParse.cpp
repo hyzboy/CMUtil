@@ -64,7 +64,7 @@ namespace hgl
                 int len=strchr(p+1,L'"')-p;
 
                 if(len>1)
-                    result.Strcpy(p+1,len-1);
+                    result.fromString(p+1,len-1);
                 else
                     result=p+1;
             }
