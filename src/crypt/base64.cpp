@@ -88,7 +88,7 @@ namespace hgl
             int in_ = 0;
             uchar char_array_4[4], char_array_3[3];
 
-            while (in_len-- && ( input[in_] != '=') && isbase64(input[in_]))
+            while (in_len-- && ( input[in_] != '=') && is_base64_char(input[in_]))
             {
                 char_array_4[i++] = input[in_]; in_++;
 
