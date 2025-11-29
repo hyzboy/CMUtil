@@ -1,3 +1,5 @@
+﻿#pragma once
+
 enum class TokenType
 {
     Unrecognized=0,

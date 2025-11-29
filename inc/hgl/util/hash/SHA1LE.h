@@ -1,5 +1,4 @@
-﻿#ifndef HGL_ALGORITHM_HASH_SHA1LE_INCLUDE
-#define HGL_ALGORITHM_HASH_SHA1LE_INCLUDE
+﻿#pragma once
 
 #include<hgl/util/hash/Hash.h>
 namespace hgl
@@ -49,4 +48,3 @@ namespace hgl
         };//class SHA1LE
     }//namespace util
 }//namespace hgl
-#endif//HGL_ALGORITHM_HASH_SHA1LE_INCLUDE

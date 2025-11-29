@@ -1,5 +1,4 @@
-﻿#ifndef HGL_UTIL_HASH_INCLUDE
-#define HGL_UTIL_HASH_INCLUDE
+﻿#pragma once
 
 #include<hgl/type/String.h>
 namespace hgl
@@ -156,4 +155,3 @@ namespace hgl
         //bool GetFileHash(const OSString &filename,HASH ha,U8String &hash_str,bool litter=true);
     }//namespace util
 }//namespace hgl
-#endif//HGL_UTIL_HASH_INCLUDE

@@ -1,5 +1,4 @@
-﻿#ifndef HGL_UTIL_XML_ELEMENT_PARSE_KV_INCLUDE
-#define HGL_UTIL_XML_ELEMENT_PARSE_KV_INCLUDE
+﻿#pragma once
 
 #include<hgl/util/xml/ElementParse.h>
 #include<hgl/type/String.h>
@@ -61,4 +60,3 @@ namespace hgl
         };//class ElementParseKV:public ElementParse
     }//namespace xml
 }//namespace hgl
-#endif//HGL_UTIL_XML_ELEMENT_PARSE_KV_INCLUDE

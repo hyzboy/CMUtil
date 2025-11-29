@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include<hgl/io/FileInputStream.h>
 #include<hgl/io/TextInputStream.h>
 #include<hgl/util/csv/CSVFieldSplite.h>

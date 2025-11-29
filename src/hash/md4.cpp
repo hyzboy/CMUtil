@@ -1,4 +1,4 @@
-#include<hgl/util/hash/Hash.h>
+﻿#include<hgl/util/hash/Hash.h>
 #include<hgl/type/DataType.h>
 
 namespace hgl

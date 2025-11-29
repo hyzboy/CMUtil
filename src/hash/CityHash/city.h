@@ -1,4 +1,4 @@
-// Copyright (c) 2011 Google, Inc.
+﻿// Copyright (c) 2011 Google, Inc.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -59,8 +59,7 @@
 // of a+b is easily derived from the hashes of a and b.  This property
 // doesn't hold for any hash functions in this file.
 
-#ifndef CITY_HASH_H_
-#define CITY_HASH_H_
+#pragma once
 
 #include <stdlib.h>  // for size_t.
 #include <stdint.h>
@@ -109,4 +108,3 @@ inline uint64 Hash128to64(const uint128& x) {
   return b;
 }
 
-#endif  // CITY_HASH_H_

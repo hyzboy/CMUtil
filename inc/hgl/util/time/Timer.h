@@ -1,5 +1,4 @@
-﻿#ifndef HGL_TIMER_INCLUDE
-#define HGL_TIMER_INCLUDE
+﻿#pragma once
 
 #include<hgl/type/DataType.h>
 #include<hgl/object/Object.h>
@@ -35,4 +34,3 @@ namespace hgl
         virtual void Update();
     };//class Timer:public Object
 }//namespace hgl
-#endif//HGL_TIMER_INCLUDE

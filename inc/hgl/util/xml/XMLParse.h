@@ -1,5 +1,4 @@
-﻿#ifndef HGL_XML_PARSE_INCLUDE
-#define HGL_XML_PARSE_INCLUDE
+﻿#pragma once
 
 #include<hgl/type/String.h>
 #include<hgl/util/xml/ElementParse.h>
@@ -113,4 +112,3 @@ namespace hgl
     */
     }//namespace xml
 }//namespace hgl
-#endif//HGL_XML_PARSE_INCLUDE

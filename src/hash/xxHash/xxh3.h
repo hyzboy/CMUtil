@@ -1,3 +1,5 @@
+﻿#pragma once
+
 /*
  * xxHash - Extremely Fast Hash algorithm
  * Development source file for `xxh3`

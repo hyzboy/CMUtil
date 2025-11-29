@@ -1,3 +1,5 @@
+﻿#pragma once
+
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
 /* Define if building universal (internal helper macro) */

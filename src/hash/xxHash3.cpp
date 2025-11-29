@@ -1,4 +1,4 @@
-#include"xxHash/xxh3.h"
+﻿#include"xxHash/xxh3.h"
 #include<hgl/util/hash/Hash.h>
 #include<random>
 

@@ -1,7 +1,6 @@
-/* Copyright 2014, Kenneth MacKay. Licensed under the BSD 2-clause license. */
+﻿/* Copyright 2014, Kenneth MacKay. Licensed under the BSD 2-clause license. */
 
-#ifndef _MICRO_ECC_H_
-#define _MICRO_ECC_H_
+#pragma once
 
 #include <stdint.h>
 
@@ -168,4 +167,3 @@ int uECC_verify(const uint8_t p_publicKey[uECC_BYTES*2], const uint8_t p_hash[uE
 } /* end of extern "C" */
 #endif
 
-#endif /* _MICRO_ECC_H_ */

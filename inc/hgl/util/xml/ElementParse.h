@@ -1,5 +1,4 @@
-﻿#ifndef HGL_UTIL_XML_ELEMENT_PARSE_INCLUDE
-#define HGL_UTIL_XML_ELEMENT_PARSE_INCLUDE
+﻿#pragma once
 
 #include<hgl/type/DataType.h>
 namespace hgl
@@ -23,4 +22,3 @@ namespace hgl
         };//class ElementParse
     }//namespace xml
 }//namespace hgl
-#endif//HGL_UTIL_XML_ELEMENT_PARSE_INCLUDE

@@ -1,5 +1,4 @@
-﻿#ifndef HGL_ALGORITHM_CRYPT_INCLUDE
-#define HGL_ALGORITHM_CRYPT_INCLUDE
+﻿#pragma once
 
 #include<hgl/type/DataType.h>
 namespace hgl   //校验/加密算法
@@ -23,4 +22,3 @@ namespace hgl   //校验/加密算法
         bool base64_decode(io::OutputStream *os,const uchar *input,size_t len);
     }//namespace crypt
 }//namespace hgl
-#endif//HGL_ALGORITHM_CRYPT_INCLUDE

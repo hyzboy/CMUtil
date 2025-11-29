@@ -1,5 +1,4 @@
-﻿#ifndef HGL_UTIL_XML_ELEMENT_PARSE_CREATER_INCLUDE
-#define HGL_UTIL_XML_ELEMENT_PARSE_CREATER_INCLUDE
+﻿#pragma once
 
 #include<hgl/util/xml/ElementParse.h>
 #include<hgl/type/String.h>
@@ -160,4 +159,3 @@ namespace hgl
         };//class ElementParseCreater:public ElementParse
     }//namespace xml
 }//namespace hgl
-#endif//HGL_UTIL_XML_ELEMENT_PARSE_CREATER_INCLUDE

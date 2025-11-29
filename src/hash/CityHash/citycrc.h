@@ -1,4 +1,4 @@
-// Copyright (c) 2011 Google, Inc.
+﻿// Copyright (c) 2011 Google, Inc.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -25,8 +25,7 @@
 //
 // Functions in the CityHash family are not suitable for cryptography.
 
-#ifndef CITY_HASH_CRC_H_
-#define CITY_HASH_CRC_H_
+#pragma once
 
 #include "city.h"
 
@@ -40,4 +39,3 @@ uint128 CityHashCrc128WithSeed(const char *s, size_t len, uint128 seed);
 // Hash function for a byte array.  Sets result[0] ... result[3].
 void CityHashCrc256(const char *s, size_t len, uint64 *result);
 
-#endif  // CITY_HASH_CRC_H_
