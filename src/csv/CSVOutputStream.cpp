@@ -1,6 +1,4 @@
-﻿#pragma once
-
-#include<hgl/util/csv/CSVOutputStream.h>
+﻿#include<hgl/util/csv/CSVOutputStream.h>
 #include<hgl/io/FileOutputStream.h>
 #include<hgl/io/TextOutputStream.h>
 
