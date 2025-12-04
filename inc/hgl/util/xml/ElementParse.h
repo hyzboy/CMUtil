@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include<hgl/type/DataType.h>
+#include<hgl/CoreType.h>
 namespace hgl
 {
     namespace xml

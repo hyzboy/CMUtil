@@ -1,5 +1,5 @@
 ﻿#include<hgl/util/hash/Hash.h>
-#include<hgl/type/DataType.h>
+#include<hgl/CoreType.h>
 
 namespace hgl
 {
