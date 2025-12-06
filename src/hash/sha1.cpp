@@ -90,7 +90,7 @@ namespace hgl
                 uint32 A, B, C, D, E;
 
                 /* Step A.  Copy the data buffer into the local work buffer */
-                hgl_cpy(W,data,16);
+                mem_copy(W,data,16);
 
                 /* Step B.  Expand the 16 words into 64 temporary data words */
                 expand( 16 ); expand( 17 ); expand( 18 ); expand( 19 ); expand( 20 );

@@ -65,7 +65,7 @@ namespace hgl
             uint32 A, B, C, D, E;
 
             /* Step A.  Copy the data buffer into the local work buffer */
-            hgl_cpy(W,data,16);
+            mem_copy(W,data,16);
 
             /* Step B.  Expand the 16 words into 64 temporary data words */
             expand( 16 ); expand( 17 ); expand( 18 ); expand( 19 ); expand( 20 );
@@ -124,12 +124,12 @@ namespace hgl
 
         void SHA1LE::SetMark(const uint32 *mysterious_constants)
         {
-            hgl_cpy(K,mysterious_constants,4);
+            mem_copy(K,mysterious_constants,4);
         }
 
         void SHA1LE::Init(const uint32 *_start_digest,const uint32 *mysterious_constants)
         {
-            hgl_cpy(digest,_start_digest,5);
+            mem_copy(digest,_start_digest,5);
 
             SetMark(mysterious_constants);
 
