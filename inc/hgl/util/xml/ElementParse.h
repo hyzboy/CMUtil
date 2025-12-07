@@ -1,24 +1,22 @@
 ﻿#pragma once
 
 #include<hgl/CoreType.h>
-namespace hgl
+
+namespace hgl::xml
 {
-    namespace xml
+    /**
+        * XML节点解析器
+        */
+    class ElementParse
     {
-        /**
-         * XML节点解析器
-         */
-        class ElementParse
-        {
-        public:
+    public:
 
-            virtual ~ElementParse()=default;
+        virtual ~ElementParse()=default;
 
-            virtual bool Init       (const u8char *element_name)            {return(true);}
-            virtual void Attr       (const u8char *flag,const u8char *info) {}
-            virtual bool Start      ()                                      {return(true);}
-            virtual void CharData   (const u8char *str,const int str_length){}
-            virtual void End        (const u8char *element_name)            {}
-        };//class ElementParse
-    }//namespace xml
-}//namespace hgl
+        virtual bool Init       (const u8char *element_name)            {return(true);}
+        virtual void Attr       (const u8char *flag,const u8char *info) {}
+        virtual bool Start      ()                                      {return(true);}
+        virtual void CharData   (const u8char *str,const int str_length){}
+        virtual void End        (const u8char *element_name)            {}
+    };//class ElementParse
+}//namespace hgl::xml
