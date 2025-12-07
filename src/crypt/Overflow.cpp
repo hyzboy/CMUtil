@@ -1,101 +1,62 @@
 ﻿#include<hgl/CoreType.h>
+#include <cstring>
+#include <vector>
+#include <cstddef>
 
 namespace hgl::crypt
 {
     /**
-    * 溢出加密
-    * @param target 加密后的数据存放区
-    * @param source 加密前的数据存放区
-    * @param size 数据长度
-    * @param key 密码
-    * @param key_size 密码长度
+    * 新安全接口实现。不会修改传入的 key 缓冲，内部使用本地副本。
     */
-    void OverflowEncrypt(void *target, void *source, int size, void *key, int key_size)
+    bool OverflowEncrypt(void *target, const void *source, size_t size, const void *key, size_t key_size)
     {
-        if (!target || !source || !key || key_size <= 0 || size <= 0) return;
+        if (!target || !source || !key) return false;
+        if (key_size == 0 || size == 0) return false;
 
-        int n;
-        uint8 *key_p;
-        uint8 *tp, *sp;
+        const uint8 *sp = reinterpret_cast<const uint8 *>(source);
+        uint8 *tp = reinterpret_cast<uint8 *>(target);
 
-        n = key_size;
-        key_p = (uint8 *)key;
+        // 使用本地可变副本作为运行时密钥状态
+        std::vector<uint8> key_state(key_size);
+        memcpy(key_state.data(), key, key_size);
 
-        tp = (uint8 *)target;
-        sp = (uint8 *)source;
+        size_t idx = 0; // index into key_state
 
-        while (size--)
+        for (size_t i = 0; i < size; ++i)
         {
-            uint tmp = (*sp) + (*key_p);
-
-            if (tmp > 0xFF)
-                *tp = tmp - 0x100;
-            else
-                *tp = tmp;
-
-            *key_p ^= *tp;
-
-            tp++;
-            sp++;
-
-            if (--n == 0)
-            {
-                n = key_size;
-                key_p = (uint8 *)key;
-            }
-            else
-                key_p++;
+            uint8 k = key_state[idx];
+            uint8 out = static_cast<uint8>(static_cast<unsigned>(sp[i]) + k);
+            tp[i] = out;
+            key_state[idx] = k ^ out;
+            idx = (idx + 1) % key_size;
         }
+
+        return true;
     }
 
-    /**
-    * 溢出解密
-    * @param target 解密后的数据存放区
-    * @param source 解密前的数据存放区
-    * @param size 数据长度
-    * @param key 密码
-    * @param keysize 密码长度
-    */
-    void OverflowDecrypt(void *target, void *source, int size, void *key, int key_size)
+    bool OverflowDecrypt(void *target, const void *source, size_t size, const void *key, size_t key_size)
     {
-        if (!target || !source || !key || key_size <= 0 || size <= 0) return;
+        if (!target || !source || !key) return false;
+        if (key_size == 0 || size == 0) return false;
 
-        int n;
-        uint8 *key_p;
-        uint8 *tp, *sp;
+        const uint8 *sp = reinterpret_cast<const uint8 *>(source);
+        uint8 *tp = reinterpret_cast<uint8 *>(target);
 
-        n = key_size;
-        key_p = (uint8 *)key;
+        std::vector<uint8> key_state(key_size);
+        memcpy(key_state.data(), key, key_size);
 
-        tp = (uint8 *)target;
-        sp = (uint8 *)source;
+        size_t idx = 0;
 
-        while (size--)
+        for (size_t i = 0; i < size; ++i)
         {
-            // 保存密文字节，避免就地解密(target==source)时被覆盖后用于更新密钥
-            uint8 c = *sp;
-            uint8 p;
-
-            if (*key_p > c)
-                p = c + 0x100 - (*key_p);
-            else
-                p = c - (*key_p);
-
-            *tp = p;
-
-            // 使用原始密文更新密钥
-            *key_p ^= c;
-
-            tp++;
-            sp++;
-
-            if (--n == 0)
-            {
-                n = key_size;
-                key_p = (uint8 *)key;
-            }
-            else
-                key_p++;
+            uint8 c = sp[i];
+            uint8 k = key_state[idx];
+            uint8 p = static_cast<uint8>(static_cast<int>(c) - static_cast<int>(k));
+            tp[i] = p;
+            key_state[idx] = k ^ c;
+            idx = (idx + 1) % key_size;
         }
+
+        return true;
     }
 }//namespace hgl::crypt

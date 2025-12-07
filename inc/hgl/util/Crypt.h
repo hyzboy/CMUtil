@@ -10,8 +10,8 @@ namespace hgl   //校验/加密算法
 
     namespace crypt
     {
-        void OverflowEncrypt(void *, void *, int, void *, int);			        ///<溢出加密(轻度加密)
-        void OverflowDecrypt(void *, void *, int, void *, int);			        ///<溢出解密
+        bool OverflowEncrypt(void *target, const void *source, size_t size, const void *key, size_t key_size);
+        bool OverflowDecrypt(void *target, const void *source, size_t size, const void *key, size_t key_size);
 
         void AesEncrypt(uint8 data[16], uint8 *key, int keysize);               ///<AES加密
         void AesDecrypt(uint8 data[16], uint8 *key, int keysize);               ///<AES解密
