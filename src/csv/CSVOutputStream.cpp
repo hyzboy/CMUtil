@@ -2,26 +2,23 @@
 #include<hgl/io/FileOutputStream.h>
 #include<hgl/io/TextOutputStream.h>
 
-namespace hgl
+namespace hgl::util
 {
-    namespace util
+    CSVOutputStream<u8char> *CreateCSVOutputToUTF8File(const OSString &filename,const u8char fields_terminated_char,const u8char enclosed_char)
     {
-        CSVOutputStream<u8char> *CreateCSVOutputToUTF8File(const OSString &filename,const u8char fields_terminated_char,const u8char enclosed_char)
-        {
-            io::FileOutputStream *fos=io::CreateFileOutputStream(filename);
+        io::FileOutputStream *fos=io::CreateFileOutputStream(filename);
 
-            if(!fos)return(nullptr);
+        if(!fos)return(nullptr);
 
-            return CreateCSVOutputToStream<u8char>(fos,new io::UTF8TextOutputStream(fos),fields_terminated_char,enclosed_char);
-        }
+        return CreateCSVOutputToStream<u8char>(fos,new io::UTF8TextOutputStream(fos),fields_terminated_char,enclosed_char);
+    }
 
-        CSVOutputStream<u16char> *CreateCSVOutputToUTF16LEFile(const OSString &filename,const u16char fields_terminated_char,const u16char enclosed_char)
-        {
-            io::FileOutputStream *fos=io::CreateFileOutputStream(filename);
+    CSVOutputStream<u16char> *CreateCSVOutputToUTF16LEFile(const OSString &filename,const u16char fields_terminated_char,const u16char enclosed_char)
+    {
+        io::FileOutputStream *fos=io::CreateFileOutputStream(filename);
 
-            if(!fos)return(nullptr);
+        if(!fos)return(nullptr);
 
-            return CreateCSVOutputToStream<u16char>(fos,new io::UTF16LETextOutputStream(fos),fields_terminated_char,enclosed_char);
-        }
-    }//namespace util
-}//namespace hgl
+        return CreateCSVOutputToStream<u16char>(fos,new io::UTF16LETextOutputStream(fos),fields_terminated_char,enclosed_char);
+    }
+}//namespace hgl::util

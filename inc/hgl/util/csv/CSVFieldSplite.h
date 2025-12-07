@@ -1,88 +1,86 @@
 ﻿#pragma once
 
 #include<hgl/type/StrChar.h>
-namespace hgl
+
+namespace hgl::util
 {
-    namespace util
+    /**
+    * CSV字段拆分工具<br>
+    * 支持逗号分隔与tab分隔以及使用引号包裹的字符串
+    */
+    template<typename T> class CSVFieldSplite
     {
-        /**
-        * CSV字段拆分工具<br>
-        * 支持逗号分隔与tab分隔以及使用引号包裹的字符串
-        */
-        template<typename T> class CSVFieldSplite
+        const T *str;
+        int str_length;
+
+        const T *sp;
+        const T *end;
+
+    public:
+
+        CSVFieldSplite()
         {
-            const T *str;
-            int str_length;
+            str=nullptr;
+            str_length=0;
+            sp=nullptr;
+            end=nullptr;
+        }
 
-            const T *sp;
-            const T *end;
+        CSVFieldSplite(const T *s,const int length){Start(s,length);}
+        ~CSVFieldSplite()=default;
 
-        public:
+        void Start(const T *s,const int length)
+        {
+            str=s;
+            str_length=length;
+            sp=str;
+            end=str+str_length;
+        }
 
-            CSVFieldSplite()
+        const T *next_field(int *len)
+        {
+            if(!len)return(nullptr);
+            if(sp>=end)return(nullptr);
+
+            if(*sp==','||*sp=='\t')
             {
-                str=nullptr;
-                str_length=0;
-                sp=nullptr;
-                end=nullptr;
+                *len=0;
+                ++sp;
+                return sp;
             }
 
-            CSVFieldSplite(const T *s,const int length){Start(s,length);}
-            ~CSVFieldSplite()=default;
+            const T *result;
 
-            void Start(const T *s,const int length)
+            if(*sp=='"')
             {
-                str=s;
-                str_length=length;
-                sp=str;
-                end=str+str_length;
+                ++sp;
+
+                const T *ep=hgl::strchr(sp,T('"'));
+
+                if(!ep)
+                    return nullptr;
+
+                result=sp;
+
+                *len=ep-sp;
+                sp=ep+2;
+                return result;
             }
-
-            const T *next_field(int *len)
+            else
             {
-                if(!len)return(nullptr);
-                if(sp>=end)return(nullptr);
+                result=sp;
 
-                if(*sp==','||*sp=='\t')
-                {
-                    *len=0;
-                    ++sp;
-                    return sp;
-                }
-
-                const T *result;
-
-                if(*sp=='"')
-                {
-                    ++sp;
-
-                    const T *ep=hgl::strchr(sp,T('"'));
-
-                    if(!ep)
-                        return nullptr;
-
-                    result=sp;
-
-                    *len=ep-sp;
-                    sp=ep+2;
-                    return result;
-                }
-                else
-                {
-                    result=sp;
-
-                    const T *ep=sp+1;
+                const T *ep=sp+1;
             
-                    while(*ep!=','&&*ep!='\t'&&ep<end)
-                        ++ep;
+                while(*ep!=','&&*ep!='\t'&&ep<end)
+                    ++ep;
 
-                    *len=ep-sp;
+                *len=ep-sp;
 
-                    sp=ep+1;
+                sp=ep+1;
 
-                    return result;
-                }
+                return result;
             }
-        };//class CSVFieldSplite
-    }//namespace util
-}//namespace hgl
+        }
+    };//class CSVFieldSplite
+}//namespace hgl::util
