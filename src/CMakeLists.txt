@@ -128,6 +128,10 @@ SET(DATABLOCK_SOURCE    ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/datablock/DataBlock
 
 source_group("Data Block" FILES ${DATABLOCK_SOURCE})
 
+SET(CM_SG_GEO_FILES     ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/geo/GeoLocation.h
+                        geo/GeoLocation.cpp)
+
+SOURCE_GROUP("Geo" FILES ${CM_SG_GEO_FILES})
 
 add_cm_library(CMUtil "CM"   ${CMD_SOURCE}
 #							${TIME_SOURCE}
@@ -144,6 +148,8 @@ add_cm_library(CMUtil "CM"   ${CMD_SOURCE}
 
                             ${CRYPT_HEADER_FILES}
                             ${CRYPT_SOURCE_FILES}
+
+                            ${CM_SG_GEO_FILES}
                            )
 
 if(CM_UTIL_SUPPORT_XML)
