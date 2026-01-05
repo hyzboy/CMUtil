@@ -15,7 +15,7 @@ namespace hgl
      * @param gap_ch 分隔符
      * @return 保存的属性数量
      */ 
-    template<typename C,ByteOrderMask BOM> static int SaveToTextFile(const OSString &filename,const PAttribMap<C> &pa_map,const String<C> &gap_ch=String<C>("\t"))
+    template<typename C,ByteOrderMask BOM> static int SaveToTextFile(const OSString &filename,const PAttribMap<C> &pa_map,const C &gap_ch=C('\t'))
     {
         FileOutputStream fos;
         EndianTextOutputStream<BOM> tos(&fos);
@@ -30,7 +30,7 @@ namespace hgl
         for(int i=0;i<count;i++)
         {
             tos.WriteString((*pa_obj)->key);
-            tos.WriteString(gap_ch);
+            tos.WriteChars(&gap_ch,1);
             tos.WriteString((*pa_obj)->value->MakeToString());
             tos.WriteLineEnd();
 

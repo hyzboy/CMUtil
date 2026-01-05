@@ -294,7 +294,7 @@ namespace hgl
 
         void Enum(void (*enum_func)(const String<C> &key,PAttribBase<C> * &value))
         {
-            pa_map.Enum(enum_func);
+            pa_map.EnumKV(enum_func);
         };
     };//template<typename C> class PAttribSet
 
