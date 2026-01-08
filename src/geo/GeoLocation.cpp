@@ -364,7 +364,7 @@ namespace hgl::geo
     static inline double rad2deg(double r){ return r * 180.0 / PI_CONST; }
 
     // Based on NOAA Solar Calculator (https://gml.noaa.gov/grad/solcalc/)
-    const bool GetSunTime(float *sunrise,float *sunset,const float latitude,const float longitude,const Date &date)
+    const bool GetSunTime(float *sunrise,float *sunset,const float latitude,const float longitude,const CalendarDate &date)
     {
         if(!sunrise || !sunset) return false;
 

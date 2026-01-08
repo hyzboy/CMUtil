@@ -451,5 +451,5 @@ namespace hgl::geo
     /**
     * 根据经纬度计算日出日落时间
     */
-    const bool GetSunTime(float *sunrise,float *sunset,const float latitude,const float longitude,const Date &);
+    const bool GetSunTime(float *sunrise,float *sunset,const float latitude,const float longitude,const CalendarDate &);
 }//namespace hgl::geo
