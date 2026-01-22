@@ -37,7 +37,7 @@ namespace hgl
         /**
         * Hash编码结构模板
         */
-        template<size_t SIZE> struct HashCode:public ComparatorData<HashCode<SIZE>>
+        template<size_t SIZE> struct HashCode
         {
             uint8 code[SIZE]{};
 

@@ -1,199 +1,164 @@
 ﻿#pragma once
 
-#include<hgl/Comparator.h>
 #include<hgl/type/ArrayList.h>
-#include<string.h>
+#include<compare>
+#include<algorithm>
+#include<utility>
 
 namespace hgl
 {
-	template<typename T> class SortBase
-	{
-	protected:
+    /**
+     * @brief 使用标准库 std::sort 进行排序（要求类型支持 operator<=> 或 operator<）
+     * @tparam T 数据类型，需支持比较运算符
+     * @param data 数据缓冲区指针
+     * @param count 数据个数
+     * @return 是否排序成功
+     */
+    template<typename T>
+    bool Sort(T *data, int count)
+    {
+        if(!data || count < 2)
+            return false;
 
-		T *buffer;										//数据
-		int number;										//数据个数
+        std::sort(data, data + count);
+        return true;
+    }
 
-		ItemComparator<T> *comp;						//比较函数类
+    /**
+     * @brief 使用自定义比较器进行排序
+     * @tparam T 数据类型
+     * @tparam Compare 比较器类型（可以是函数、lambda、函数对象等）
+     * @param data 数据缓冲区指针
+     * @param count 数据个数
+     * @param comp 比较器对象
+     * @return 是否排序成功
+     */
+    template<typename T, typename Compare>
+    bool Sort(T *data, int count, Compare comp)
+    {
+        if(!data || count < 2)
+            return false;
 
-	public:
+        std::sort(data, data + count, comp);
+        return true;
+    }
 
-		SortBase(ItemComparator<T> *c)
-		{
-			buffer=nullptr;
-			number=0;
-			comp=c;
-		}
+    /**
+     * @brief 对 DataArray 进行排序（使用默认比较）
+     * @tparam T 数据类型，需支持比较运算符
+     * @param list DataArray 引用
+     * @return 是否排序成功
+     */
+    template<typename T>
+    bool Sort(hgl::DataArray<T> &list)
+    {
+        return Sort(list.GetData(), list.GetCount());
+    }
 
-		/**
-		 * 本类构造函数
-		 * @param buf 数据缓冲区
-		 * @param n 数据个数
-		 * @param c 数据大小比较类
-		 */
-		SortBase(T *buf,int n,ItemComparator<T> *c)
-		{
-			buffer	=buf;
-			number	=n;
-			comp	=c;
-		}
+    /**
+     * @brief 对 DataArray 进行排序（使用自定义比较器）
+     * @tparam T 数据类型
+     * @tparam Compare 比较器类型
+     * @param list DataArray 引用
+     * @param comp 比较器对象
+     * @return 是否排序成功
+     */
+    template<typename T, typename Compare>
+    bool Sort(hgl::DataArray<T> &list, Compare comp)
+    {
+        return Sort(list.GetData(), list.GetCount(), comp);
+    }
 
-		virtual ~SortBase()=default;
+    /**
+     * @brief 堆排序实现（保留用于特殊场景，如需要稳定的内存访问模式）
+     * @tparam T 数据类型
+     * @tparam Compare 比较器类型，默认使用 std::less<T>
+     */
+    template<typename T, typename Compare = std::less<T>>
+    class HeapSort
+    {
+    private:
+        T *buffer;
+        int number;
+        Compare comp;
 
-				int GetCount()const
-		{
-			return number;
-		}
+        void isift(int i, int n)
+        {
+            T temp = std::move(buffer[i]);
+            int j = 2 * (i + 1) - 1;
 
-				int compare(const T &a,const T &b)
-		{
-			return comp->compare(a,b);
-		}
+            while(j <= n)
+            {
+                if((j < n) && comp(buffer[j], buffer[j + 1]))
+                    j++;
 
-		virtual	int compare_by_index(int a,int b)
-		{
-			return comp->compare(buffer[a],buffer[b]);
-		}
+                if(comp(temp, buffer[j]))
+                {
+                    buffer[i] = std::move(buffer[j]);
+                    i = j;
+                    j = 2 * (i + 1) - 1;
+                }
+                else
+                {
+                    j = n + 1;
+                }
+            }
 
-		virtual	void exchange(T &a,T &b)
-		{
-			comp->exchange(a,b);
-		}
+            buffer[i] = std::move(temp);
+        }
 
-		virtual	void exchane_by_index(int a,int b)					//交换两个数据
-		{
-			comp->exchange(buffer[a],buffer[b]);
-		}
+    public:
+        /**
+         * @brief 堆排序构造函数
+         * @param buf 数据缓冲区
+         * @param n 数据个数
+         * @param c 比较器对象（默认使用 std::less<T>）
+         */
+        HeapSort(T *buf, int n, Compare c = Compare())
+            : buffer(buf), number(n), comp(c)
+        {
+        }
 
-		virtual void cpy(T *dst,T *src)
-		{
-			comp->cpy(dst,src);
-		}
+        bool sort()
+        {
+            if(!buffer || number < 2)
+                return false;
 
-		virtual void cpy_by_index(int dst,int src)
-		{
-			comp->cpy(buffer+dst,buffer+src);
-		}
+            int mm = number >> 1;
 
-		virtual bool sort()=0;								//排序
-	};//struct SortBase
+            for(int i = mm - 1; i >= 0; i--)
+                isift(i, number - 1);
 
-	//堆排序
-	template<typename T> class HeapSort:public SortBase<T>
-	{
-		void isift(int i,int n)
-		{
-			int j;
-			T temp;
+            for(int i = number - 1; i >= 1; i--)
+            {
+                std::swap(buffer[0], buffer[i]);
+                isift(0, i - 1);
+            }
 
-			SortBase<T>::cpy(&temp,SortBase<T>::buffer+i);
+            return true;
+        }
+    };
 
-			j=2*(i+1)-1;
+    // 兼容旧代码的示例用法说明：
+    /*
+    // 使用默认比较（需要类型支持 operator< 或 operator<=>）
+    Sort(data_array, count);
+    
+    // 使用 lambda 自定义比较
+    Sort(data_array, count, [](const T& a, const T& b) {
+        return a.some_field < b.some_field;
+    });
+    
+    // 使用三路比较运算符（C++20）
+    Sort(data_array, count, [](const T& a, const T& b) {
+        return (a <=> b) < 0;
+    });
+    
+    // 对指针数组排序
+    Sort(ptr_array, count, [](const T* a, const T* b) {
+        return (*a <=> *b) < 0;
+    });
+    */
 
-			while(j<=n)
-			{
-				if((j<n)&&(SortBase<T>::compare_by_index(j,j+1)<0))j++;
-
-				if(SortBase<T>::compare(temp,SortBase<T>::buffer[j])<0)
-				{
-					SortBase<T>::cpy_by_index(i,j);
-					i=j;
-					j=2*(i+1)-1;
-				}
-				else j=n+1;
-			}
-
-			SortBase<T>::cpy(SortBase<T>::buffer+i,&temp);
-		}
-
-	public:
-
-		/**
-			* 本类构造函数
-			* @param buf 数据缓冲区
-			* @param n 数据个数
-			* @param c 数据大小比较类
-			*/
-		HeapSort(T *buf,int n,ItemComparator<T> *c=new ItemComparator<T>()):SortBase<T>(buf,n,c)
-		{
-		}
-
-		bool sort()
-		{
-			if(!SortBase<T>::buffer||SortBase<T>::number<2||!SortBase<T>::comp)
-				return(false);
-
-			int i;
-			int mm=SortBase<T>::number>>1;
-
-			for(i=mm-1;i>=0;i--)
-				isift(i,SortBase<T>::number-1);
-
-			for(i=SortBase<T>::number-1;i>=1;i--)
-			{
-				SortBase<T>::exchane_by_index(0,i);
-
-				isift(0,i-1);
-			}
-
-			return(true);
-		}
-	};//class HeapSort:public SortBase<T>
-
-	template<typename T>
-	bool Sort(T *data,int count,ItemComparator<T> *comp)
-	{
-		HeapSort<T> hs(data,count,comp);
-
-		return hs.sort();
-	}
-
-	template<typename T>
-	bool Sort(T *data,int count)
-	{
-		Comparator<T> rnc;
-
-		HeapSort<T> hs(data,count,&rnc);
-
-		return hs.sort();
-	}
-
-
-	template<typename T>
-	bool Sort(hgl::DataArray<T> &list,ItemComparator<T> *comp)
-	{
-		return Sort(list.GetData(),
-					list.GetCount(),
-					comp);
-	}
-
-	template<typename T>
-	bool Sort(hgl::DataArray<T> &list)
-	{
-		ItemComparator<T> rnc;
-
-		return Sort<T>(list,&rnc);
-	}
-
-	/*
-	//仅实现模拟虚拟成员函数即可，无需整个类重载
-	template<> int ItemComparator<BagCell>::compare(const BagCell &it1,const BagCell &it2) const
-	{
-		int r=it1.GetItemID()-it2.GetItemID();
-
-		if(r!=0)
-			return r;
-
-		return it1.count-it2.count;
-	}
-
-	void BagManage::Sort()
-	{
-		Comparator<BagCell> comp_baginfo;
-
-		BagCell cell_list[BAG_SLOT_COUNT];
-
-		hgl::Sort<BagCell>(cell_list,BAG_SLOT_COUNT,&comp_baginfo);
-	}
-	*/
 }//namespace hgl
 
