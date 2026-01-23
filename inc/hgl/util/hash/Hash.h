@@ -1,6 +1,9 @@
 ﻿#pragma once
 
 #include<hgl/type/String.h>
+#include<compare>
+#include<hgl/type/MemoryUtil.h>
+
 namespace hgl
 {
     namespace util
@@ -57,6 +60,50 @@ namespace hgl
 
             template<typename T> void ToUpperString(T *str,const T gap_char=0) const {ToUpperHexStr<T>(str,code,SIZE,gap_char);}
             template<typename T> void ToLowerString(T *str,const T gap_char=0) const {ToLowerHexStr<T>(str,code,SIZE,gap_char);}
+
+            /**
+             * 三路比较运算符（C++20）
+             * @param other 要比较的另一个 HashCode
+             * @return std::strong_ordering 比较结果（less, equal, greater）
+             * 
+             * 用法示例：
+             * HashCode<16> hash1, hash2;
+             * if(hash1 <=> hash2 < 0) { ... }  // hash1 < hash2
+             * if((hash1 <=> hash2) == 0) { ... }  // hash1 == hash2
+             */
+            std::strong_ordering operator<=>(const HashCode &other) const
+            {
+                return hgl::mem_compare_ordering(code, other.code, SIZE);
+            }
+
+            /**
+             * 相等比较运算符
+             * @param other 要比较的另一个 HashCode
+             * @return 如果两个哈希码完全相同返回 true，否则返回 false
+             * 
+             * 用法示例：
+             * HashCode<16> hash1, hash2;
+             * if(hash1 == hash2) { ... }
+             */
+            bool operator==(const HashCode &other) const
+            {
+                return hgl::mem_compare(code, other.code, SIZE) == 0;
+            }
+
+            /**
+             * 不相等比较运算符
+             * @param other 要比较的另一个 HashCode
+             * @return 如果两个哈希码不完全相同返回 true，否则返回 false
+             * 
+             * 用法示例：
+             * HashCode<16> hash1, hash2;
+             * if(hash1 != hash2) { ... }
+             */
+            bool operator!=(const HashCode &other) const
+            {
+                return !(*this == other);
+            }
+
         };//template<size_t SIZE> struct HashCode
 
         /**
