@@ -44,27 +44,27 @@ namespace hgl
     }
 
     /**
-     * @brief 对 DataArray 进行排序（使用默认比较）
+     * @brief 对 ValueBuffer 进行排序（使用默认比较）
      * @tparam T 数据类型，需支持比较运算符
-     * @param list DataArray 引用
+     * @param list ValueBuffer 引用
      * @return 是否排序成功
      */
     template<typename T>
-    bool Sort(hgl::DataArray<T> &list)
+    bool Sort(hgl::ValueBuffer<T> &list)
     {
         return Sort(list.GetData(), list.GetCount());
     }
 
     /**
-     * @brief 对 DataArray 进行排序（使用自定义比较器）
+     * @brief 对 ValueBuffer 进行排序（使用自定义比较器）
      * @tparam T 数据类型
      * @tparam Compare 比较器类型
-     * @param list DataArray 引用
+     * @param list ValueBuffer 引用
      * @param comp 比较器对象
      * @return 是否排序成功
      */
     template<typename T, typename Compare>
-    bool Sort(hgl::DataArray<T> &list, Compare comp)
+    bool Sort(hgl::ValueBuffer<T> &list, Compare comp)
     {
         return Sort(list.GetData(), list.GetCount(), comp);
     }
