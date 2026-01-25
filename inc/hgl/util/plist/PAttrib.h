@@ -144,7 +144,7 @@ namespace hgl
 
         String<C> MakeToString() const override
         {
-            return(this->value?"true":"false");
+            return(this->value?u8"true":u8"false");
         }
     };
 
@@ -185,7 +185,7 @@ namespace hgl
          &&((off=str.FindChar(C(':'))) ==-1))
             return(false);
 
-        name.Strcpy(str,off);
+        name.fromString(str,off);
         off++;
 
         value=str.c_str()+off;
