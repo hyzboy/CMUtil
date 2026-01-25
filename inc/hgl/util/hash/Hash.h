@@ -65,7 +65,7 @@ namespace hgl
              * 三路比较运算符（C++20）
              * @param other 要比较的另一个 HashCode
              * @return std::strong_ordering 比较结果（less, equal, greater）
-             * 
+             *
              * 用法示例：
              * HashCode<16> hash1, hash2;
              * if(hash1 <=> hash2 < 0) { ... }  // hash1 < hash2
@@ -80,7 +80,7 @@ namespace hgl
              * 相等比较运算符
              * @param other 要比较的另一个 HashCode
              * @return 如果两个哈希码完全相同返回 true，否则返回 false
-             * 
+             *
              * 用法示例：
              * HashCode<16> hash1, hash2;
              * if(hash1 == hash2) { ... }
@@ -94,7 +94,7 @@ namespace hgl
              * 不相等比较运算符
              * @param other 要比较的另一个 HashCode
              * @return 如果两个哈希码不完全相同返回 true，否则返回 false
-             * 
+             *
              * 用法示例：
              * HashCode<16> hash1, hash2;
              * if(hash1 != hash2) { ... }
@@ -118,7 +118,7 @@ namespace hgl
 
             Hash(const size_t s,const AnsiString &n):hash_size(s),hash_name(n){}
             virtual ~Hash()=default;
-            
+
                     void    GetName     (AnsiString &name)const {name=hash_name;}                   ///<取得HASH算法的名称
             const   size_t  GetHashBytes()const noexcept        {return hash_size;}                 ///<取得HASH码字节长度(MD4/MD5为16,SHA1为20)
 
