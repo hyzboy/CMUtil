@@ -6,7 +6,7 @@
 namespace hgl::util
 {
     /**
-    * CSV输出控制 
+    * CSV输出控制
     */
     template<typename T> class CSVOutput
     {
@@ -70,7 +70,7 @@ namespace hgl::util
                 tos->WriteChars(str,len);
                 tos->WriteChars(&EnclosedChar,1);
             }
-            NextField();                
+            NextField();
         }
 
         void WriteString(const String<T> &str)

@@ -14,7 +14,7 @@ namespace hgl
      * @param pa_map 属性列表
      * @param gap_ch 分隔符
      * @return 保存的属性数量
-     */ 
+     */
     template<typename C,ByteOrderMask BOM> static int SaveToTextFile(const OSString &filename,const PAttribMap<C> &pa_map,const C &gap_ch=C('\t'))
     {
         FileOutputStream fos;

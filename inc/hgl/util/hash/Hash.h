@@ -11,14 +11,14 @@ namespace hgl
         /**
         * Hash算法枚举
         */
-        enum class HASH			    ///Hash算法枚举
+        enum class HASH             ///Hash算法枚举
         {
-            Adler32,				///<一种较CRC32更为安全的快速HASH算法
-            CRC32,					///<最快速的HASH算法，但最不安全，仅用于低安全性的简单验证
-            MD4,					///<较MD5在安全性下稍弱。但仍未被攻破，且较MD5更快
-            MD5,					///<最常用的HASH算法
+            Adler32,                ///<一种较CRC32更为安全的快速HASH算法
+            CRC32,                  ///<最快速的HASH算法，但最不安全，仅用于低安全性的简单验证
+            MD4,                    ///<较MD5在安全性下稍弱。但仍未被攻破，且较MD5更快
+            MD5,                    ///<最常用的HASH算法
 
-            SHA1,					///<较MD5更为安全，但计算较慢
+            SHA1,                   ///<较MD5更为安全，但计算较慢
             SHA1LE,                 ///<SHA1改版
             SHA256,
             SHA512,
@@ -109,7 +109,7 @@ namespace hgl
         /**
         * 散列值计算功能基类
         */
-        class Hash											///散列值计算功能基类
+        class Hash                                          ///散列值计算功能基类
         {
             AnsiString hash_name;
             size_t hash_size;
@@ -122,9 +122,9 @@ namespace hgl
                     void    GetName     (AnsiString &name)const {name=hash_name;}                   ///<取得HASH算法的名称
             const   size_t  GetHashBytes()const noexcept        {return hash_size;}                 ///<取得HASH码字节长度(MD4/MD5为16,SHA1为20)
 
-            virtual void Init()=0;							///<初始化散列值计算
-            virtual void Update(const void *,uint)=0;		///<提交新的数据
-            virtual void Final(void *)=0;					///<结束并取得结果
+            virtual void Init()=0;                          ///<初始化散列值计算
+            virtual void Update(const void *,uint)=0;       ///<提交新的数据
+            virtual void Final(void *)=0;                   ///<结束并取得结果
 
             template<typename T>
                 void Write(const T &data)
@@ -139,7 +139,7 @@ namespace hgl
                 }
         };//class Hash
 
-        template<HASH ha> Hash *CreateHash();					///<创建一个hash值计算类实例
+        template<HASH ha> Hash *CreateHash();                   ///<创建一个hash值计算类实例
 
         Hash *CreateHash(const HASH ha);                        ///<创建一个hash值计算类实例
 

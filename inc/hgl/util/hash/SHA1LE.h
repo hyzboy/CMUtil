@@ -35,7 +35,7 @@ namespace hgl
             void sha1_transform();
 
         public:
-            
+
             SHA1LE():Hash(20,"SHA1LE"){}
 
             void Init(const uint32 *start_digest,const uint32 *mysterious_constants);   ///<开始一次新的HASH计算，并指定初始因子和扰乱因子

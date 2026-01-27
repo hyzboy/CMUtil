@@ -8,9 +8,9 @@
 namespace hgl::xml
 {
     namespace
-    {        
+    {
         const char *xml_error_code[]=
-        {            
+        {
             "UNKNOWN_ERROR",
 
             "NONE",
@@ -60,7 +60,7 @@ namespace hgl::xml
             /* Added in 2.2.1. */
             "INVALID_ARGUMENT"
         };
-    }//namespace 
+    }//namespace
 
     const U8String GetExpatVersion()
     {
@@ -239,7 +239,7 @@ namespace hgl::xml
         *row=XML_GetErrorLineNumber(xml);
         *col=XML_GetErrorColumnNumber(xml);
     }
-        
+
     /**
     * 解晰一个XML文件
     */

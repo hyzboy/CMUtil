@@ -71,7 +71,7 @@ namespace hgl::util
                 result=sp;
 
                 const T *ep=sp+1;
-            
+
                 while(*ep!=','&&*ep!='\t'&&ep<end)
                     ++ep;
 

@@ -1,4 +1,4 @@
-#include<iostream>
+﻿#include<iostream>
 #include<time.h>
 #include<hgl/type/DataType.h>
 #include<hgl/type/SeriesPool.h>

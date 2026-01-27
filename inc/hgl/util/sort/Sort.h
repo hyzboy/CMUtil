@@ -143,17 +143,17 @@ namespace hgl
     /*
     // 使用默认比较（需要类型支持 operator< 或 operator<=>）
     Sort(data_array, count);
-    
+
     // 使用 lambda 自定义比较
     Sort(data_array, count, [](const T& a, const T& b) {
         return a.some_field < b.some_field;
     });
-    
+
     // 使用三路比较运算符（C++20）
     Sort(data_array, count, [](const T& a, const T& b) {
         return (a <=> b) < 0;
     });
-    
+
     // 对指针数组排序
     Sort(ptr_array, count, [](const T* a, const T* b) {
         return (*a <=> *b) < 0;

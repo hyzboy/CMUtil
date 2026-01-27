@@ -57,7 +57,7 @@ namespace hgl
         public:
 
             const U8StringView *GetElementName()const;
-           
+
             const U8StringView *GetAtts(const U8String &);
             const U8StringView *GetAtts(const U8StringView &);
 

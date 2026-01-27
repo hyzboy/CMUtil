@@ -100,7 +100,7 @@ namespace hgl::xml
             if(result==-1)return default_value;
             return result;
         }
-            
+
         template<typename T> const T ToEnum(const u8char **str_list,const u8char *str,const T &default_enum)
         {
             return T(this->ToSerial(str_list,str,(int)default_enum));

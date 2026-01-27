@@ -57,20 +57,20 @@ namespace hgl
         public:
 
             xxHash64():Hash(8,"xxH64"){}
-    
+
             void Init()override
             {
                 state=XXH64_createState();
                 seed=0;//mt_rand64_dist(mt_rand64);
-    
+
                 XXH64_reset(state,seed);
             }
-    
+
             void Update(const void *input,uint inputLen)override
             {
                 XXH64_update(state,input,inputLen);
             }
-    
+
             void Final(void *digest)override
             {
                 *(XXH64_hash_t *)digest=XXH64_digest(state);
@@ -121,7 +121,7 @@ namespace hgl
             XXH64_hash_t seed;
 
         public:
-            
+
             xxHash3_128():Hash(16,"xxH3_128bits"){}
 
             void Init()override

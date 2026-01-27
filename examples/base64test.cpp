@@ -1,4 +1,4 @@
-#include<hgl/util/Crypt.h>
+﻿#include<hgl/util/Crypt.h>
 #include<hgl/io/MemoryOutputStream.h>
 #include<iostream>
 

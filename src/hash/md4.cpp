@@ -135,7 +135,7 @@ namespace hgl
                 memset(x, 0, sizeof(x));
             }
         }//namespace
-        
+
         class MD4:public Hash
         {
             uint32 state[4];          // state (ABCD)

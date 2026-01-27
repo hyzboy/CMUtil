@@ -1,4 +1,4 @@
-#include<hgl/util/hash/Hash.h>
+﻿#include<hgl/util/hash/Hash.h>
 #include<hgl/filesystem/FileSystem.h>
 #include<hgl/time/Time.h>
 #include<iostream>

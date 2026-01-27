@@ -13,7 +13,7 @@ namespace hgl::util
         for(int i=0;i<argc;i++)
             args.Add(argv[i]);
     }
-        
+
     int CmdParse::Find(const OSString &flag)const
     {
         return args.CaseFind(flag,flag.Length());

@@ -10,7 +10,7 @@ namespace hgl::geo
         static const CountryInfo kCountries[] =
         {
 #define GEO_COUNTRY_INFO(country,continent,capital,eng_name,chs_name) { CountryID::country, Continent::continent, CityID::capital, U16_TEXT(eng_name), U16_TEXT(chs_name) }
-            
+
             GEO_COUNTRY_INFO(PRC,       Asia,         BeiJing,        "China",                   "中国"                ),
             GEO_COUNTRY_INFO(USA,       NorthAmerica, WashingtonDC,   "United States",           "美国"                ),
             GEO_COUNTRY_INFO(UK,        Europe,       London,         "United Kingdom",          "英国"                ),
