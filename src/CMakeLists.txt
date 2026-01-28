@@ -9,7 +9,7 @@ if(CM_UTIL_SUPPORT_XML)
 
     SET(XML_ELEMENT_PARSE_KV        ${CM_XML_INCLUDE_PATH}/ElementParseKV.h
                                     xml/ElementParseKV.cpp)
-                                    
+
     SET(XML_ELEMENT_PARSE_CREATER   ${CM_XML_INCLUDE_PATH}/ElementParseCreater.h
                                     xml/ElementParseCreater.cpp
                                     xml/ElementCreater.cpp)
@@ -21,7 +21,7 @@ if(CM_UTIL_SUPPORT_XML)
 
     SET(TREE_XML_SOURCE             ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/xml/TreeXML.h
                                     xml/TreeXML.cpp)
-                                    
+
     SET(XML_PARSE_SOURCE            ${XML_ELEMENT_PARSE_KV}
                                     ${XML_ELEMENT_PARSE_CREATER}
                                     ${XML_ELEMENT_PARSE_SOURCE}
@@ -110,7 +110,7 @@ SET(CSV_SOURCE  ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/csv/CSVFieldSplite.h
                 ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/csv/CSVOutput.h
                 ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/csv/CSVOutputStream.h
                 csv/CSVOutputStream.cpp)
-                
+
 SOURCE_GROUP("CSV" FILES ${CSV_SOURCE})
 
 SET(CMD_SOURCE  ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/cmd/CmdParse.h
@@ -133,7 +133,8 @@ SET(CM_SG_GEO_FILES     ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/geo/GeoLocation.h
 
 SOURCE_GROUP("Geo" FILES ${CM_SG_GEO_FILES})
 
-add_cm_library(CMUtil "CM"   ${CMD_SOURCE}
+add_cm_library(CMUtil "CM"  ${CMUTIL_ROOT_INCLUDE_PATH}
+                            ${CMD_SOURCE}
 #							${TIME_SOURCE}
 #                            ${DATABLOCK_SOURCE}
 
