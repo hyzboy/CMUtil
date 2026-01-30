@@ -44,29 +44,35 @@ namespace hgl
     }
 
     /**
-     * @brief 对 ValueBuffer 进行排序（使用默认比较）
+     * @brief 对 std::vector 进行排序（使用默认比较）
      * @tparam T 数据类型，需支持比较运算符
-     * @param list ValueBuffer 引用
+     * @param list std::vector 引用
      * @return 是否排序成功
      */
     template<typename T>
-    bool Sort(hgl::ValueBuffer<T> &list)
+    bool Sort(std::vector<T> &list)
     {
-        return Sort(list.GetData(), list.GetCount());
+        if(list.empty())
+            return false;
+        std::sort(list.begin(), list.end());
+        return true;
     }
 
     /**
-     * @brief 对 ValueBuffer 进行排序（使用自定义比较器）
+     * @brief 对 std::vector 进行排序（使用自定义比较器）
      * @tparam T 数据类型
      * @tparam Compare 比较器类型
-     * @param list ValueBuffer 引用
+     * @param list std::vector 引用
      * @param comp 比较器对象
      * @return 是否排序成功
      */
     template<typename T, typename Compare>
-    bool Sort(hgl::ValueBuffer<T> &list, Compare comp)
+    bool Sort(std::vector<T> &list, Compare comp)
     {
-        return Sort(list.GetData(), list.GetCount(), comp);
+        if(list.empty())
+            return false;
+        std::sort(list.begin(), list.end(), comp);
+        return true;
     }
 
     /**
