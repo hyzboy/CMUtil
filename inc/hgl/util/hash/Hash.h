@@ -24,6 +24,7 @@ namespace hgl
             SHA1LE,                 ///<SHA1改版
             SHA256,
             SHA512,
+            BLAKE3,                 ///<BLAKE3 (256-bit)
 
             xxH32,
             xxH64,

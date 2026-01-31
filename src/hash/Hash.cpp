@@ -37,6 +37,7 @@ namespace hgl
                 {HASH::SHA1LE, 20},
                 {HASH::SHA256, 32},
                 {HASH::SHA512, 64},
+                {HASH::BLAKE3, 32},
                 {HASH::xxH32, 4},
                 {HASH::xxH64, 8},
                 {HASH::xxH3_64, 8},
