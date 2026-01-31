@@ -3,6 +3,8 @@
 #include<hgl/type/String.h>
 #include<compare>
 #include<hgl/type/MemoryUtil.h>
+#include<memory>
+#include<array>
 
 namespace hgl
 {
@@ -107,98 +109,166 @@ namespace hgl
         };//template<size_t SIZE> struct HashCode
 
         /**
-        * 散列值计算功能基类
-        */
-        class Hash                                          ///散列值计算功能基类
+         * CRTP Hash基类模板 - 纯模板设计，无虚函数
+         * 
+         * 派生类直接继承此类，实现以下方法（无需virtual）：
+         *   - void Init() - 初始化
+         *   - void Update(const void* data, uint size) - 更新数据
+         *   - void Final(void* result) - 最终化并获得结果
+         *   - 可选：static constexpr size_t DigestSize - 摘要大小
+         *   - 可选：static constexpr std::string_view AlgorithmName - 算法名称
+         * 
+         * 特点：
+         *   - 0虚函数开销（编译期类型确定）
+         *   - 完全内联优化
+         *   - 更好的缓存局部性
+         * 
+         * 使用示例：
+         * template<> class MD5 : public HashBase<MD5, 16> {
+         *     void Init() { ... }
+         *     void Update(const void* data, uint size) { ... }
+         *     void Final(void* result) { ... }
+         * };
+         */
+        template<typename Derived, size_t HashSize>
+        class HashBase
         {
-            AnsiString hash_name;
-            size_t hash_size;
+        protected:
+            HashBase() = default;
 
         public:
+            static constexpr size_t DigestSize = HashSize;
 
-            Hash(const size_t s,const AnsiString &n):hash_size(s),hash_name(n){}
-            virtual ~Hash()=default;
+            ~HashBase() = default;
 
-                    void    GetName     (AnsiString &name)const {name=hash_name;}                   ///<取得HASH算法的名称
-            const   size_t  GetHashBytes()const noexcept        {return hash_size;}                 ///<取得HASH码字节长度(MD4/MD5为16,SHA1为20)
+            // 删除复制（某些派生类可能持有资源）
+            HashBase(const HashBase&) = delete;
+            HashBase& operator=(const HashBase&) = delete;
 
-            virtual void Init()=0;                          ///<初始化散列值计算
-            virtual void Update(const void *,uint)=0;       ///<提交新的数据
-            virtual void Final(void *)=0;                   ///<结束并取得结果
+            // 允许移动
+            HashBase(HashBase&&) = default;
+            HashBase& operator=(HashBase&&) = default;
 
-            template<typename T>
-                void Write(const T &data)
-                {
-                    Update(&data,sizeof(T));
-                }
-
-            template<typename T>
-                void Write(const T *ptr,const uint count)
-                {
-                    Update(ptr,sizeof(T)*count);
-                }
-        };//class Hash
-
-        template<HASH ha> Hash *CreateHash();                   ///<创建一个hash值计算类实例
-
-        Hash *CreateHash(const HASH ha);                        ///<创建一个hash值计算类实例
-
-        /**
-        * 计算一段数据的Hash值
-        * @param data 数据指针
-        * @param size 数据长度
-        * @param ha hash算法
-        * @param hash_code 计算后的hash值存放处
-        * @return 是否计算成功
-        */
-        template<HASH ha> bool CountHash(const void *data,int size,void *hash_code)
-        {
-            if(!data||size<=0||!hash_code)return(false);
-
-            Hash *h=CreateHash<ha>();
-
-            if(!h)return(false);
-
-            h->Init();
-            h->Update(data,size);
-            h->Final(hash_code);
-
-            delete h;
-            return(true);
-        }
-
-        /**
-        * 取得一个文件的hash值
-        * @param filename 文件名
-        * @param ha hash对象
-        * @param hash_code 计算后的hash存放处
-        * @return 是否计算成功
-        */
-        bool GetFileHash(const OSString &filename,Hash *ha,void *hash_code);
-
-        template<typename ha> bool GetFileHash(const OSString &filename,void *hash_code,size_t &hash_size)
-        {
-            Hash *h=CreateHash<ha>();
-            if(!h)return(false);
-
-            if(!GetFileHash(filename,h,hash_code))
+            // 公开接口 - 调用派生类的实现
+            void Init()
             {
-                delete h;
-                return(false);
+                static_cast<Derived*>(this)->Init();
             }
-            hash_size=h->GetHashBytes();
-            delete h;
-            return(true);
+
+            void Update(const void* data, uint size)
+            {
+                static_cast<Derived*>(this)->Update(data, size);
+            }
+
+            void Final(void* result)
+            {
+                static_cast<Derived*>(this)->Final(result);
+            }
+
+            // 便利函数：计算完整哈希
+            template<size_t N>
+            std::array<uint8, HashSize> Hash(const void* data, size_t size)
+            {
+                std::array<uint8, HashSize> result;
+                Init();
+                Update(data, size);
+                Final(result.data());
+                return result;
+            }
+
+        };//template<typename Derived, size_t HashSize> class HashBase
+
+        // ============== 现代API - 直接创建Hash实例 ==============
+
+        /**
+         * 在纯模板设计中，推荐直接创建Hash对象而不是通过工厂函数
+         * 
+         * 使用示例：
+         * MD5 md5;
+         * md5.Init();
+         * md5.Update(data, size);
+         * uint8 result[16];
+         * md5.Final(result);
+         * 
+         * 对于需要运行时多态的场景，使用下面的ComputeHash模板函数
+         */
+
+        // ============== 高层API - 便利函数 ==============
+
+        /**
+         * 计算数据的Hash值（一步到位）- 模板版本（推荐）
+         * 
+         * 使用示例：
+         * uint8 result[16];
+         * if(ComputeHash<HASH::MD5>(data, data_size, result))
+         *     { ... }
+         * 
+         * @param data 数据指针
+         * @param size 数据长度
+         * @param hash_code 输出：哈希值存放处
+         * @return 是否成功
+         */
+        template<HASH ha>
+        bool ComputeHash(const void* data, size_t size, void* hash_code);
+
+        /**
+         * 计算数据的Hash值（运行时版本）
+         * 
+         * 使用示例：
+         * uint8 result[16];
+         * if(ComputeHash(HASH::MD5, data, data_size, result))
+         *     { ... }
+         * 
+         * @param ha 哈希算法
+         * @param data 数据指针
+         * @param size 数据长度
+         * @param hash_code 输出：哈希值存放处
+         * @return 是否成功
+         */
+        bool ComputeHash(const HASH ha, const void* data, size_t size, void* hash_code);
+
+        /**
+         * 获取Hash算法的摘要大小
+         * 
+         * 使用示例：
+         * uint8 result[16];
+         * if(ComputeHash<HASH::MD5>(data, data_size, result))
+         *     { ... }
+         */
+        template<HASH ha>
+        bool ComputeHash(const void* data, size_t size, void* hash_code)
+        {
+            auto hash = CreateHashPtr<ha>();
+            if (!hash) return false;
+
+            // 使用void*来调用，需要通过虚函数表
+            // 这里的实现在.cpp中处理
+            return ComputeHash(ha, data, size, hash_code);
         }
 
         /**
-        * 取得一个文件的hash值
-        * @param filename 文件名
-        * @param ha hash算法
-        * @param hash_str 计算后的hash值存放处
-        * @param litter 小写字母
-        * @return 是否计算成功
-        */
-        //bool GetFileHash(const OSString &filename,HASH ha,U8String &hash_str,bool litter=true);
+         * 计算文件的Hash值
+         * 
+         * @param filename 文件名
+         * @param ha 哈希算法
+         * @param hash_code 输出：哈希值
+         * @return 是否成功
+         */
+        bool GetFileHash(const OSString& filename, const HASH ha, void* hash_code);
+
+        /**
+         * 模板版 - 计算文件Hash
+         */
+        template<HASH ha>
+        bool GetFileHash(const OSString& filename, void* hash_code)
+        {
+            return GetFileHash(filename, ha, hash_code);
+        }
+
+        /**
+         * 获取Hash算法的摘要大小
+         */
+        size_t GetHashDigestSize(const HASH ha);
+
     }//namespace util
 }//namespace hgl

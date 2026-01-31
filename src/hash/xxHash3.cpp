@@ -16,16 +16,16 @@ namespace hgl
             static std::uniform_int_distribution<uint64> mt_rand64_dist;
         }
 
-        class xxHash32:public Hash
+        class xxHash32:public HashBase<xxHash32, 4>
         {
             XXH32_state_t *state=nullptr;
             uint32 seed;
 
         public:
 
-            xxHash32():Hash(4,"xxH32"){}
+            xxHash32() = default;
 
-            void Init()override
+            void Init()
             {
                 state=XXH32_createState();
                 seed=0;//mt_rand32_dist(mt_rand32);
@@ -33,32 +33,29 @@ namespace hgl
                 XXH32_reset(state,seed);
             }
 
-            void Update(const void *input,uint inputLen)override
+            void Update(const void *input,uint inputLen)
             {
                 XXH32_update(state,input,inputLen);
             }
 
-            void Final(void *digest)override
+            void Final(void *digest)
             {
                 *(XXH32_hash_t *)digest=XXH32_digest(state);
             }
         };//class xxHash32
 
-        template<> Hash *CreateHash<HASH::xxH32>()
-        {
-            return(new xxHash32);
-        }
+        
 
-        class xxHash64:public Hash
+        class xxHash64:public HashBase<xxHash64, 8>
         {
             XXH64_state_t *state=nullptr;
             uint64 seed;
 
         public:
 
-            xxHash64():Hash(8,"xxH64"){}
+            xxHash64() = default;
 
-            void Init()override
+            void Init()
             {
                 state=XXH64_createState();
                 seed=0;//mt_rand64_dist(mt_rand64);
@@ -66,32 +63,29 @@ namespace hgl
                 XXH64_reset(state,seed);
             }
 
-            void Update(const void *input,uint inputLen)override
+            void Update(const void *input,uint inputLen)
             {
                 XXH64_update(state,input,inputLen);
             }
 
-            void Final(void *digest)override
+            void Final(void *digest)
             {
                 *(XXH64_hash_t *)digest=XXH64_digest(state);
             }
         };//class xxHash64
 
-        template<> Hash *CreateHash<HASH::xxH64>()
-        {
-            return(new xxHash64);
-        }
+        
 
-        class xxHash3_64:public Hash
+        class xxHash3_64:public HashBase<xxHash3_64, 8>
         {
             XXH3_state_t *state=nullptr;
             uint64 seed;
 
         public:
 
-            xxHash3_64():Hash(8,"xxH3_64bits"){}
+            xxHash3_64() = default;
 
-            void Init()override
+            void Init()
             {
                 state=XXH3_createState();
                 seed=0;//mt_rand64_dist(mt_rand64);
@@ -99,32 +93,29 @@ namespace hgl
                 XXH3_64bits_reset_withSeed(state,seed);
             }
 
-            void Update(const void *input,uint inputLen)override
+            void Update(const void *input,uint inputLen)
             {
                 XXH3_64bits_update(state,input,inputLen);
             }
 
-            void Final(void *digest)override
+            void Final(void *digest)
             {
                 *(XXH64_hash_t *)digest=XXH3_64bits_digest(state);
             }
         };//class xxHash3_64
 
-        template<> Hash *CreateHash<HASH::xxH3_64>()
-        {
-            return(new xxHash3_64);
-        }
+        
 
-        class xxHash3_128:public Hash
+        class xxHash3_128:public HashBase<xxHash3_128, 16>
         {
             XXH3_state_t *state=nullptr;
             XXH64_hash_t seed;
 
         public:
 
-            xxHash3_128():Hash(16,"xxH3_128bits"){}
+            xxHash3_128() = default;
 
-            void Init()override
+            void Init()
             {
                 state=XXH3_createState();
                 seed=0;//mt_rand64_dist(mt_rand64);
@@ -132,20 +123,17 @@ namespace hgl
                 XXH3_128bits_reset_withSeed(state,seed);
             }
 
-            void Update(const void *input,uint inputLen)override
+            void Update(const void *input,uint inputLen)
             {
                 XXH3_128bits_update(state,input,inputLen);
             }
 
-            void Final(void *digest)override
+            void Final(void *digest)
             {
                 *(XXH128_hash_t *)digest=XXH3_128bits_digest(state);
             }
         };//class xxHash3_128
 
-        template<> Hash *CreateHash<HASH::xxH3_128>()
-        {
-            return(new xxHash3_128);
-        }
+        
     }//namespace util
 }//namespace hgl

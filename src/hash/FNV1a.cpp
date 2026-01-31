@@ -23,31 +23,28 @@ namespace hgl
             }
         }//namespace
 
-        class FNV1a:public Hash
+        class FNV1a:public HashBase<FNV1a, 8>
         {
             uint32_t result;
 
         public:
 
-            FNV1a():Hash(4,"FNV1a"){}
+            FNV1a() = default;
 
-            void Init()override
+            void Init()
             {
                 result=2166136261u;
             }
-            void Update(const void *input,uint inputLen)override
+            void Update(const void *input,uint inputLen)
             {
                 result=CountFNV1a(result,input,inputLen);
             }
-            void Final(void *digest)override
+            void Final(void *digest)
             {
                 *(uint32_t *)digest=result;
             }
         };//class FNV1a
 
-        template<> Hash *CreateHash<HASH::FNV1a>()
-        {
-            return(new FNV1a);
-        }
+        
     }//namespace util
 }//namespace hgl

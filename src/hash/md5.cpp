@@ -167,7 +167,7 @@ namespace hgl
             }
         }//namespace
 
-        class MD5:public Hash
+        class MD5:public HashBase<MD5, 16>
         {
             uint32 state[4];
             uint32 count[2];
@@ -175,9 +175,9 @@ namespace hgl
 
         public:
 
-            MD5():Hash(16,"MD5"){}
+            MD5() = default;
 
-            void Init()override
+            void Init()
             {
                 count[0] = count[1] = 0;
                 state[0] = 0x67452301;
@@ -186,7 +186,7 @@ namespace hgl
                 state[3] = 0x10325476;
             }
 
-            void Update(const void *input,uint inputLen)override
+            void Update(const void *input,uint inputLen)
             {
                 unsigned int i, index, partLen;
 
@@ -217,7 +217,7 @@ namespace hgl
                 memcpy(&buffer[index], ((uchar *)input)+i,inputLen-i);
             }
 
-            void Final(void *digest)override
+            void Final(void *digest)
             {
                 static const unsigned char PADDING[64] =
                 {
@@ -243,10 +243,5 @@ namespace hgl
                 md5_encode((uchar *)digest, state, 16);
             }
         };//class MD5
-
-        template<> Hash *CreateHash<HASH::MD5>()
-        {
-            return(new MD5);
-        }
     }//namespace util
 }//namespace hgl

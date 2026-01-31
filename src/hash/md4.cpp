@@ -136,7 +136,7 @@ namespace hgl
             }
         }//namespace
 
-        class MD4:public Hash
+        class MD4:public HashBase<MD4, 16>
         {
             uint32 state[4];          // state (ABCD)
             uint32 count[2];          // number of bits, modulo 2^64 (lsb first)
@@ -144,9 +144,9 @@ namespace hgl
 
         public:
 
-            MD4():Hash(16,"MD4"){}
+            MD4() = default;
 
-            void Init()override
+            void Init()
             {
                 count[0] = count[1] = 0;
                 state[0] = 0x67452301;
@@ -155,7 +155,7 @@ namespace hgl
                 state[3] = 0x10325476;
             }
 
-            void Update(const void *input,uint inputLen)override
+            void Update(const void *input,uint inputLen)
             {
                 unsigned int i, index, partLen;
 
@@ -186,7 +186,7 @@ namespace hgl
                 memcpy(&buffer[index], ((uchar *)input)+i, inputLen-i);
             }
 
-            void Final(void *digest)override
+            void Final(void *digest)
             {
                 static const unsigned char PADDING[64] =
                 {
@@ -213,9 +213,6 @@ namespace hgl
             }
         };//class MD4
 
-        template<> Hash *CreateHash<HASH::MD4>()
-        {
-            return(new MD4);
-        }
+        
     }//namespace util
 }//namespace hgl

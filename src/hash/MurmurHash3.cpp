@@ -60,30 +60,25 @@ namespace hgl::util
         }
     }//namespace
 
-    class MurmurHash3:public Hash
+    class MurmurHash3:public HashBase<MurmurHash3, 16>
     {
         uint32_t result;
 
     public:
 
-        MurmurHash3():Hash(4,"MurmurHash3")
-        {}
-        void Init()override
+        MurmurHash3() = default;
+        void Init()
         {
             result=0;
         }
-        void Update(const void *input,uint inputLen)override
+        void Update(const void *input,uint inputLen)
         {
             result=CountMurmurHash3(input,inputLen,result);
         }
-        void Final(void *digest)override
+        void Final(void *digest)
         {
             *(uint32_t *)digest=result;
         }
     };//class MurmurHash3
 
-    template<> Hash *CreateHash<HASH::Murmur3>()
-    {
-        return(new MurmurHash3);
-    }
 }//namespace hgl::util

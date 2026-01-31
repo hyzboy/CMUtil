@@ -66,33 +66,30 @@ namespace hgl
             return crc ^ ~0U;
         }
 
-        class CRC32:public Hash
+        class CRC32:public HashBase<CRC32, 4>
         {
             uint32 result;
 
         public:
 
-            CRC32():Hash(4,"CRC32"){}
+            CRC32() = default;
 
-            void Init()override
+            void Init()
             {
                 result=0;
             }
 
-            void Update(const void *input,uint inputLen)override
+            void Update(const void *input,uint inputLen)
             {
                 result=CountCRC32(result,(const uint8 *)input,inputLen);
             }
 
-            void Final(void *digest)override
+            void Final(void *digest)
             {
                 *(uint32 *)digest=result;
             }
         };//class CRC32
 
-        template<> Hash *CreateHash<HASH::CRC32>()
-        {
-            return(new CRC32);
-        }
+        
     }//namespace util
 }//namepace hgl

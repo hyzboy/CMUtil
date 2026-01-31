@@ -118,33 +118,29 @@ namespace hgl
             return adler | (sum2 << 16);
         }
 
-        class Adler32:public Hash
+        class Adler32:public HashBase<Adler32, 4>
         {
             uint32 result;
 
         public:
 
-            Adler32():Hash(4,"Adler32"){}
+            Adler32() = default;
 
-            void Init()override
+            void Init()
             {
                 result=0;
             }
 
-            void Update(const void *input,uint inputLen)override
+            void Update(const void *input,uint inputLen)
             {
                 result=CountAdler32(result,(const uint8 *)input,inputLen);
             }
 
-            void Final(void *digest)override
+            void Final(void *digest)
             {
                 *(uint32 *)digest=result;
             }
         };//class Adler32
 
-        template<> Hash *CreateHash<HASH::Adler32>()
-        {
-            return(new Adler32());
-        }
     }//namespace util
 }//namespace hgl

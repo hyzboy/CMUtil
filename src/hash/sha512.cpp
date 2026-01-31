@@ -95,7 +95,7 @@ namespace hgl
             };
         }//namespace
 
-        class SHA512:public Hash
+        class SHA512:public HashBase<SHA512, 64>
         {
             enum
             {
@@ -163,9 +163,9 @@ namespace hgl
 
         public:
 
-            SHA512():Hash(DIGEST_SIZE,"SHA512"){}
+            SHA512() = default;
 
-            void Init()override
+            void Init()
             {
                 m_h[0] = 0x6a09e667f3bcc908ULL;
                 m_h[1] = 0xbb67ae8584caa73bULL;
@@ -179,7 +179,7 @@ namespace hgl
                 m_tot_len = 0;
             }
 
-            void Update(const void *input,uint len)override
+            void Update(const void *input,uint len)
             {
                 uint8 *message=(uint8 *)input;
 
@@ -211,7 +211,7 @@ namespace hgl
                 m_tot_len += (block_nb + 1) << 7;
             }
 
-            void Final(void *result)override
+            void Final(void *result)
             {
                 uint block_nb;
                 uint pm_len;
@@ -236,9 +236,6 @@ namespace hgl
             }
         };//class SHA512
 
-        template<> Hash *CreateHash<HASH::SHA512>()
-        {
-            return(new SHA512);
-        }
+        
     }//namespace util
 }//namespace hgl

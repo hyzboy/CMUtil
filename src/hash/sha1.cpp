@@ -64,7 +64,7 @@ namespace hgl::util
         }
     }//namespace
 
-    class SHA1:public Hash
+    class SHA1:public HashBase<SHA1, 20>
     {
         enum
         {
@@ -147,9 +147,9 @@ namespace hgl::util
 
     public:
 
-        SHA1():Hash(20,"SHA1"){}
+        SHA1() = default;
 
-        void Init()override
+        void Init()
         {
             digest[0] = 0x67452301L;
             digest[1] = 0xEFCDAB89L;
@@ -162,7 +162,7 @@ namespace hgl::util
             memset(data, 0, sizeof(data));
         }
 
-        void Update(const void *input,uint count)override
+        void Update(const void *input,uint count)
         {
             const uint8 *buffer=(const uint8 *)input;
             uint size;
@@ -196,7 +196,7 @@ namespace hgl::util
             }
         }
 
-        void Final(void *result)override
+        void Final(void *result)
         {
             int count;
             uint32 lowBitcount  = countLo;
@@ -240,8 +240,5 @@ namespace hgl::util
         }
     };//class SHA1
 
-    template<> Hash *CreateHash<HASH::SHA1>()
-    {
-        return(new SHA1);
-    }
+    
 }//namespace hgl::util

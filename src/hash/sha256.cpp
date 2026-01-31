@@ -30,7 +30,7 @@ namespace hgl
             };
         }//namespace
 
-        class SHA256:public Hash
+        class SHA256:public HashBase<SHA256, 32>
         {
             enum
             {
@@ -91,9 +91,9 @@ namespace hgl
 
         public:
 
-            SHA256():Hash(DIGEST_SIZE,"SHA256"){}
+            SHA256() = default;
 
-            void Init()override
+            void Init()
             {
                 state[0] = 0x6a09e667;
                 state[1] = 0xbb67ae85;
@@ -109,7 +109,7 @@ namespace hgl
                 memset(data, 0, sizeof(data));
             }
 
-            void Update(const void *input,uint count)override
+            void Update(const void *input,uint count)
             {
                 const uint8 *u8input=(const uint8 *)input;
                 uint32 size;
@@ -135,7 +135,7 @@ namespace hgl
                 }
             }
 
-            void Final(void *result)override
+            void Final(void *result)
             {
                 uint32 i;
 
@@ -189,10 +189,7 @@ namespace hgl
             }
         };//class SHA256
 
-        template<> Hash *CreateHash<HASH::SHA256>()
-        {
-            return(new SHA256);
-        }
+        
     }//namespace util
 }//namespace hgl
 

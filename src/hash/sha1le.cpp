@@ -222,9 +222,5 @@ namespace hgl
                 hash[count] = (uint8) ((digest[count>>2]) >> (8*(3-(count & 0x3)))) & 0xff;
         }
 
-        template<> Hash *CreateHash<HASH::SHA1LE>()
-        {
-            return(new SHA1LE);
-        }
     }//namespace util
 }//namespace hgl

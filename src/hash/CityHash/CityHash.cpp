@@ -8,86 +8,69 @@
 
 namespace hgl::util
 {
-    class GoogleCityHash32:public Hash
+    class GoogleCityHash32:public HashBase<GoogleCityHash32, 4>
     {
         uint32 result;
 
     public:
 
-        GoogleCityHash32():Hash(4,"CityHash32")
-        {}
-        void Init()override
+        GoogleCityHash32() = default;
+        void Init()
         {
             result=0;
         }
-        void Update(const void *input,uint inputLen)override
+        void Update(const void *input,uint inputLen)
         {
             result=CityHash32((const char *)input,inputLen);
         }
-        void Final(void *digest)override
+        void Final(void *digest)
         {
             *(uint32 *)digest=result;
         }
     };
 
-    template<> Hash *CreateHash<HASH::City32>()
-    {
-        return(new GoogleCityHash32);
-    }
-
-    class GoogleCityHash64:public Hash
+    class GoogleCityHash64:public HashBase<GoogleCityHash64, 8>
     {
         uint64 result;
 
     public:
 
-        GoogleCityHash64():Hash(8,"CityHash64")
-        {}
-        void Init()override
+        GoogleCityHash64() = default;
+        void Init()
         {
             result=0;
         }
-        void Update(const void *input,uint inputLen)override
+        void Update(const void *input,uint inputLen)
         {
             result=::CityHash64WithSeed((const char *)input,inputLen,result);
         }
-        void Final(void *digest)override
+        void Final(void *digest)
         {
             *(uint64 *)digest=result;
         }
-    };//class CityHash64:public Hash
+    };
 
-    template<> Hash *CreateHash<HASH::City64>()
-    {
-        return(new GoogleCityHash64);
-    }
-
-    class GoogleCityHash128:public Hash
+    class GoogleCityHash128:public HashBase<GoogleCityHash128, 16>
     {
         uint128 result;
 
     public:
 
-        GoogleCityHash128():Hash(16,"CityHash128")
-        {}
-        void Init()override
+        GoogleCityHash128() = default;
+        void Init()
         {
             result.first=0;
             result.second=0;
         }
-        void Update(const void *input,uint inputLen)override
+        void Update(const void *input,uint inputLen)
         {
             ::CityHash128WithSeed((const char *)input,inputLen,result);
         }
-        void Final(void *digest)override
+        void Final(void *digest)
         {
             ((uint64 *)digest)[0]=result.first;
             ((uint64 *)digest)[1]=result.second;
         }
     };//class CityHash128:public Hash
 
-    template<> Hash *CreateHash<HASH::City128>()
-    {
-        return(new GoogleCityHash128);
-    }
 }//namespace hgl::util
