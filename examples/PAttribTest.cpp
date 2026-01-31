@@ -35,7 +35,7 @@ int main(int argc,char **argv)
     }
     else
     {
-        LoadFromTextFile<u8char>(ToOSString(argv[2]),pl_set);
+        LoadFromTextFile(ToOSString(argv[2]),pl_set);
 
         //lambda方式
         pl_set.Enum([](const String<u8char> &key,PAttribBase<u8char> * &attr)
