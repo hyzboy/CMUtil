@@ -240,5 +240,12 @@ namespace hgl::util
         }
     };//class SHA1
 
+    void ComputeHash_SHA1(const void* data, uint size, void* result)
+    {
+        SHA1 h;
+        h.Init();
+        h.Update(data, size);
+        h.Final(result);
+    }
     
 }//namespace hgl::util

@@ -1,5 +1,5 @@
 #include<hgl/util/hash/Hash.h>
-#include"blake3/blake3.h"
+#include<blake3.h>
 
 namespace hgl::util
 {
@@ -28,4 +28,12 @@ namespace hgl::util
             blake3_hasher_finalize(&hasher, static_cast<uint8_t *>(digest), 32);
         }
     };//class Blake3
+
+    void ComputeHash_Blake3(const void* data, uint size, void* result)
+    {
+        Blake3 h;
+        h.Init();
+        h.Update(data, size);
+        h.Final(result);
+    }
 }

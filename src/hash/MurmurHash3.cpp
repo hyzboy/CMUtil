@@ -81,4 +81,12 @@ namespace hgl::util
         }
     };//class MurmurHash3
 
+    void ComputeHash_MurmurHash3(const void* data, uint size, void* result)
+    {
+        MurmurHash3 h;
+        h.Init();
+        h.Update(data, size);
+        h.Final(result);
+    }
+
 }//namespace hgl::util

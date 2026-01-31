@@ -45,6 +45,13 @@ namespace hgl
             }
         };//class FNV1a
 
+        void ComputeHash_FNV1a(const void* data, uint size, void* result)
+        {
+            FNV1a h;
+            h.Init();
+            h.Update(data, size);
+            h.Final(result);
+        }
         
     }//namespace util
 }//namespace hgl

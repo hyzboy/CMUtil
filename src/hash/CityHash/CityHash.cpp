@@ -29,6 +29,14 @@ namespace hgl::util
         }
     };
 
+    void ComputeHash_GoogleCityHash32(const void* data, uint size, void* result)
+    {
+        GoogleCityHash32 h;
+        h.Init();
+        h.Update(data, size);
+        h.Final(result);
+    }
+
     class GoogleCityHash64:public HashBase<GoogleCityHash64, 8>
     {
         uint64 result;
@@ -49,6 +57,14 @@ namespace hgl::util
             *(uint64 *)digest=result;
         }
     };
+
+    void ComputeHash_GoogleCityHash64(const void* data, uint size, void* result)
+    {
+        GoogleCityHash64 h;
+        h.Init();
+        h.Update(data, size);
+        h.Final(result);
+    }
 
     class GoogleCityHash128:public HashBase<GoogleCityHash128, 16>
     {
@@ -72,5 +88,13 @@ namespace hgl::util
             ((uint64 *)digest)[1]=result.second;
         }
     };//class CityHash128:public Hash
+
+    void ComputeHash_GoogleCityHash128(const void* data, uint size, void* result)
+    {
+        GoogleCityHash128 h;
+        h.Init();
+        h.Update(data, size);
+        h.Final(result);
+    }
 
 }//namespace hgl::util

@@ -236,6 +236,13 @@ namespace hgl
             }
         };//class SHA512
 
+        void ComputeHash_SHA512(const void* data, uint size, void* result)
+        {
+            SHA512 h;
+            h.Init();
+            h.Update(data, size);
+            h.Final(result);
+        }
         
     }//namespace util
 }//namespace hgl

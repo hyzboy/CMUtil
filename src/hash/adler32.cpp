@@ -142,5 +142,13 @@ namespace hgl
             }
         };//class Adler32
 
+        void ComputeHash_Adler32(const void* data, uint size, void* result)
+        {
+            Adler32 h;
+            h.Init();
+            h.Update(data, size);
+            h.Final(result);
+        }
+
     }//namespace util
 }//namespace hgl

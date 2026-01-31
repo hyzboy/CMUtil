@@ -71,17 +71,6 @@ IF(CM_UTIL_SUPPORT_HASH)
 
     SOURCE_GROUP("HASH\\CityHash" FILES ${CITY_HASH_FILES})
 
-    SET(BLAKE3_FILES   hash/blake3/blake3.h
-                        hash/blake3/blake3.c
-                        hash/blake3/blake3_impl.h
-                        hash/blake3/blake3_dispatch.c
-                        hash/blake3/blake3_portable.c
-                        hash/blake3/LICENSE_CC0
-                        hash/blake3/LICENSE_A2
-                        hash/blake3/LICENSE_A2LLVM)
-
-    SOURCE_GROUP("HASH\\BLAKE3" FILES ${BLAKE3_FILES})
-
     SET(HASH_HEADER_FILES   ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/hash/Hash.h
                             ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/hash/SHA1LE.h)
 
@@ -98,7 +87,6 @@ IF(CM_UTIL_SUPPORT_HASH)
                             hash/xxHash3.cpp
                             hash/FNV1a.cpp
                             hash/MurmurHash3.cpp
-                            ${BLAKE3_FILES}
     )
 
     SOURCE_GROUP("HASH" FILES ${HASH_HEADER_FILES} ${HASH_SOURCE_FILES})
@@ -165,6 +153,10 @@ add_cm_library(CMUtil "CM"  ${CMUTIL_ROOT_INCLUDE_PATH}
 
                             ${CM_SG_GEO_FILES}
                            )
+
+if(CM_UTIL_SUPPORT_HASH)
+    target_link_libraries(CMUtil PRIVATE blake3)
+endif()
 
 if(CM_UTIL_SUPPORT_XML)
     target_link_libraries(CMUtil PRIVATE expat::expat)

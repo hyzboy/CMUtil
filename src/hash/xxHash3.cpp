@@ -44,7 +44,13 @@ namespace hgl
             }
         };//class xxHash32
 
-        
+        void ComputeHash_xxHash32(const void* data, uint size, void* result)
+        {
+            xxHash32 h;
+            h.Init();
+            h.Update(data, size);
+            h.Final(result);
+        }
 
         class xxHash64:public HashBase<xxHash64, 8>
         {
@@ -74,7 +80,13 @@ namespace hgl
             }
         };//class xxHash64
 
-        
+        void ComputeHash_xxHash64(const void* data, uint size, void* result)
+        {
+            xxHash64 h;
+            h.Init();
+            h.Update(data, size);
+            h.Final(result);
+        }
 
         class xxHash3_64:public HashBase<xxHash3_64, 8>
         {
@@ -104,7 +116,13 @@ namespace hgl
             }
         };//class xxHash3_64
 
-        
+        void ComputeHash_xxHash3_64(const void* data, uint size, void* result)
+        {
+            xxHash3_64 h;
+            h.Init();
+            h.Update(data, size);
+            h.Final(result);
+        }
 
         class xxHash3_128:public HashBase<xxHash3_128, 16>
         {
@@ -134,6 +152,13 @@ namespace hgl
             }
         };//class xxHash3_128
 
+        void ComputeHash_xxHash3_128(const void* data, uint size, void* result)
+        {
+            xxHash3_128 h;
+            h.Init();
+            h.Update(data, size);
+            h.Final(result);
+        }
         
     }//namespace util
 }//namespace hgl

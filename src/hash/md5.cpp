@@ -243,5 +243,13 @@ namespace hgl
                 md5_encode((uchar *)digest, state, 16);
             }
         };//class MD5
+
+        void ComputeHash_MD5(const void* data, uint size, void* result)
+        {
+            MD5 h;
+            h.Init();
+            h.Update(data, size);
+            h.Final(result);
+        }
     }//namespace util
 }//namespace hgl

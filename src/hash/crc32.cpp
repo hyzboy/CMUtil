@@ -90,6 +90,13 @@ namespace hgl
             }
         };//class CRC32
 
+        void ComputeHash_CRC32(const void* data, uint size, void* result)
+        {
+            CRC32 h;
+            h.Init();
+            h.Update(data, size);
+            h.Final(result);
+        }
         
     }//namespace util
 }//namepace hgl

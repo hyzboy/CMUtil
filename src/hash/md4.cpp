@@ -213,6 +213,13 @@ namespace hgl
             }
         };//class MD4
 
+        void ComputeHash_MD4(const void* data, uint size, void* result)
+        {
+            MD4 h;
+            h.Init();
+            h.Update(data, size);
+            h.Final(result);
+        }
         
     }//namespace util
 }//namespace hgl

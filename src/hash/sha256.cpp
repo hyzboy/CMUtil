@@ -189,6 +189,13 @@ namespace hgl
             }
         };//class SHA256
 
+        void ComputeHash_SHA256(const void* data, uint size, void* result)
+        {
+            SHA256 h;
+            h.Init();
+            h.Update(data, size);
+            h.Final(result);
+        }
         
     }//namespace util
 }//namespace hgl

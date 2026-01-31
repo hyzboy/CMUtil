@@ -1,4 +1,5 @@
 ﻿#include<hgl/util/hash/Hash.h>
+#include<hgl/util/hash/SHA1LE.h>
 #include<hgl/io/FileInputStream.h>
 #include<map>
 
@@ -6,24 +7,24 @@ namespace hgl
 {
     namespace util
     {
-        // 前向声明所有Hash类
-        class Adler32;
-        class CRC32;
-        class MD4;
-        class MD5;
-        class SHA1;
-        class SHA1LE;
-        class SHA256;
-        class SHA512;
-        class xxHash32;
-        class xxHash64;
-        class xxHash3_64;
-        class xxHash3_128;
-        class FNV1a;
-        class MurmurHash3;
-        class GoogleCityHash32;
-        class GoogleCityHash64;
-        class GoogleCityHash128;
+        // 前向声明各Hash算法的计算函数
+        void ComputeHash_Adler32(const void* data, uint size, void* result);
+        void ComputeHash_CRC32(const void* data, uint size, void* result);
+        void ComputeHash_MD4(const void* data, uint size, void* result);
+        void ComputeHash_MD5(const void* data, uint size, void* result);
+        void ComputeHash_SHA1(const void* data, uint size, void* result);
+        void ComputeHash_SHA256(const void* data, uint size, void* result);
+        void ComputeHash_SHA512(const void* data, uint size, void* result);
+        void ComputeHash_Blake3(const void* data, uint size, void* result);
+        void ComputeHash_xxHash32(const void* data, uint size, void* result);
+        void ComputeHash_xxHash64(const void* data, uint size, void* result);
+        void ComputeHash_xxHash3_64(const void* data, uint size, void* result);
+        void ComputeHash_xxHash3_128(const void* data, uint size, void* result);
+        void ComputeHash_FNV1a(const void* data, uint size, void* result);
+        void ComputeHash_MurmurHash3(const void* data, uint size, void* result);
+        void ComputeHash_GoogleCityHash32(const void* data, uint size, void* result);
+        void ComputeHash_GoogleCityHash64(const void* data, uint size, void* result);
+        void ComputeHash_GoogleCityHash128(const void* data, uint size, void* result);
 
         namespace
         {
@@ -42,8 +43,8 @@ namespace hgl
                 {HASH::xxH64, 8},
                 {HASH::xxH3_64, 8},
                 {HASH::xxH3_128, 16},
-                {HASH::FNV1a, 4},
-                {HASH::Murmur3, 4},
+                {HASH::FNV1a, 8},
+                {HASH::Murmur3, 16},
                 {HASH::City32, 4},
                 {HASH::City64, 8},
                 {HASH::City128, 16},
@@ -70,9 +71,71 @@ namespace hgl
             size_t digest_size = GetHashDigestSize(ha);
             if(digest_size == 0) return false;
 
-            // 这种方式需要在.cpp中实现特化版本
-            // 推荐用户使用template版本：ComputeHash<HASH::MD5>(data, size, result);
-            return false;
+            // 使用switch调用各Hash算法的计算函数
+            switch(ha)
+            {
+                case HASH::Adler32:
+                    ComputeHash_Adler32(data, (uint)size, hash_code);
+                    return true;
+                case HASH::CRC32:
+                    ComputeHash_CRC32(data, (uint)size, hash_code);
+                    return true;
+                case HASH::MD4:
+                    ComputeHash_MD4(data, (uint)size, hash_code);
+                    return true;
+                case HASH::MD5:
+                    ComputeHash_MD5(data, (uint)size, hash_code);
+                    return true;
+                case HASH::SHA1:
+                    ComputeHash_SHA1(data, (uint)size, hash_code);
+                    return true;
+                case HASH::SHA1LE:
+                {
+                    SHA1LE h;
+                    h.Init();
+                    h.Update(data, (uint)size);
+                    h.Final(hash_code);
+                    return true;
+                }
+                case HASH::SHA256:
+                    ComputeHash_SHA256(data, (uint)size, hash_code);
+                    return true;
+                case HASH::SHA512:
+                    ComputeHash_SHA512(data, (uint)size, hash_code);
+                    return true;
+                case HASH::BLAKE3:
+                    ComputeHash_Blake3(data, (uint)size, hash_code);
+                    return true;
+                case HASH::xxH32:
+                    ComputeHash_xxHash32(data, (uint)size, hash_code);
+                    return true;
+                case HASH::xxH64:
+                    ComputeHash_xxHash64(data, (uint)size, hash_code);
+                    return true;
+                case HASH::xxH3_64:
+                    ComputeHash_xxHash3_64(data, (uint)size, hash_code);
+                    return true;
+                case HASH::xxH3_128:
+                    ComputeHash_xxHash3_128(data, (uint)size, hash_code);
+                    return true;
+                case HASH::FNV1a:
+                    ComputeHash_FNV1a(data, (uint)size, hash_code);
+                    return true;
+                case HASH::Murmur3:
+                    ComputeHash_MurmurHash3(data, (uint)size, hash_code);
+                    return true;
+                case HASH::City32:
+                    ComputeHash_GoogleCityHash32(data, (uint)size, hash_code);
+                    return true;
+                case HASH::City64:
+                    ComputeHash_GoogleCityHash64(data, (uint)size, hash_code);
+                    return true;
+                case HASH::City128:
+                    ComputeHash_GoogleCityHash128(data, (uint)size, hash_code);
+                    return true;
+                default:
+                    return false;
+            }
         }
 
         // 获取Hash算法的摘要大小
