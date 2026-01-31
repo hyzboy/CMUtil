@@ -95,7 +95,7 @@ namespace hgl
             };
         }//namespace
 
-        class SHA512:public HashBase<SHA512, 64>
+        class SHA512:public hash::Base<SHA512, 64>
         {
             enum
             {

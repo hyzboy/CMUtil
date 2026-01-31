@@ -16,7 +16,7 @@ namespace hgl
             static std::uniform_int_distribution<uint64> mt_rand64_dist;
         }
 
-        class xxHash32:public HashBase<xxHash32, 4>
+        class xxHash32:public hash::Base<xxHash32, 4>
         {
             XXH32_state_t *state=nullptr;
             uint32 seed;
@@ -52,7 +52,7 @@ namespace hgl
             h.Final(result);
         }
 
-        class xxHash64:public HashBase<xxHash64, 8>
+        class xxHash64:public hash::Base<xxHash64, 8>
         {
             XXH64_state_t *state=nullptr;
             uint64 seed;
@@ -88,7 +88,7 @@ namespace hgl
             h.Final(result);
         }
 
-        class xxHash3_64:public HashBase<xxHash3_64, 8>
+        class xxHash3_64:public hash::Base<xxHash3_64, 8>
         {
             XXH3_state_t *state=nullptr;
             uint64 seed;
@@ -124,7 +124,7 @@ namespace hgl
             h.Final(result);
         }
 
-        class xxHash3_128:public HashBase<xxHash3_128, 16>
+        class xxHash3_128:public hash::Base<xxHash3_128, 16>
         {
             XXH3_state_t *state=nullptr;
             XXH64_hash_t seed;

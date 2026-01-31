@@ -136,7 +136,7 @@ namespace hgl
             }
         }//namespace
 
-        class MD4:public HashBase<MD4, 16>
+        class MD4:public hash::Base<MD4, 16>
         {
             uint32 state[4];          // state (ABCD)
             uint32 count[2];          // number of bits, modulo 2^64 (lsb first)

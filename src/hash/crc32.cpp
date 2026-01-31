@@ -66,7 +66,7 @@ namespace hgl
             return crc ^ ~0U;
         }
 
-        class CRC32:public HashBase<CRC32, 4>
+        class CRC32:public hash::Base<CRC32, 4>
         {
             uint32 result;
 

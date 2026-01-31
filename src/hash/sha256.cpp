@@ -30,7 +30,7 @@ namespace hgl
             };
         }//namespace
 
-        class SHA256:public HashBase<SHA256, 32>
+        class SHA256:public hash::Base<SHA256, 32>
         {
             enum
             {

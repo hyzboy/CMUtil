@@ -60,7 +60,7 @@ namespace hgl::util
         }
     }//namespace
 
-    class MurmurHash3:public HashBase<MurmurHash3, 16>
+    class MurmurHash3:public hash::Base<MurmurHash3, 16>
     {
         uint32_t result;
 

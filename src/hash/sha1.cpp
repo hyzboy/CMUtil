@@ -64,7 +64,7 @@ namespace hgl::util
         }
     }//namespace
 
-    class SHA1:public HashBase<SHA1, 20>
+    class SHA1:public hash::Base<SHA1, 20>
     {
         enum
         {

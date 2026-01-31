@@ -6,9 +6,9 @@
 
 #include"city.h"
 
-namespace hgl::util
+namespace hgl::util::hash
 {
-    class GoogleCityHash32:public HashBase<GoogleCityHash32, 4>
+    class GoogleCityHash32:public Base<GoogleCityHash32, 4>
     {
         uint32 result;
 
@@ -37,7 +37,7 @@ namespace hgl::util
         h.Final(result);
     }
 
-    class GoogleCityHash64:public HashBase<GoogleCityHash64, 8>
+    class GoogleCityHash64:public Base<GoogleCityHash64, 8>
     {
         uint64 result;
 
@@ -66,7 +66,7 @@ namespace hgl::util
         h.Final(result);
     }
 
-    class GoogleCityHash128:public HashBase<GoogleCityHash128, 16>
+    class GoogleCityHash128:public Base<GoogleCityHash128, 16>
     {
         uint128 result;
 
@@ -97,4 +97,4 @@ namespace hgl::util
         h.Final(result);
     }
 
-}//namespace hgl::util
+}//namespace hgl::util::hash

@@ -5,46 +5,53 @@ namespace hgl
 {
     namespace util
     {
-        /**
-         * SHA1-LE Hash算法<br>
-         * 算法保持SHA1不变，改动如下:<br>
-         *  1.去掉了因BigEndian设计造成的LittleEndian处理器需要做大小头转换的部分
-         *  2.可自定义起始因子
-         *  3.可动态修改扰乱因子
-         */
-        class SHA1LE:public HashBase<SHA1LE, 20>
+        namespace hash
         {
-            enum
+            /**
+             * SHA1-LE Hash算法<br>
+             * 算法保持SHA1不变，改动如下:<br>
+             *  1.去掉了因BigEndian设计造成的LittleEndian处理器需要做大小头转换的部分
+             *  2.可自定义起始因子
+             *  3.可动态修改扰乱因子
+             */
+            class SHA1LE:public Base<SHA1LE, 20>
             {
-                BLOCK_SIZE  = 64,
-                DIGEST_SIZE = 20
-            };
+                enum
+                {
+                    BLOCK_SIZE  = 64,
+                    DIGEST_SIZE = 20
+                };
 
-            uint32 digest[5]; // Message digest
-            uint32 countLo;   // 64-bit bit count
-            uint32 countHi;
-            uint32 data[16];  // SHA data buffer
-            uint32 slop;      // # of bytes saved in data[]
+                uint32 digest[5]; // Message digest
+                uint32 countLo;   // 64-bit bit count
+                uint32 countHi;
+                uint32 data[16];  // SHA data buffer
+                uint32 slop;      // # of bytes saved in data[]
 
-            uint32 K[4];
+                uint32 K[4];
 
-            uint32 W[80];
+                uint32 W[80];
 
-        private:
+            private:
 
-            void sha1_transform();
+                void sha1_transform();
 
-        public:
+            public:
 
-            SHA1LE() = default;
+                SHA1LE() = default;
 
-            void Init(const uint32 *start_digest,const uint32 *mysterious_constants);   ///<开始一次新的HASH计算，并指定初始因子和扰乱因子
-            void Init();                                                        ///<开始一次新的HASH计算，并使用缺省初始因子和扰乱因子
+                void Init(const uint32 *start_digest,const uint32 *mysterious_constants);   ///<开始一次新的HASH计算，并指定初始因子和扰乱因子
+                void Init();                                                        ///<开始一次新的HASH计算，并使用缺省初始因子和扰乱因子
 
-            void SetMark(const uint32 *mysterious_constants);                           ///<更新扰乱因子
+                void SetMark(const uint32 *mysterious_constants);                           ///<更新扰乱因子
 
-            void Update(const void *input,uint count);                          ///<添加新的HASH数据
-            void Final(void *result);                                           ///<结束本次HASH计算
-        };//class SHA1LE
+                void Update(const void *input,uint count);                          ///<添加新的HASH数据
+                void Final(void *result);                                           ///<结束本次HASH计算
+            };//class SHA1LE
+        }//namespace hash
+
+        // 向后兼容别名
+        using SHA1LE = hash::SHA1LE;
+
     }//namespace util
 }//namespace hgl

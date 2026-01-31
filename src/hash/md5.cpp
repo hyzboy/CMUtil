@@ -167,7 +167,7 @@ namespace hgl
             }
         }//namespace
 
-        class MD5:public HashBase<MD5, 16>
+        class MD5:public hash::Base<MD5, 16>
         {
             uint32 state[4];
             uint32 count[2];

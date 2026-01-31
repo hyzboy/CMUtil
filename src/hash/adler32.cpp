@@ -118,7 +118,7 @@ namespace hgl
             return adler | (sum2 << 16);
         }
 
-        class Adler32:public HashBase<Adler32, 4>
+        class Adler32:public hash::Base<Adler32, 4>
         {
             uint32 result;
 

@@ -1,9 +1,9 @@
 #include<hgl/util/hash/Hash.h>
 #include<blake3.h>
 
-namespace hgl::util
+namespace hgl::util::hash
 {
-    class Blake3:public HashBase<Blake3, 32>
+    class Blake3:public Base<Blake3, 32>
     {
         blake3_hasher hasher{};
 
@@ -36,4 +36,4 @@ namespace hgl::util
         h.Update(data, size);
         h.Final(result);
     }
-}
+}//namespace hgl::util::hash

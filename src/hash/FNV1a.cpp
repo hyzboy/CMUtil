@@ -23,7 +23,7 @@ namespace hgl
             }
         }//namespace
 
-        class FNV1a:public HashBase<FNV1a, 8>
+        class FNV1a:public hash::Base<FNV1a, 8>
         {
             uint32_t result;
 
