@@ -3,13 +3,9 @@
 
 namespace hgl::xml
 {
-    const ElementParseKV::AttrItem *ElementParseKV::GetAttrItem(const U8String &name)
+    const U8String *ElementParseKV::GetAttrValue(const U8String &name)
     {
-        const int pos=attrs_map.FindPos(name);
-
-        if(pos<0)return(nullptr);
-
-        return attrs_map.GetItem(pos);
+        return attrs_map.GetValuePointer(name);
     }
 
     void ElementParseKV::Attr(const u8char *flag,const u8char *info)
@@ -19,48 +15,48 @@ namespace hgl::xml
 
     const bool ElementParseKV::Get(const U8String &name,U8String &str)
     {
-        const AttrItem *ai=GetAttrItem(name);
+        const U8String *val=GetAttrValue(name);
 
-        if(!ai)return(false);
+        if(!val)return(false);
 
-        str=ai->value;
+        str=*val;
         return(true);
     }
 
     const bool ElementParseKV::Get(const U8String &name,U16String &str)
     {
-        const AttrItem *ai=GetAttrItem(name);
+        const U8String *val=GetAttrValue(name);
 
-        if(!ai)return(false);
+        if(!val)return(false);
 
-        str=to_u16(ai->value);
+        str=to_u16(*val);
         return(true);
     }
 
     const bool ElementParseKV::Get(const U8String &name,u8char &ch)
     {
-        const AttrItem *ai=GetAttrItem(name);
+        const U8String *val=GetAttrValue(name);
 
-        if(!ai)return(false);
+        if(!val)return(false);
 
-        ch=ai->value.GetFirstChar();
+        ch=val->GetFirstChar();
         return(true);
     }
 
     const bool ElementParseKV::Get(const U8String &name,bool &value)
     {
-        const AttrItem *ai=GetAttrItem(name);
+        const U8String *val=GetAttrValue(name);
 
-        return(ai?stob<u8char>(ai->value.c_str(),value):false);
+        return(val?stob<u8char>(val->c_str(),value):false);
     }
 
     const bool ElementParseKV::GetHexStr(const U8String &name,uint8 *data)
     {
-        const AttrItem *ai=GetAttrItem(name);
+        const U8String *val=GetAttrValue(name);
 
-        if(!ai)return(false);
+        if(!val)return(false);
 
-        ParseHexStr(data,ai->value.c_str(),ai->value.Length());
+        ParseHexStr(data,val->c_str(),val->Length());
         return(true);
     }
 }//namespace hgl::xml

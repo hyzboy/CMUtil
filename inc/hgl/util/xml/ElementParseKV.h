@@ -2,7 +2,7 @@
 
 #include<hgl/util/xml/ElementParse.h>
 #include<hgl/type/String.h>
-#include<hgl/type/Map.h>
+#include<hgl/type/UnorderedMap.h>
 
 namespace hgl::xml
 {
@@ -13,18 +13,17 @@ namespace hgl::xml
     {
     protected:
 
-        using AttrsMap=Map<U8String,U8String>;
-        using AttrItem=KeyValue<U8String,U8String>;
+        using AttrsMap=UnorderedMap<U8String,U8String>;
 
         AttrsMap attrs_map;
 
     protected:
 
-        const AttrItem *GetAttrItem(const U8String &name);
+        const U8String *GetAttrValue(const U8String &name);
 
-        template<typename T> const bool GetInteger  (const U8String &name,T &value){const AttrItem *ai=GetAttrItem(name);return(ai?stoi(ai->value.c_str(),value):false);}
-        template<typename T> const bool GetUInteger (const U8String &name,T &value){const AttrItem *ai=GetAttrItem(name);return(ai?stou(ai->value.c_str(),value):false);}
-        template<typename T> const bool GetFloat    (const U8String &name,T &value){const AttrItem *ai=GetAttrItem(name);return(ai?stof(ai->value.c_str(),value):false);}
+        template<typename T> const bool GetInteger  (const U8String &name,T &value){const U8String *val=GetAttrValue(name);return(val?stoi(val->c_str(),value):false);}
+        template<typename T> const bool GetUInteger (const U8String &name,T &value){const U8String *val=GetAttrValue(name);return(val?stou(val->c_str(),value):false);}
+        template<typename T> const bool GetFloat    (const U8String &name,T &value){const U8String *val=GetAttrValue(name);return(val?stof(val->c_str(),value):false);}
 
     public:
 
@@ -36,7 +35,7 @@ namespace hgl::xml
 
         const bool      Contains     (const U8String &name)const{return attrs_map.ContainsKey(name);}
 
-        const u8char *  ToCString   (const U8String &name){const AttrItem *ai=GetAttrItem(name);return(ai?ai->value.c_str():nullptr);}
+        const u8char *  ToCString   (const U8String &name){const U8String *val=GetAttrValue(name);return(val?val->c_str():nullptr);}
         const u8char *  operator[]  (const U8String &name){return ToCString(name);}
 
     public:

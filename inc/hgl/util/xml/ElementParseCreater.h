@@ -3,7 +3,7 @@
 #include<hgl/util/xml/ElementParse.h>
 #include<hgl/type/String.h>
 #include<hgl/type/Stack.h>
-#include<hgl/type/Map.h>
+#include<hgl/type/UnorderedMap.h>
 
 namespace hgl::xml
 {
@@ -15,7 +15,7 @@ namespace hgl::xml
 
     protected:
 
-        Map<U8String,ElementCreater *> ecs_map;
+        UnorderedMap<U8String,ElementCreater *> ecs_map;
 
         virtual ElementCreater *GetSubElementCreater(const U8String &sub_name);
 
@@ -45,7 +45,7 @@ namespace hgl::xml
 
         U8String null_string;
 
-        Map<U8String,U8String> attrs_list;
+        UnorderedMap<U8String,U8String> attrs_list;
 
     public:
 
@@ -131,7 +131,7 @@ namespace hgl::xml
     {
         Stack<ElementCreater *> ecs_stack;
 
-        Map<U8String,ElementCreater *> ecs_map;
+        UnorderedMap<U8String,ElementCreater *> ecs_map;
 
         ElementCreater *cur_ec;
 

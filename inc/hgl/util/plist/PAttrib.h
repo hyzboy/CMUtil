@@ -2,7 +2,7 @@
 
 #include<hgl/type/String.h>
 #include<hgl/io/LoadStringList.h>
-#include<hgl/type/Map.h>
+#include<hgl/type/UnorderedMap.h>
 #include<hgl/io/FileOutputStream.h>
 #include<hgl/io/TextOutputStream.h>
 
@@ -166,7 +166,7 @@ namespace hgl
         }
     };
 
-    template<typename C> using PAttribMap=Map<String<C>,PAttribBase<C> *>;
+    template<typename C> using PAttribMap=UnorderedMap<String<C>,PAttribBase<C> *>;
 
     /**
      * 向属性列表中写入一个属性
