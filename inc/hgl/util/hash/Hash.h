@@ -248,6 +248,13 @@ namespace hgl::util::hash
      */
     Algorithm FromID(uint32 id);
 
+    /**
+     * 根据Hash算法名称获取枚举值
+     * @param name 算法名称（区分大小写），如 "MD5", "SHA256" 等
+     * @return 对应的Algorithm枚举值，如果未找到则返回Algorithm::MD5（默认值）
+     */
+    Algorithm FromName(const char* name);
+
     // ============ 向后兼容的旧 API 别名 ============
     inline bool ComputeHash(Algorithm ha, const void* data, size_t size, void* hash_code)
     {
@@ -277,5 +284,13 @@ namespace hgl::util::hash
     inline Algorithm GetHashFromID(uint32 id)
     {
         return FromID(id);
+    }
+
+    /**
+     * 向后兼容别名 - 根据名称获取Hash算法
+     */
+    inline Algorithm GetHashFromName(const char* name)
+    {
+        return FromName(name);
     }
 }//namespace hgl::util::hash

@@ -136,6 +136,21 @@ namespace hgl::util::hash
         return info ? info->algo : Algorithm::MD5; // 默认返回MD5
     }
 
+    // 根据Hash算法名称获取枚举值
+    Algorithm FromName(const char* name)
+    {
+        if(!name || !*name)
+            return Algorithm::MD5; // 默认返回MD5
+
+        for(const auto& info : HASH_ALGORITHM_INFO)
+        {
+            if(strcmp(info.name, name) == 0)
+                return info.algo;
+        }
+
+        return Algorithm::MD5; // 未找到则返回MD5
+    }
+
     // SHA1LE计算函数
     void ComputeHash_SHA1LE(const void* data, uint size, void* result)
     {

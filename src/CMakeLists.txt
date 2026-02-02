@@ -72,24 +72,41 @@ IF(CM_UTIL_SUPPORT_HASH)
     SOURCE_GROUP("HASH\\CityHash" FILES ${CITY_HASH_FILES})
 
     SET(HASH_HEADER_FILES   ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/hash/Hash.h
-                            ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/hash/SHA1LE.h)
+                            ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/hash/SHA1LE.h
+                            ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/hash/HashInputStream.h
+                            ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/hash/HashOutputStream.h
+                            ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/hash/HashStream.h)
 
-    SET(HASH_SOURCE_FILES   hash/adler32.cpp
+    SOURCE_GROUP("HASH\\Headers" FILES ${HASH_HEADER_FILES})
+
+    SET(HASH_BASIC_SOURCE   hash/adler32.cpp
                             hash/crc32.cpp
-                            hash/Hash.cpp
-                            hash/md4.cpp
-                            hash/md5.cpp
-                            hash/sha1.cpp
+                            hash/Hash.cpp)
+
+    SET(HASH_MD_SOURCE      hash/md4.cpp
+                            hash/md5.cpp)
+
+    SET(HASH_SHA_SOURCE     hash/sha1.cpp
                             hash/sha1le.cpp
                             hash/sha256.cpp
-                            hash/sha512.cpp
-                            hash/blake3.cpp
-                            hash/xxHash3.cpp
-                            hash/FNV1a.cpp
-                            hash/MurmurHash3.cpp
-    )
+                            hash/sha512.cpp)
 
-    SOURCE_GROUP("HASH" FILES ${HASH_HEADER_FILES} ${HASH_SOURCE_FILES})
+    SET(HASH_BLAKE_SOURCE   hash/blake3.cpp)
+
+    SET(HASH_XX_SOURCE      hash/xxHash3.cpp)
+
+    SET(HASH_FNV_SOURCE     hash/FNV1a.cpp)
+
+    SET(HASH_MURMUR_SOURCE  hash/MurmurHash3.cpp)
+
+    SOURCE_GROUP("HASH\\Basic" FILES ${HASH_BASIC_SOURCE})
+    SOURCE_GROUP("HASH\\Algorithms\\MD" FILES ${HASH_MD_SOURCE})
+    SOURCE_GROUP("HASH\\Algorithms\\SHA" FILES ${HASH_SHA_SOURCE})
+    SOURCE_GROUP("HASH\\Algorithms\\BLAKE" FILES ${HASH_BLAKE_SOURCE})
+    SOURCE_GROUP("HASH\\Algorithms\\XXHash" FILES ${HASH_XX_SOURCE})
+    SOURCE_GROUP("HASH\\Algorithms\\FNV" FILES ${HASH_FNV_SOURCE})
+    SOURCE_GROUP("HASH\\Algorithms\\Murmur" FILES ${HASH_MURMUR_SOURCE})
+    SOURCE_GROUP("HASH\\xxHash" FILES ${XXHASH_FILES})
 ENDIF(CM_UTIL_SUPPORT_HASH)
 
 #################################################################################################### CRYPT
@@ -144,7 +161,13 @@ add_cm_library(CMUtil "CM"  ${CMUTIL_ROOT_INCLUDE_PATH}
                             ${CSV_SOURCE}
 
                             ${HASH_HEADER_FILES}
-                            ${HASH_SOURCE_FILES}
+                            ${HASH_BASIC_SOURCE}
+                            ${HASH_MD_SOURCE}
+                            ${HASH_SHA_SOURCE}
+                            ${HASH_BLAKE_SOURCE}
+                            ${HASH_XX_SOURCE}
+                            ${HASH_FNV_SOURCE}
+                            ${HASH_MURMUR_SOURCE}
                             ${XXHASH_FILES}
                             ${CITY_HASH_FILES}
 
