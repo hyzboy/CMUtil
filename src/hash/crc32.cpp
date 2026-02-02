@@ -1,6 +1,6 @@
 ﻿#include<hgl/util/hash/Hash.h>
 
-namespace hgl
+namespace hgl::util::hash
 {
     namespace
     {
@@ -51,52 +51,48 @@ namespace hgl
         };
     }//namespace
 
-    namespace util
+    uint32 CountCRC32(uint32 crc, const uint8 *buf, uint32 size)
     {
-        uint32 CountCRC32(uint32 crc, const uint8 *buf, uint32 size)
+        const uint8 *p;
+
+        p = buf;
+        crc = crc ^ ~0U;
+
+        while (size--)
+            crc = crc32_tab[(crc ^ *p++) & 0xFF] ^ (crc >> 8);
+
+        return crc ^ ~0U;
+    }
+
+    class CRC32:public hash::Base<CRC32, 4>
+    {
+        uint32 result;
+
+    public:
+
+        CRC32() = default;
+
+        void Init()
         {
-            const uint8 *p;
-
-            p = buf;
-            crc = crc ^ ~0U;
-
-            while (size--)
-                crc = crc32_tab[(crc ^ *p++) & 0xFF] ^ (crc >> 8);
-
-            return crc ^ ~0U;
+            result=0;
         }
 
-        class CRC32:public hash::Base<CRC32, 4>
+        void Update(const void *input,uint inputLen)
         {
-            uint32 result;
-
-        public:
-
-            CRC32() = default;
-
-            void Init()
-            {
-                result=0;
-            }
-
-            void Update(const void *input,uint inputLen)
-            {
-                result=CountCRC32(result,(const uint8 *)input,inputLen);
-            }
-
-            void Final(void *digest)
-            {
-                *(uint32 *)digest=result;
-            }
-        };//class CRC32
-
-        void ComputeHash_CRC32(const void* data, uint size, void* result)
-        {
-            CRC32 h;
-            h.Init();
-            h.Update(data, size);
-            h.Final(result);
+            result=CountCRC32(result,(const uint8 *)input,inputLen);
         }
-        
-    }//namespace util
-}//namepace hgl
+
+        void Final(void *digest)
+        {
+            *(uint32 *)digest=result;
+        }
+    };//class CRC32
+
+    void ComputeHash_CRC32(const void* data, uint size, void* result)
+    {
+        CRC32 h;
+        h.Init();
+        h.Update(data, size);
+        h.Final(result);
+    }
+}//namespace hgl::util::hash

@@ -1,6 +1,6 @@
 ﻿#include<hgl/util/hash/Hash.h>
 
-namespace hgl::util
+namespace hgl::util::hash
 {
     namespace
     {
@@ -89,4 +89,4 @@ namespace hgl::util
         h.Final(result);
     }
 
-}//namespace hgl::util
+}//namespace hgl::util::hash

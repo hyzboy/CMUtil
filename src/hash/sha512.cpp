@@ -1,9 +1,7 @@
 ﻿#include<hgl/util/hash/Hash.h>
 
-namespace hgl
+namespace hgl::util::hash
 {
-    namespace util
-    {
         namespace
         {
             #define SHA2_SHFR(x, n)    (x >> n)
@@ -244,5 +242,4 @@ namespace hgl
             h.Final(result);
         }
         
-    }//namespace util
-}//namespace hgl
+}//namespace hgl::util::hash

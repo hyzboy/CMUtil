@@ -1,9 +1,7 @@
 ﻿#include<hgl/util/hash/Hash.h>
 
-namespace hgl
+namespace hgl::util::hash
 {
-    namespace util
-    {
         namespace
         {
             #define ROTLEFT(a,b) (((a) << (b)) | ((a) >> (32-(b))))
@@ -197,6 +195,5 @@ namespace hgl
             h.Final(result);
         }
         
-    }//namespace util
-}//namespace hgl
+}//namespace hgl::util::hash
 

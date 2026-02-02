@@ -143,10 +143,10 @@ add_cm_library(CMUtil "CM"  ${CMUTIL_ROOT_INCLUDE_PATH}
                             ${JSON_TOOL_SOURCE}
                             ${CSV_SOURCE}
 
-                            ${XXHASH_FILES}
-                            ${CITY_HASH_FILES}
                             ${HASH_HEADER_FILES}
                             ${HASH_SOURCE_FILES}
+                            ${XXHASH_FILES}
+                            ${CITY_HASH_FILES}
 
                             ${CRYPT_HEADER_FILES}
                             ${CRYPT_SOURCE_FILES}

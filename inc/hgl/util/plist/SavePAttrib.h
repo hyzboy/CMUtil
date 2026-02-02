@@ -24,17 +24,14 @@ namespace hgl
 
         tos.WriteBOM();
 
-        const int count=pa_map.GetCount();
-        auto **pa_obj=pa_map.GetDataList();
-
-        for(int i=0;i<count;i++)
+        int count=0;
+        for(auto [key, pa_obj] : pa_map)
         {
-            tos.WriteString((*pa_obj)->key);
+            tos.WriteString(key);
             tos.WriteChars(&gap_ch,1);
-            tos.WriteString((*pa_obj)->value->MakeToString());
+            tos.WriteString(pa_obj->MakeToString());
             tos.WriteLineEnd();
-
-            ++pa_obj;
+            count++;
         }
 
         return(count);

@@ -38,12 +38,21 @@ int main(int argc,char **argv)
         LoadFromTextFile(ToOSString(argv[2]),pl_set);
 
         //lambda方式
+        std::cout<<"=== Lambda Enumeration Method ==="<<std::endl;
         pl_set.Enum([](const String<u8char> &key,PAttribBase<u8char> * &attr)
         {
             U8String str=key+u8":"+attr->MakeToString();
 
             std::cout<<(char *)(str.c_str())<<std::endl;
         });
+
+        //迭代器方式（range-based for）
+        std::cout<<std::endl<<"=== Range-Based For Loop Method ==="<<std::endl;
+        for(auto [key, attr] : pl_set)
+        {
+            U8String str=key+u8":"+attr->MakeToString();
+            std::cout<<(char *)(str.c_str())<<std::endl;
+        }
 
         //传统方式
 //         std::cout<<"name:"<<name->MakeToString().c_str()<<std::endl;

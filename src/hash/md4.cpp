@@ -1,10 +1,8 @@
 ﻿#include<hgl/util/hash/Hash.h>
 #include<hgl/CoreType.h>
 
-namespace hgl
+namespace hgl::util::hash
 {
-    namespace util
-    {
         namespace
         {
             /* Constants for MD4Transform routine. */
@@ -221,5 +219,4 @@ namespace hgl
             h.Final(result);
         }
         
-    }//namespace util
-}//namespace hgl
+}//namespace hgl::util::hash

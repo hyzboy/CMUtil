@@ -1,9 +1,7 @@
 ﻿#include<hgl/util/hash/Hash.h>
 
-namespace hgl
+namespace hgl::util::hash
 {
-    namespace util
-    {
         namespace
         {
             /* Constants for MD5Transform routine. */
@@ -251,5 +249,4 @@ namespace hgl
             h.Update(data, size);
             h.Final(result);
         }
-    }//namespace util
-}//namespace hgl
+}//namespace hgl::util::hash

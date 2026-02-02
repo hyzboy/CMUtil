@@ -1,7 +1,7 @@
 ﻿#include<hgl/util/hash/Hash.h>
 #include<hgl/Endian.h>
 
-namespace hgl::util
+namespace hgl::util::hash
 {
     namespace
     {
@@ -248,4 +248,4 @@ namespace hgl::util
         h.Final(result);
     }
     
-}//namespace hgl::util
+}//namespace hgl::util::hash

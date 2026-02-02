@@ -204,7 +204,8 @@ namespace hgl
             break;
         }
 
-        PAttribBase<C> *attr=GetObjectFromMap(pa_map,name);
+        PAttribBase<C> *attr=nullptr;
+        pa_map.Get(name, attr);
 
         if(attr)
             attr->ParseFromString(value);
@@ -223,6 +224,36 @@ namespace hgl
 
         operator        PAttribMap<C> &()       {return pa_map;}
         operator const  PAttribMap<C> &()const  {return pa_map;}
+
+        /**
+         * @brief 获取迭代器起始位置（支持 range-based for 循环）
+         */
+        auto begin() { return pa_map.begin(); }
+
+        /**
+         * @brief 获取迭代器结束位置
+         */
+        auto end() { return pa_map.end(); }
+
+        /**
+         * @brief 获取 const 迭代器起始位置
+         */
+        auto begin() const { return pa_map.begin(); }
+
+        /**
+         * @brief 获取 const 迭代器结束位置
+         */
+        auto end() const { return pa_map.end(); }
+
+        /**
+         * @brief 获取 const 迭代器起始位置
+         */
+        auto cbegin() const { return pa_map.cbegin(); }
+
+        /**
+         * @brief 获取 const 迭代器结束位置
+         */
+        auto cend() const { return pa_map.cend(); }
 
     public:
 
@@ -285,7 +316,12 @@ namespace hgl
         //    return Add(pa_name,str);
         //}
 
-        PAttribBase<C> *Get(const PString &name){return GetObjectFromMap(pa_map,name);}
+        PAttribBase<C> *Get(const PString &name)
+        {
+            PAttribBase<C> *result=nullptr;
+            pa_map.Get(name, result);
+            return result;
+        }
 
         void Delete(const PString &name){pa_map.DeleteByKey(name);}
 

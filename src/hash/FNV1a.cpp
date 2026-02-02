@@ -1,9 +1,7 @@
 ﻿#include<hgl/util/hash/Hash.h>
 
-namespace hgl
+namespace hgl::util::hash
 {
-    namespace util
-    {
         namespace
         {
             uint32_t CountFNV1a(uint32_t hash,const void *key, int len)
@@ -53,5 +51,4 @@ namespace hgl
             h.Final(result);
         }
         
-    }//namespace util
-}//namespace hgl
+}//namespace hgl::util::hash
