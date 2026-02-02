@@ -1,4 +1,4 @@
-#include<hgl/util/hash/Hash.h>
+﻿#include<hgl/util/hash/Hash.h>
 #include<blake3.h>
 
 namespace hgl::util::hash

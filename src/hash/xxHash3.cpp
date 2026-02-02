@@ -157,5 +157,5 @@ namespace hgl::util::hash
             h.Update(data, size);
             h.Final(result);
         }
-        
+
 }//namespace hgl::util::hash
