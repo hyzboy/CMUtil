@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include<hgl/io/OutputStream.h>
 #include<hgl/util/hash/Hash.h>

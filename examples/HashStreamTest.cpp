@@ -1,4 +1,4 @@
-#include<hgl/util/hash/Hash.h>
+﻿#include<hgl/util/hash/Hash.h>
 #include<hgl/util/hash/HashInputStream.h>
 #include<hgl/io/FileInputStream.h>
 #include<hgl/filesystem/FileSystem.h>
