@@ -17,7 +17,7 @@ namespace hgl
 
         struct TreeXMLData
         {
-            using XSVList=List<U8StringView>;
+            using XSVList=ValueArray<U8StringView>;
 
         public:
 
