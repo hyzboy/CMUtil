@@ -14,3 +14,11 @@ cm_example_project("" PAttribTest      PAttribTest.cpp)
 cm_example_project("" Base64Test       base64test.cpp)
 cm_example_project("" HashTest         HashTest.cpp)
 cm_example_project("" HashStreamTest   HashStreamTest.cpp)
+
+find_package(cereal CONFIG REQUIRED)
+
+cm_example_project("Cereal" CerealBasicTest           CerealBasicTest.cpp)
+cm_example_project("Cereal" CerealVersionedTest       CerealVersionedTest.cpp)
+
+target_link_libraries(CerealBasicTest PRIVATE cereal::cereal)
+target_link_libraries(CerealVersionedTest PRIVATE cereal::cereal)
