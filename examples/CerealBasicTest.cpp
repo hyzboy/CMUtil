@@ -1,4 +1,4 @@
-#include <cereal/archives/binary.hpp>
+﻿#include <cereal/archives/binary.hpp>
 #include <cereal/archives/json.hpp>
 #include <cereal/types/array.hpp>
 #include <cereal/types/map.hpp>
