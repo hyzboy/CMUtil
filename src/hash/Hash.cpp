@@ -53,7 +53,7 @@ namespace hgl::util::hash
         {Algorithm::XXH3_64, ID::XXH3_64, 8, "XXH3-64", ComputeHash_XXH3_64},
         {Algorithm::XXH3_128, ID::XXH3_128, 16, "XXH3-128", ComputeHash_XXH3_128},
 
-        {Algorithm::FNV1a, ID::FNV1a, 8, "FNV1a", ComputeHash_FNV1a},
+        {Algorithm::FNV1a, ID::FNV1a, 4, "FNV1a", ComputeHash_FNV1a},
         {Algorithm::Murmur3, ID::Murmur3, 16, "MurmurHash3", ComputeHash_MurmurHash3},
 
         {Algorithm::City32, ID::City32, 4, "CityHash32", ComputeHash_GoogleCityHash32},
