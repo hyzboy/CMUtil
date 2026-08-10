@@ -5,7 +5,10 @@ namespace hgl::util::hash
 {
     void ComputeHash_FNV1a(const void* data, uint size, void* result)
     {
-        const uint32_t digest = hgl::hash::FNV1aAppendBytes(hgl::hash::FNV1aInit<uint32_t>(), data, size);
+        hgl::hash::FNV1aHasher32 h;
+        h.AppendBytes(data, size);
+
+        const uint32_t digest = h;
 
         *reinterpret_cast<uint32_t *>(result) = digest;
     }
