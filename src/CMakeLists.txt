@@ -151,6 +151,13 @@ SET(CM_SG_GEO_FILES     ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/geo/GeoLocation.h
 
 SOURCE_GROUP("Geo" FILES ${CM_SG_GEO_FILES})
 
+#################################################################################################### SDF
+
+SET(SDF_HEADER  ${CMUTIL_ROOT_INCLUDE_PATH}/hgl/util/sdf.h)
+SET(SDF_SOURCE  sdf.c)
+
+SOURCE_GROUP("SDF" FILES ${SDF_HEADER} ${SDF_SOURCE})
+
 add_cm_library(CMUtil "CM"  ${CMUTIL_ROOT_INCLUDE_PATH}
                             ${CMD_SOURCE}
 #							${TIME_SOURCE}
@@ -175,6 +182,9 @@ add_cm_library(CMUtil "CM"  ${CMUTIL_ROOT_INCLUDE_PATH}
                             ${CRYPT_SOURCE_FILES}
 
                             ${CM_SG_GEO_FILES}
+
+                            ${SDF_HEADER}
+                            ${SDF_SOURCE}
                            )
 
 if(CM_UTIL_SUPPORT_HASH)
