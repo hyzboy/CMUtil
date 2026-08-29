@@ -1,4 +1,4 @@
-/* sdf.h — Signed Distance Field Generator
+﻿/* sdf.h — Signed Distance Field Generator
  * Pure C99, ISPC-compatible API.
  * Caller allocates all buffers. No global state. No heap allocation.
  */
