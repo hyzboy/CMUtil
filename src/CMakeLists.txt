@@ -57,6 +57,8 @@ option(CM_UTIL_SUPPORT_HASH "Build HASH module" ON)
 
 IF(CM_UTIL_SUPPORT_HASH)
 
+    find_package(blake3 CONFIG REQUIRED)
+
     SET(XXHASH_FILES    hash/xxHash/xxh3.h
                         hash/xxHash/xxhash.h
                         hash/xxHash/xxhash.c)
@@ -188,7 +190,7 @@ add_cm_library(CMUtil "CM"  ${CMUTIL_ROOT_INCLUDE_PATH}
                            )
 
 if(CM_UTIL_SUPPORT_HASH)
-    target_link_libraries(CMUtil PRIVATE blake3)
+    target_link_libraries(CMUtil PRIVATE BLAKE3::blake3)
 endif()
 
 if(CM_UTIL_SUPPORT_XML)
